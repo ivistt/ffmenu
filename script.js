@@ -186,6 +186,12 @@ function renderDish(dish) {
           <div class="dish-price">${dish.price} ₴</div>
           ${dish.weight ? `<div class="dish-weight">⚖ ${dish.weight}</div>` : ''}
         </div>
+        <button
+          class="add-btn ${inOrder ? 'added' : ''}"
+          onclick="addToOrder('${dish.id}')"
+          title="${inOrder ? 'Прибрати' : 'Додати до замовлення'}">
+          ${inOrder ? '✓ Додано' : '+ Додати в замовлення'}
+        </button>
       </div>
       <div class="dish-right">
         <div class="dish-img-placeholder">
@@ -193,12 +199,6 @@ function renderDish(dish) {
             ? `<img src="${dish.image}" alt="${dish.name}" loading="lazy" onerror="this.parentElement.innerHTML='🍽'">`
             : '🍽'}
         </div>
-        <button
-          class="add-btn ${inOrder ? 'added' : ''}"
-          onclick="addToOrder('${dish.id}')"
-          title="${inOrder ? 'Прибрати' : 'Додати до замовлення'}">
-          ${inOrder ? '✓' : '+'}
-        </button>
       </div>
     </div>`;
 }
@@ -248,7 +248,7 @@ function clearOrder() {
   // Reset all buttons at once without full re-render
   document.querySelectorAll('.add-btn.added').forEach(btn => {
     btn.classList.remove('added');
-    btn.textContent = '+';
+    btn.textContent = '+ Додати в замовлення';
     btn.title = 'Додати до замовлення';
   });
   renderOrder();
@@ -261,7 +261,7 @@ function updateDishButton(dishId) {
   const btn = document.querySelector(`.add-btn[onclick="addToOrder('${dishId}')"]`);
   if (!btn) return;
   btn.classList.toggle('added', inOrder);
-  btn.textContent = inOrder ? '✓' : '+';
+  btn.textContent = inOrder ? '✓ Додано' : '+ Додати в замовлення';
   btn.title = inOrder ? 'Прибрати' : 'Додати до замовлення';
 }
 
