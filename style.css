@@ -989,8 +989,9 @@ aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; 
 
   /* Sticky tabs — full width */
   .cat-tabs-sticky {
-    padding: 8px 12px;
-    border-radius: 0 0 24px 24px;
+    padding: 8px 0;
+    border-radius: 0;
+    border-width: 0;
   }
 
   /* Dish card: smaller image on mobile */
