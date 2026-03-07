@@ -782,7 +782,6 @@ aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; 
 }
 
 .about-hero {
-  background: linear-gradient(135deg, #1A1614 0%, #3a1a08 100%);
   border-radius: 20px;
   padding: 56px 48px;
   margin-bottom: 40px;
@@ -790,16 +789,6 @@ aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; 
   overflow: hidden;
 }
 
-.about-hero::before {
-  content: '🔥';
-  position: absolute;
-  right: 40px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 120px;
-  opacity: 0.12;
-  line-height: 1;
-}
 
 .about-hero-label {
   font-size: 10px;
@@ -865,9 +854,11 @@ aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; 
 }
 
 .photo-item {
+  width: 100%;
   aspect-ratio: 4 / 3;
   border-radius: 12px;
   overflow: hidden;
+  object-fit: cover;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -987,7 +978,11 @@ aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; 
 
   /* Layout: single column, no sidebar */
   .menu-layout { grid-template-columns: 1fr; }
-  aside { display: none; }
+  aside {
+  display: flex;
+  position: static; 
+  order: 3; /* Любое число больше 0 переместит его в конец */
+}
 
   /* Main column */
   .main-col { padding: 14px 12px 0; }
