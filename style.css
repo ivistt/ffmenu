@@ -363,8 +363,6 @@ aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; 
   z-index: 100;
   background: var(--bg);
   padding: 10px;
-  border-bottom: 1px solid var(--border);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .cat-tabs {
@@ -434,7 +432,7 @@ aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; 
 }
 
 .cat-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 18px;
   font-weight: 700;
   color: var(--text);
