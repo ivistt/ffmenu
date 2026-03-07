@@ -148,7 +148,11 @@ header {
    PAGES
 ══════════════════ */
 .page { display: none; }
-.page.active { display: block; }
+.page.active {
+    display: block;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto; }
 
 /* ══════════════════
    LAYOUT
@@ -165,11 +169,12 @@ header {
 ══════════════════ */
 aside {
   border-right: 1px solid var(--border);
+  border-radius: 24px;
   background: var(--surface);
   padding: 28px 0;
   position: sticky;
-  top: var(--header-h);
-  height: calc(100vh - var(--header-h));
+  top: calc(var(--header-h) + 24px);
+  height: auto;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -354,10 +359,10 @@ aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; 
 .cat-tabs-sticky {
   position: sticky;
   top: var(--header-h);
+  border-radius: 0 0 24px 24px;
   z-index: 100;
   background: var(--bg);
-  padding: 10px 32px;
-  margin: 0 -32px 20px;
+  padding: 10px;
   border-bottom: 1px solid var(--border);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
@@ -602,11 +607,13 @@ aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; 
 ══════════════════ */
 .order-panel {
   border-left: 1px solid var(--border);
+  border-radius: 24px;
   background: var(--surface);
   padding: 26px 20px;
   position: sticky;
-  top: var(--header-h);
-  height: calc(100vh - var(--header-h));
+  top: calc(var(--header-h) + 24px);
+  height: auto;
+  min-height: 600px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -987,8 +994,8 @@ aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; 
 
   /* Sticky tabs — full width */
   .cat-tabs-sticky {
-    margin: 0 -12px 14px;
     padding: 8px 12px;
+    border-radius: 0 0 24px 24px;
   }
 
   /* Dish card: smaller image on mobile */
