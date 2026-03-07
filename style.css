@@ -359,7 +359,6 @@ aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; 
 .cat-tabs-sticky {
   position: sticky;
   top: var(--header-h);
-  border-radius: 0 0 24px 24px;
   z-index: 100;
   background: var(--bg);
   padding: 10px;
