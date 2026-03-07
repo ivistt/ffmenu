@@ -397,7 +397,6 @@ aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; 
   background: var(--orange);
   border-color: var(--orange);
   color: #fff;
-  font-weight: 600;
 }
 
 /* ══════════════════
@@ -579,6 +578,7 @@ aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; 
   height: 32px;
   cursor: pointer;
   font-size: 18px;
+  font-weight: 400;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -596,7 +596,6 @@ aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; 
   background: var(--orange);
   color: #fff;
   font-size: 14px;
-  font-weight: 700;
 }
 
 /* ══════════════════

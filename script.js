@@ -233,20 +233,36 @@ function addToOrder(dishId) {
     const dish = menuData.flatMap(c => c.dishes).find(d => d.id === dishId);
     if (dish) order.push({ id: dish.id, name: dish.name, price: dish.price });
   }
-  renderMenu();
+  updateDishButton(dishId);
   renderOrder();
 }
 
 function removeFromOrder(dishId) {
   order = order.filter(o => o.id !== dishId);
-  renderMenu();
+  updateDishButton(dishId);
   renderOrder();
 }
 
 function clearOrder() {
   order = [];
-  renderMenu();
+  // Reset all buttons at once without full re-render
+  document.querySelectorAll('.add-btn.added').forEach(btn => {
+    btn.classList.remove('added');
+    btn.textContent = '+';
+    btn.title = 'Додати до замовлення';
+  });
   renderOrder();
+}
+
+// Оновлює лише кнопку конкретного блюда — без перерендеру всього меню
+function updateDishButton(dishId) {
+  const inOrder = order.some(o => o.id === dishId);
+  // Знаходимо кнопку по атрибуту onclick
+  const btn = document.querySelector(`.add-btn[onclick="addToOrder('${dishId}')"]`);
+  if (!btn) return;
+  btn.classList.toggle('added', inOrder);
+  btn.textContent = inOrder ? '✓' : '+';
+  btn.title = inOrder ? 'Прибрати' : 'Додати до замовлення';
 }
 
 function renderOrder() {
