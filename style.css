@@ -606,7 +606,7 @@ aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; 
 .order-panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
 .order-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'dm sans', sans-serif;
   font-size: 19px;
   font-weight: 700;
   margin-bottom: 2px;
@@ -640,7 +640,7 @@ aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; 
 
 .order-empty p { font-size: 13px; line-height: 1.6; }
 
-.order-items { flex: 1; }
+.order-items { flex: 1; overflow: scroll;}
 
 .order-item {
   display: flex;
@@ -986,6 +986,11 @@ aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; 
     transition: transform 0.25s, opacity 0.2s;
   }
 
+  /* Google Reviews */
+.google-reviews-btn {
+  margin: 0;
+}
+
   /* ── Drawer overlay ── */
   .drawer-overlay {
     display: none; /* shown as block when .open added via JS */
@@ -1144,17 +1149,14 @@ aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; 
     -webkit-overflow-scrolling: touch;
     will-change: transform;
   }
-  .order-panel::before {
-    content: '';
-    display: block;
-    width: 40px;
-    height: 4px;
-    background: var(--border);
-    border-radius: 2px;
-    margin: 0 auto 18px;
-    flex-shrink: 0;
-  }
+  
   .order-panel.open { transform: translateY(0); }
+
+  .order-footer {
+  margin-top: 14px;
+  padding-bottom: 56px;
+  border-top: 2px solid var(--border);
+}
 
   /* About page */
   .about-page { padding: 20px 14px; }
