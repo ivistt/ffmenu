@@ -1153,9 +1153,12 @@ aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; 
   .order-panel.open { transform: translateY(0); }
 
   .order-footer {
-  margin-top: 14px;
-  border-top: 2px solid var(--border);
-  max-width: 75%;
+    background-color: #E2DED8;
+    border-radius: 12px;
+    padding: 12px 12px 12px 12px;
+    border-top: 0px solid var(--border);
+    margin-top: 14px;
+    max-width: 75%;
 }
 
   /* About page */
