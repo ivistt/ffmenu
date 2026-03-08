@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Адмінка — Ресторан ОГОнь</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --orange:      #E8580A;
+      --orange-light:#FF6B1A;
+      --orange-dim:  rgba(232,88,10,0.10);
+      --bg:          #F5F3EF;
+      --bg2:         #EDEAE4;
+      --surface:     #FFFFFF;
+      --border:      #E2DED8;
+      --text:        #1A1614;
+      --text2:       #5A534E;
+      --text3:       #9E978F;
+      --green:       #1a8a4a;
+      --green-dim:   rgba(26,138,74,0.10);
+      --red:         #cc3333;
+      --red-dim:     rgba(204,51,51,0.09);
+      --radius:      12px;
+      --header-h:    64px;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      height: var(--header-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px;
+      box-shadow: 0 1px 14px rgba(0,0,0,0.07);
+    }
+    .logo-wrap { display:flex; align-items:center; gap:12px; }
+    .logo { font-family:'Playfair Display',serif; font-size:20px; font-weight:900; }
+    .logo em { color:var(--orange); font-style:normal; }
+    .logo-sub { font-size:9px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:var(--text3); margin-top:1px; }
+    .header-badge {
+      background: var(--orange-dim); color: var(--orange);
+      border: 1.5px solid var(--orange);
+      border-radius: 8px; padding: 4px 12px;
+      font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    }
+    .header-actions { display:flex; gap:10px; align-items:center; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 9px 18px; border-radius: 9px; border: none;
+      font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: all 0.15s; white-space: nowrap;
+    }
+    .btn-primary   { background:var(--orange); color:#fff; }
+    .btn-primary:hover { background:var(--orange-light); transform:translateY(-1px); }
+    .btn-outline   { background:none; border:1.5px solid var(--border); color:var(--text2); }
+    .btn-outline:hover { border-color:var(--orange); color:var(--orange); background:var(--orange-dim); }
+    .btn-green     { background:var(--green); color:#fff; }
+    .btn-green:hover { opacity:0.88; transform:translateY(-1px); }
+    .btn-red       { background:none; border:1.5px solid var(--border); color:var(--red); }
+    .btn-red:hover { border-color:var(--red); background:var(--red-dim); }
+    .btn-sm        { padding:6px 12px; font-size:12px; border-radius:7px; }
+    .btn-icon      { padding:7px; border-radius:8px; border:1.5px solid var(--border); background:none; cursor:pointer; color:var(--text2); transition:all 0.15s; font-size:14px; }
+    .btn-icon:hover { border-color:var(--orange); color:var(--orange); background:var(--orange-dim); }
+    .btn-icon.danger:hover { border-color:var(--red); color:var(--red); background:var(--red-dim); }
+
+    /* ── LAYOUT ── */
+    .app { display:grid; grid-template-columns:260px 1fr; min-height:calc(100vh - var(--header-h)); }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 20px 0;
+      position: sticky; top: var(--header-h);
+      height: calc(100vh - var(--header-h));
+      overflow-y: auto; display:flex; flex-direction:column;
+    }
+    .sidebar::-webkit-scrollbar { width:4px; }
+    .sidebar::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
+    .sidebar-label {
+      font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase;
+      color:var(--text3); padding:0 18px; margin-bottom:8px;
+    }
+    .cat-list { display:flex; flex-direction:column; gap:2px; padding:0 10px; flex:1; }
+    .cat-item {
+      display:flex; align-items:center; gap:8px;
+      padding:10px 10px; border-radius:9px; cursor:pointer;
+      transition:background 0.12s; font-size:13.5px; font-weight:500; color:var(--text2);
+      border:none; background:none; font-family:'DM Sans',sans-serif; text-align:left; width:100%;
+    }
+    .cat-item:hover { background:var(--bg); }
+    .cat-item.active { background:var(--orange-dim); color:var(--orange); font-weight:600; }
+    .cat-item .cat-count {
+      margin-left:auto; background:var(--bg2); color:var(--text3);
+      border-radius:20px; padding:1px 8px; font-size:11px; font-weight:600;
+    }
+    .cat-item.active .cat-count { background:rgba(232,88,10,0.15); color:var(--orange); }
+    .sidebar-footer { padding:14px 10px 0; border-top:1px solid var(--border); margin-top:8px; }
+
+    /* ── MAIN CONTENT ── */
+    .main { padding:28px 32px; }
+    .main-header {
+      display:flex; align-items:center; justify-content:space-between;
+      margin-bottom:24px;
+    }
+    .main-title { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; }
+    .main-title span { color:var(--orange); }
+    .main-sub { font-size:13px; color:var(--text3); margin-top:2px; }
+
+    /* ── CATEGORY EDIT BAR ── */
+    .cat-edit-bar {
+      background:var(--surface); border:1.5px solid var(--border);
+      border-radius:var(--radius); padding:14px 18px;
+      display:flex; align-items:center; gap:12px; margin-bottom:20px;
+    }
+    .cat-edit-bar label { font-size:12px; font-weight:600; color:var(--text3); white-space:nowrap; }
+    .cat-edit-bar input {
+      flex:1; border:1.5px solid var(--border); border-radius:8px;
+      padding:8px 12px; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600;
+      background:var(--bg); color:var(--text); outline:none; transition:border-color 0.2s;
+    }
+    .cat-edit-bar input:focus { border-color:var(--orange); }
+
+    /* ── DISH CARDS ── */
+    .dishes-grid { display:flex; flex-direction:column; gap:14px; }
+
+    .dish-editor {
+      background:var(--surface);
+      border:1.5px solid var(--border);
+      border-radius:16px;
+      overflow:hidden;
+      transition:box-shadow 0.2s, border-color 0.2s;
+    }
+    .dish-editor:hover { box-shadow:0 4px 20px rgba(0,0,0,0.07); }
+    .dish-editor.expanded { border-color:var(--orange); }
+
+    .dish-editor-head {
+      display:flex; align-items:center; gap:14px;
+      padding:14px 18px; cursor:pointer; user-select:none;
+    }
+    .dish-thumb {
+      width:52px; height:52px; border-radius:10px; object-fit:cover;
+      background:var(--bg2); flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+      font-size:20px; overflow:hidden; border:1px solid var(--border);
+    }
+    .dish-thumb img { width:100%; height:100%; object-fit:cover; }
+    .dish-head-info { flex:1; min-width:0; }
+    .dish-head-name { font-size:15px; font-weight:600; color:var(--text); }
+    .dish-head-meta { font-size:12px; color:var(--text3); margin-top:2px; }
+    .dish-head-price { font-size:15px; font-weight:700; color:var(--orange); white-space:nowrap; }
+    .dish-chevron {
+      color:var(--text3); font-size:13px; transition:transform 0.22s; flex-shrink:0;
+    }
+    .dish-editor.expanded .dish-chevron { transform:rotate(180deg); }
+
+    .dish-editor-body {
+      display:none; padding:0 18px 18px; border-top:1px solid var(--border);
+    }
+    .dish-editor.expanded .dish-editor-body { display:block; }
+
+    /* ── FORM GRID ── */
+    .form-grid {
+      display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px;
+    }
+    .form-group { display:flex; flex-direction:column; gap:5px; }
+    .form-group.full { grid-column:1/-1; }
+    .form-group label {
+      font-size:11px; font-weight:700; letter-spacing:1.5px;
+      text-transform:uppercase; color:var(--text3);
+    }
+    .form-group input,
+    .form-group textarea {
+      border:1.5px solid var(--border); border-radius:8px;
+      padding:9px 12px; font-family:'DM Sans',sans-serif; font-size:13.5px;
+      color:var(--text); background:var(--bg); outline:none;
+      transition:border-color 0.2s, box-shadow 0.2s; resize:vertical;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color:var(--orange);
+      box-shadow:0 0 0 3px rgba(232,88,10,0.08);
+    }
+    .form-group textarea { min-height:70px; }
+
+    /* ── IMAGE PICKER ── */
+    .image-picker-wrap { display:flex; gap:10px; align-items:flex-start; }
+    .image-preview {
+      width:72px; height:72px; border-radius:10px; flex-shrink:0;
+      background:var(--bg2); border:1.5px solid var(--border);
+      display:flex; align-items:center; justify-content:center;
+      font-size:24px; overflow:hidden;
+    }
+    .image-preview img { width:100%; height:100%; object-fit:cover; }
+    .image-picker-right { flex:1; display:flex; flex-direction:column; gap:7px; }
+    .image-path-input {
+      border:1.5px solid var(--border); border-radius:8px;
+      padding:9px 12px; font-family:'DM Sans',sans-serif; font-size:13px;
+      color:var(--text); background:var(--bg); outline:none;
+      transition:border-color 0.2s; width:100%;
+    }
+    .image-path-input:focus { border-color:var(--orange); box-shadow:0 0 0 3px rgba(232,88,10,0.08); }
+    .file-pick-btn {
+      display:inline-flex; align-items:center; gap:6px;
+      padding:8px 14px; border-radius:8px;
+      border:1.5px dashed var(--border); background:var(--bg);
+      font-family:'DM Sans',sans-serif; font-size:12.5px; font-weight:600;
+      color:var(--text2); cursor:pointer; transition:all 0.15s; width:fit-content;
+    }
+    .file-pick-btn:hover { border-color:var(--orange); color:var(--orange); background:var(--orange-dim); }
+    input[type="file"] { display:none; }
+
+    /* ── EXTRAS TAGS ── */
+    .extras-wrap { display:flex; flex-wrap:wrap; gap:7px; align-items:center; }
+    .extra-tag {
+      display:inline-flex; align-items:center; gap:5px;
+      background:var(--bg2); border:1.5px solid var(--border);
+      border-radius:20px; padding:4px 10px 4px 12px;
+      font-size:12px; font-weight:500; color:var(--text2);
+    }
+    .extra-tag button {
+      background:none; border:none; cursor:pointer; color:var(--text3);
+      font-size:12px; padding:0; line-height:1; transition:color 0.12s;
+    }
+    .extra-tag button:hover { color:var(--red); }
+    .extra-add {
+      display:inline-flex; align-items:center; gap:5px;
+      background:none; border:1.5px dashed var(--border);
+      border-radius:20px; padding:4px 12px;
+      font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600;
+      color:var(--text3); cursor:pointer; transition:all 0.15s;
+    }
+    .extra-add:hover { border-color:var(--orange); color:var(--orange); }
+
+    .dish-editor-actions {
+      display:flex; justify-content:space-between; align-items:center;
+      margin-top:18px; padding-top:14px; border-top:1px solid var(--border);
+    }
+
+    /* ── ADD DISH BUTTON ── */
+    .add-dish-btn {
+      display:flex; align-items:center; justify-content:center; gap:10px;
+      width:100%; padding:14px; border-radius:14px;
+      border:2px dashed var(--border); background:none;
+      font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600;
+      color:var(--text3); cursor:pointer; transition:all 0.15s; margin-top:4px;
+    }
+    .add-dish-btn:hover { border-color:var(--orange); color:var(--orange); background:var(--orange-dim); }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align:center; padding:60px 20px; color:var(--text3);
+    }
+    .empty-icon { font-size:48px; margin-bottom:14px; }
+    .empty-title { font-size:16px; font-weight:600; color:var(--text2); margin-bottom:6px; }
+    .empty-sub { font-size:13px; }
+
+    /* ── TOAST ── */
+    .toast {
+      position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(20px);
+      background:var(--text); color:#fff; padding:12px 22px; border-radius:10px;
+      font-size:13.5px; font-weight:500; z-index:9999;
+      opacity:0; transition:all 0.3s; pointer-events:none; white-space:nowrap;
+    }
+    .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+    .toast.success { background:var(--green); }
+    .toast.error   { background:var(--red); }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display:none; position:fixed; inset:0;
+      background:rgba(0,0,0,0.4); z-index:500;
+      align-items:center; justify-content:center;
+    }
+    .modal-overlay.open { display:flex; }
+    .modal {
+      background:var(--surface); border-radius:18px;
+      padding:28px; width:min(440px,90vw);
+      box-shadow:0 20px 60px rgba(0,0,0,0.18);
+    }
+    .modal-title { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; margin-bottom:6px; }
+    .modal-sub { font-size:13px; color:var(--text3); margin-bottom:20px; }
+    .modal-actions { display:flex; gap:10px; justify-content:flex-end; margin-top:20px; }
+    .modal input {
+      width:100%; border:1.5px solid var(--border); border-radius:8px;
+      padding:10px 14px; font-family:'DM Sans',sans-serif; font-size:14px;
+      color:var(--text); background:var(--bg); outline:none; margin-bottom:10px;
+      transition:border-color 0.2s;
+    }
+    .modal input:focus { border-color:var(--orange); box-shadow:0 0 0 3px rgba(232,88,10,0.08); }
+
+    /* ── LOAD SCREEN ── */
+    #loadScreen {
+      position:fixed; inset:0; background:var(--bg);
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      z-index:9998; gap:16px;
+    }
+    .load-logo { font-family:'Playfair Display',serif; font-size:32px; font-weight:900; }
+    .load-logo em { color:var(--orange); font-style:normal; }
+    .load-sub { font-size:13px; color:var(--text3); }
+    .load-btn-wrap { display:flex; flex-direction:column; align-items:center; gap:10px; margin-top:8px; }
+    .load-drop {
+      border:2px dashed var(--border); border-radius:16px;
+      padding:32px 48px; text-align:center; cursor:pointer;
+      transition:all 0.2s; background:var(--surface);
+    }
+    .load-drop:hover, .load-drop.dragover {
+      border-color:var(--orange); background:var(--orange-dim);
+    }
+    .load-drop-icon { font-size:36px; margin-bottom:10px; }
+    .load-drop-text { font-size:14px; font-weight:600; color:var(--text2); }
+    .load-drop-sub { font-size:12px; color:var(--text3); margin-top:4px; }
+  </style>
+</head>
+<body>
+
+<!-- ── LOAD SCREEN ── -->
+<div id="loadScreen">
+  <div class="load-logo">🔥 Ресторан <em>ОГОнь</em></div>
+  <div class="load-sub">Адміністративна панель</div>
+  <div class="load-btn-wrap">
+    <div class="load-drop" id="loadDrop" onclick="document.getElementById('jsonFileInput').click()">
+      <div class="load-drop-icon">📂</div>
+      <div class="load-drop-text">Відкрити menu.json</div>
+      <div class="load-drop-sub">Натисніть або перетягніть файл сюди</div>
+    </div>
+    <span style="font-size:12px;color:var(--text3);">або</span>
+    <button class="btn btn-outline" onclick="loadEmpty()">Створити нове меню з нуля</button>
+  </div>
+  <input type="file" id="jsonFileInput" accept=".json" onchange="loadFromFile(this)">
+</div>
+
+<!-- ── HEADER ── -->
+<header>
+  <div class="logo-wrap">
+    <div>
+      <div class="logo">🔥 Ресторан <em>ОГОнь</em></div>
+      <div class="logo-sub">Редактор меню</div>
+    </div>
+  </div>
+  <div class="header-badge">Admin</div>
+  <div class="header-actions">
+    <button class="btn btn-outline" onclick="document.getElementById('jsonFileInput').click()">📂 Відкрити інший файл</button>
+    <button class="btn btn-green" onclick="saveJSON()">💾 Зберегти menu.json</button>
+  </div>
+</header>
+
+<!-- ── APP ── -->
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-label">Категорії</div>
+    <div class="cat-list" id="catList"></div>
+    <div class="sidebar-footer">
+      <button class="btn btn-outline" style="width:100%" onclick="openAddCatModal()">+ Додати категорію</button>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main" id="mainContent">
+    <div class="empty-state">
+      <div class="empty-icon">🍽</div>
+      <div class="empty-title">Завантажте menu.json</div>
+      <div class="empty-sub">Оберіть файл щоб почати редагування</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── ADD CATEGORY MODAL ── -->
+<div class="modal-overlay" id="addCatModal">
+  <div class="modal">
+    <div class="modal-title">Нова категорія</div>
+    <div class="modal-sub">Введіть назву та ID категорії</div>
+    <input type="text" id="newCatName" placeholder="Назва (наприклад: Холодні роли)">
+    <input type="text" id="newCatId" placeholder="ID (наприклад: cold-rolls, без пробілів)">
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal('addCatModal')">Скасувати</button>
+      <button class="btn btn-primary" onclick="confirmAddCat()">Додати</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── DELETE CONFIRM MODAL ── -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal">
+    <div class="modal-title">Видалити страву?</div>
+    <div class="modal-sub" id="deleteModalSub">Цю дію не можна скасувати.</div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal('deleteModal')">Скасувати</button>
+      <button class="btn btn-red" onclick="confirmDelete()">Видалити</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── TOAST ── -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ══════════════════════════════════
+   STATE
+══════════════════════════════════ */
+let menuData = [];
+let activeCatId = null;
+let pendingDeleteCatId = null;
+let pendingDeleteDishId = null;
+
+/* ══════════════════════════════════
+   LOAD
+══════════════════════════════════ */
+function loadFromFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      menuData = JSON.parse(e.target.result);
+      document.getElementById('loadScreen').style.display = 'none';
+      activeCatId = menuData[0]?.id || null;
+      renderSidebar();
+      renderMain();
+      showToast('✅ Файл завантажено', 'success');
+    } catch {
+      showToast('❌ Невірний формат JSON', 'error');
+    }
+  };
+  reader.readAsText(file);
+  input.value = '';
+}
+
+function loadEmpty() {
+  menuData = [];
+  document.getElementById('loadScreen').style.display = 'none';
+  activeCatId = null;
+  renderSidebar();
+  renderMain();
+}
+
+// Drag & drop on load screen
+const loadDrop = document.getElementById('loadDrop');
+loadDrop.addEventListener('dragover', e => { e.preventDefault(); loadDrop.classList.add('dragover'); });
+loadDrop.addEventListener('dragleave', () => loadDrop.classList.remove('dragover'));
+loadDrop.addEventListener('drop', e => {
+  e.preventDefault(); loadDrop.classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file && file.name.endsWith('.json')) {
+    const fakeInput = { files: [file] };
+    loadFromFile(fakeInput);
+  }
+});
+
+/* ══════════════════════════════════
+   SIDEBAR
+══════════════════════════════════ */
+function renderSidebar() {
+  const list = document.getElementById('catList');
+  if (!menuData.length) {
+    list.innerHTML = '<div style="padding:16px;font-size:13px;color:var(--text3);text-align:center;">Немає категорій</div>';
+    return;
+  }
+  list.innerHTML = menuData.map(cat => `
+    <button class="cat-item ${cat.id === activeCatId ? 'active' : ''}"
+            onclick="selectCat('${cat.id}')">
+      <span>${cat.name}</span>
+      <span class="cat-count">${cat.dishes.length}</span>
+    </button>
+  `).join('');
+}
+
+function selectCat(catId) {
+  activeCatId = catId;
+  renderSidebar();
+  renderMain();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ══════════════════════════════════
+   MAIN AREA
+══════════════════════════════════ */
+function renderMain() {
+  const el = document.getElementById('mainContent');
+  if (!menuData.length || !activeCatId) {
+    el.innerHTML = `<div class="empty-state">
+      <div class="empty-icon">🗂</div>
+      <div class="empty-title">Оберіть або створіть категорію</div>
+      <div class="empty-sub">Скористайтеся панеллю зліва</div>
+    </div>`;
+    return;
+  }
+  const cat = menuData.find(c => c.id === activeCatId);
+  if (!cat) return;
+
+  el.innerHTML = `
+    <div class="main-header">
+      <div>
+        <div class="main-title">${cat.name} <span>(${cat.dishes.length})</span></div>
+        <div class="main-sub">Редагуйте страви категорії</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-outline btn-sm" onclick="openRenameCatModal()">✏️ Перейменувати</button>
+        <button class="btn btn-red btn-sm" onclick="deleteCat('${cat.id}')">🗑 Видалити категорію</button>
+      </div>
+    </div>
+
+    <div class="cat-edit-bar">
+      <label>ID категорії:</label>
+      <input type="text" value="${cat.id}" onchange="updateCatId('${cat.id}', this.value)"
+             style="max-width:240px" placeholder="cat-id">
+    </div>
+
+    <div class="dishes-grid" id="dishesGrid">
+      ${cat.dishes.map(d => renderDishEditor(d)).join('')}
+    </div>
+
+    <button class="add-dish-btn" onclick="addDish('${cat.id}')">
+      <span style="font-size:20px">+</span> Додати страву
+    </button>
+  `;
+}
+
+/* ══════════════════════════════════
+   DISH EDITOR CARD
+══════════════════════════════════ */
+function renderDishEditor(dish) {
+  const imgSrc = dish.image || '';
+  const imgHtml = imgSrc
+    ? `<img src="${imgSrc}" onerror="this.parentElement.innerHTML='🍽'">`
+    : '🍽';
+  const extrasHtml = (dish.extras || []).map((e, i) => `
+    <span class="extra-tag">
+      ⚡ ${e}
+      <button onclick="removeExtra('${dish.id}', ${i})" title="Видалити">✕</button>
+    </span>`).join('');
+
+  return `
+  <div class="dish-editor" id="dish-${dish.id}">
+    <div class="dish-editor-head" onclick="toggleDish('${dish.id}')">
+      <div class="dish-thumb">${imgHtml}</div>
+      <div class="dish-head-info">
+        <div class="dish-head-name">${dish.name || '<без назви>'}</div>
+        <div class="dish-head-meta">${dish.weight ? '⚖ ' + dish.weight : ''}${dish.weight && dish.composition ? ' · ' : ''}${dish.composition ? dish.composition.substring(0,50) + (dish.composition.length > 50 ? '…' : '') : ''}</div>
+      </div>
+      <div class="dish-head-price">${dish.price ? dish.price + ' ₴' : '—'}</div>
+      <div class="dish-chevron">▾</div>
+    </div>
+
+    <div class="dish-editor-body">
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label>Назва</label>
+          <input type="text" value="${esc(dish.name)}"
+                 oninput="updateField('${dish.id}','name',this.value);updateHeadName('${dish.id}',this.value)">
+        </div>
+
+        <div class="form-group">
+          <label>Ціна (₴)</label>
+          <input type="number" value="${dish.price || ''}"
+                 oninput="updateField('${dish.id}','price',+this.value);updateHeadPrice('${dish.id}',+this.value)">
+        </div>
+
+        <div class="form-group full">
+          <label>Опис</label>
+          <textarea oninput="updateField('${dish.id}','description',this.value)">${esc(dish.description||'')}</textarea>
+        </div>
+
+        <div class="form-group full">
+          <label>Склад</label>
+          <textarea oninput="updateField('${dish.id}','composition',this.value)">${esc(dish.composition||'')}</textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Вага</label>
+          <input type="text" value="${esc(dish.weight||'')}"
+                 placeholder="270г"
+                 oninput="updateField('${dish.id}','weight',this.value)">
+        </div>
+
+        <div class="form-group">
+          <label>ID страви</label>
+          <input type="text" value="${esc(dish.id)}"
+                 onchange="updateDishId('${dish.id}',this.value)">
+        </div>
+
+        <div class="form-group full">
+          <label>Зображення</label>
+          <div class="image-picker-wrap">
+            <div class="dish-thumb image-preview" id="preview-${dish.id}">${imgHtml}</div>
+            <div class="image-picker-right">
+              <input class="image-path-input" type="text"
+                     value="${esc(imgSrc)}"
+                     id="imgPath-${dish.id}"
+                     placeholder="./images/dish.webp"
+                     oninput="updateImagePath('${dish.id}',this.value)">
+              <label class="file-pick-btn" for="imgFile-${dish.id}">
+                📁 Вибрати файл з /images/
+              </label>
+              <input type="file" id="imgFile-${dish.id}" accept="image/*"
+                     onchange="pickImageFile('${dish.id}',this)">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group full">
+          <label>Теги / особливості</label>
+          <div class="extras-wrap" id="extras-${dish.id}">
+            ${extrasHtml}
+            <button class="extra-add" onclick="addExtra('${dish.id}')">+ Додати тег</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="dish-editor-actions">
+        <button class="btn btn-red btn-sm" onclick="openDeleteModal('${dish.id}','${esc(dish.name)}')">
+          🗑 Видалити страву
+        </button>
+        <button class="btn btn-outline btn-sm" onclick="toggleDish('${dish.id}')">Згорнути</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ══════════════════════════════════
+   TOGGLE EXPAND
+══════════════════════════════════ */
+function toggleDish(dishId) {
+  document.getElementById('dish-' + dishId)?.classList.toggle('expanded');
+}
+
+/* ══════════════════════════════════
+   FIELD UPDATES
+══════════════════════════════════ */
+function getCat() { return menuData.find(c => c.id === activeCatId); }
+function getDish(dishId) { return getCat()?.dishes.find(d => d.id === dishId); }
+
+function updateField(dishId, field, value) {
+  const dish = getDish(dishId);
+  if (dish) dish[field] = value;
+}
+
+function updateHeadName(dishId, val) {
+  const el = document.querySelector(`#dish-${dishId} .dish-head-name`);
+  if (el) el.textContent = val || '<без назви>';
+}
+
+function updateHeadPrice(dishId, val) {
+  const el = document.querySelector(`#dish-${dishId} .dish-head-price`);
+  if (el) el.textContent = val ? val + ' ₴' : '—';
+}
+
+function updateDishId(oldId, newId) {
+  newId = newId.trim();
+  if (!newId || newId === oldId) return;
+  if (getCat()?.dishes.find(d => d.id === newId)) {
+    showToast('❌ ID вже існує', 'error'); return;
+  }
+  const dish = getDish(oldId);
+  if (dish) {
+    dish.id = newId;
+    renderMain(); // re-render to sync all refs
+  }
+}
+
+function updateCatId(oldId, newId) {
+  newId = newId.trim();
+  if (!newId || newId === oldId) return;
+  const cat = menuData.find(c => c.id === oldId);
+  if (cat) { cat.id = newId; activeCatId = newId; renderSidebar(); }
+}
+
+/* ══════════════════════════════════
+   IMAGE PICKER
+══════════════════════════════════ */
+function pickImageFile(dishId, input) {
+  const file = input.files[0];
+  if (!file) return;
+  const path = './images/' + file.name;
+  document.getElementById('imgPath-' + dishId).value = path;
+  updateImagePath(dishId, path);
+  input.value = '';
+}
+
+function updateImagePath(dishId, path) {
+  updateField(dishId, 'image', path);
+  const preview = document.getElementById('preview-' + dishId);
+  const thumb   = document.querySelector(`#dish-${dishId} .dish-thumb`);
+  if (path) {
+    const imgTag = `<img src="${path}" onerror="this.parentElement.innerHTML='🍽'">`;
+    if (preview) preview.innerHTML = imgTag;
+    if (thumb)   thumb.innerHTML   = imgTag;
+  } else {
+    if (preview) preview.innerHTML = '🍽';
+    if (thumb)   thumb.innerHTML   = '🍽';
+  }
+}
+
+/* ══════════════════════════════════
+   EXTRAS
+══════════════════════════════════ */
+function addExtra(dishId) {
+  const val = prompt('Введіть тег (наприклад: новинка, хіт, гостре):');
+  if (!val?.trim()) return;
+  const dish = getDish(dishId);
+  if (!dish.extras) dish.extras = [];
+  dish.extras.push(val.trim());
+  rerenderExtras(dishId, dish.extras);
+}
+
+function removeExtra(dishId, idx) {
+  const dish = getDish(dishId);
+  if (dish?.extras) {
+    dish.extras.splice(idx, 1);
+    rerenderExtras(dishId, dish.extras);
+  }
+}
+
+function rerenderExtras(dishId, extras) {
+  const wrap = document.getElementById('extras-' + dishId);
+  if (!wrap) return;
+  wrap.innerHTML = (extras||[]).map((e, i) => `
+    <span class="extra-tag">
+      ⚡ ${e}
+      <button onclick="removeExtra('${dishId}', ${i})" title="Видалити">✕</button>
+    </span>`).join('') +
+    `<button class="extra-add" onclick="addExtra('${dishId}')">+ Додати тег</button>`;
+}
+
+/* ══════════════════════════════════
+   ADD / DELETE DISH
+══════════════════════════════════ */
+function addDish(catId) {
+  const cat = menuData.find(c => c.id === catId);
+  if (!cat) return;
+  const id = 'dish-' + Date.now();
+  cat.dishes.push({ id, name: 'Нова страва', description: '', composition: '', price: 0, weight: '', image: '', extras: [] });
+  renderSidebar();
+  renderMain();
+  // auto-expand the new card
+  setTimeout(() => {
+    const el = document.getElementById('dish-' + id);
+    if (el) { el.classList.add('expanded'); el.scrollIntoView({ behavior:'smooth', block:'center' }); }
+  }, 80);
+}
+
+function openDeleteModal(dishId, dishName) {
+  pendingDeleteDishId = dishId;
+  document.getElementById('deleteModalSub').textContent = `«${dishName}» буде видалено назавжди.`;
+  document.getElementById('deleteModal').classList.add('open');
+}
+
+function confirmDelete() {
+  const cat = getCat();
+  if (cat && pendingDeleteDishId) {
+    cat.dishes = cat.dishes.filter(d => d.id !== pendingDeleteDishId);
+    closeModal('deleteModal');
+    renderSidebar();
+    renderMain();
+    showToast('🗑 Страву видалено');
+  }
+}
+
+/* ══════════════════════════════════
+   CATEGORIES
+══════════════════════════════════ */
+function openAddCatModal() {
+  document.getElementById('newCatName').value = '';
+  document.getElementById('newCatId').value = '';
+  document.getElementById('addCatModal').classList.add('open');
+  setTimeout(() => document.getElementById('newCatName').focus(), 100);
+}
+
+function confirmAddCat() {
+  const name = document.getElementById('newCatName').value.trim();
+  const id   = document.getElementById('newCatId').value.trim().replace(/\s+/g, '-');
+  if (!name || !id) { showToast('❌ Заповніть обидва поля', 'error'); return; }
+  if (menuData.find(c => c.id === id)) { showToast('❌ ID вже існує', 'error'); return; }
+  menuData.push({ id, name, dishes: [] });
+  activeCatId = id;
+  closeModal('addCatModal');
+  renderSidebar();
+  renderMain();
+  showToast('✅ Категорію додано', 'success');
+}
+
+let renameCatTarget = null;
+function openRenameCatModal() {
+  const cat = getCat();
+  if (!cat) return;
+  renameCatTarget = cat.id;
+  document.getElementById('newCatName').value = cat.name;
+  document.getElementById('newCatId').value = cat.id;
+  document.getElementById('addCatModal').classList.add('open');
+}
+
+function deleteCat(catId) {
+  if (!confirm(`Видалити категорію і всі її страви?`)) return;
+  menuData = menuData.filter(c => c.id !== catId);
+  activeCatId = menuData[0]?.id || null;
+  renderSidebar();
+  renderMain();
+  showToast('🗑 Категорію видалено');
+}
+
+/* ══════════════════════════════════
+   SAVE JSON
+══════════════════════════════════ */
+function saveJSON() {
+  const json = JSON.stringify(menuData, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = 'menu.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('💾 menu.json збережено!', 'success');
+}
+
+/* ══════════════════════════════════
+   MODALS / TOAST / UTILS
+══════════════════════════════════ */
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) overlay.classList.remove('open');
+  });
+});
+
+// Enter key in modal
+document.getElementById('newCatId').addEventListener('keydown', e => {
+  if (e.key === 'Enter') confirmAddCat();
+});
+
+let toastTimer;
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (type ? ' ' + type : '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { t.className = 'toast'; }, 2800);
+}
+
+function esc(str) {
+  return (str || '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// Ctrl+S shortcut
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); saveJSON(); }
+});
+</script>
+</body>
+</html>
