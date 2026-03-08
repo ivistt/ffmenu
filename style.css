@@ -606,7 +606,7 @@ aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; 
 .order-panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
 .order-title {
-  font-family: "dm sans", sans-serif;
+  font-family: 'Playfair Display', serif;
   font-size: 19px;
   font-weight: 700;
   margin-bottom: 2px;
@@ -1129,9 +1129,12 @@ aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; 
     left: 0;
     right: 0;
     bottom: 0;
-    top: var(--header-h);
     width: 100%;
-    height: 100%;
+    /* dvh учитывает динамическую строку Safari; vh — fallback */
+    height: 75vh;
+    height: 75dvh;
+    max-height: calc(100vh - var(--header-h));
+    max-height: calc(100dvh - var(--header-h));
     border-radius: 20px 20px 0 0;
     border-left: none;
     border-top: 1px solid var(--border);
@@ -1139,6 +1142,9 @@ aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; 
     transition: transform 0.35s cubic-bezier(.4, 0, .2, 1);
     box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.12);
     z-index: 150;
+    /* Prevent Safari rubber-band from revealing panel behind content */
+    -webkit-overflow-scrolling: touch;
+    will-change: transform;
   }
   .order-panel::before {
     content: '';
@@ -1148,6 +1154,7 @@ aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; 
     background: var(--border);
     border-radius: 2px;
     margin: 0 auto 18px;
+    flex-shrink: 0;
   }
   .order-panel.open { transform: translateY(0); }
 
