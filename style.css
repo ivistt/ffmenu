@@ -1153,7 +1153,7 @@ aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; 
   .order-panel.open { transform: translateY(0); }
 
   .order-footer {
-    background-color: #E2DED8;
+    background-color: #F5F3EF;
     border-radius: 12px;
     padding: 12px 12px 12px 12px;
     border-top: 0px solid var(--border);
