@@ -1131,10 +1131,7 @@ aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; 
     bottom: 0;
     width: 100%;
     /* dvh учитывает динамическую строку Safari; vh — fallback */
-    height: 75vh;
-    height: 75dvh;
-    max-height: calc(100vh - var(--header-h));
-    max-height: calc(100dvh - var(--header-h));
+    height: 100dvh;
     border-radius: 20px 20px 0 0;
     border-left: none;
     border-top: 1px solid var(--border);
