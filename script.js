@@ -267,7 +267,7 @@ function updateDishButton(dishId) {
 
 function renderOrder() {
   const badge        = document.getElementById('orderBadge');
-  const mobileBadge  = document.getElementById('mobileOrderBadge');
+  const mobileBadge  = document.getElementById('fabOrderBadge');
   const itemsEl      = document.getElementById('orderItems');
   const footer       = document.getElementById('orderFooter');
   const subtitle     = document.getElementById('orderSubtitle');
@@ -320,6 +320,20 @@ function plural(n, one, few, many) {
 }
 
 function toggleOrder() {
+  // If on "about" page — switch to menu page first (order panel lives there)
+  const menuPage = document.getElementById('page-menu');
+  if (!menuPage.classList.contains('active')) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    menuPage.classList.add('active');
+    // Sync desktop nav
+    document.querySelectorAll('.nav-btn').forEach(b => {
+      b.classList.toggle('active', b.textContent.includes('Меню'));
+    });
+    // Sync drawer nav
+    document.querySelectorAll('.drawer-page-btn').forEach(b => b.classList.remove('active'));
+    const dm = document.getElementById('drawerMenuBtn');
+    if (dm) dm.classList.add('active');
+  }
   document.getElementById('orderPanel').classList.toggle('open');
 }
 
@@ -383,6 +397,47 @@ function updateActiveTab(catId) {
   if (activeTab) {
     activeTab.scrollIntoView({ inline: 'nearest', block: 'nearest' });
   }
+}
+
+
+// ══════════════════════════════
+//  BURGER DRAWER (mobile)
+// ══════════════════════════════
+function toggleDrawer() {
+  const drawer  = document.getElementById('drawer');
+  const overlay = document.getElementById('drawerOverlay');
+  const isOpen  = drawer.classList.contains('open');
+  if (isOpen) closeDrawer();
+  else {
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeDrawer() {
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawerOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function drawerGoPage(pageId) {
+  // Switch pages
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + pageId).classList.add('active');
+  // Sync desktop nav buttons
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    b.classList.toggle('active',
+      (pageId === 'menu'  && b.textContent.includes('Меню')) ||
+      (pageId === 'about' && b.textContent.includes('Про нас'))
+    );
+  });
+  // Update drawer nav buttons
+  document.querySelectorAll('.drawer-page-btn').forEach(b => b.classList.remove('active'));
+  const activeBtn = document.getElementById(pageId === 'menu' ? 'drawerMenuBtn' : 'drawerAboutBtn');
+  if (activeBtn) activeBtn.classList.add('active');
+  closeDrawer();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ══════════════════════════════
