@@ -198,7 +198,7 @@ function renderDish(dish) {
             class="add-btn ${inOrder ? 'added' : ''}"
             onclick="addToOrder('${dish.id}')"
             title="${inOrder ? 'Прибрати' : 'Додати до замовлення'}">
-            ${inOrder ? '✓' : '+'}
+            ${inOrder ? '✓ Додано' : '+ Додати'}
           </button>
         </div>
       </div>
@@ -250,7 +250,7 @@ function clearOrder() {
   // Reset all buttons at once without full re-render
   document.querySelectorAll('.add-btn.added').forEach(btn => {
     btn.classList.remove('added');
-    btn.textContent = '+ Додати в замовлення';
+    btn.textContent = '+ Додати';
     btn.title = 'Додати до замовлення';
   });
   renderOrder();
@@ -263,7 +263,7 @@ function updateDishButton(dishId) {
   const btn = document.querySelector(`.add-btn[onclick="addToOrder('${dishId}')"]`);
   if (!btn) return;
   btn.classList.toggle('added', inOrder);
-  btn.textContent = inOrder ? '✓ Додано' : '+ Додати в замовлення';
+  btn.textContent = inOrder ? '✓ Додано' : '+ Додати';
   btn.title = inOrder ? 'Прибрати' : 'Додати до замовлення';
 }
 
@@ -441,6 +441,7 @@ function drawerGoPage(pageId) {
   closeDrawer();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
 
 // ══════════════════════════════
 //  START
