@@ -88,7 +88,7 @@ function jumpToCat(catId) {
     if (body) {
       const cat = menuData.find(c => c.id === catId);
       body.classList.remove('collapsed');
-      body.style.maxHeight = cat.dishes.length * 240 + 'px';
+      body.style.maxHeight = cat.dishes.length * 500 + 'px';
       const chevron = body.previousElementSibling.querySelector('.cat-chevron');
       if (chevron) chevron.classList.add('open');
     }
@@ -154,8 +154,10 @@ function renderMenu() {
         </div>
         <div class="cat-body ${isOpen ? '' : 'collapsed'}"
              id="body-${cat.id}"
-             style="max-height: ${isOpen ? dishes.length * 240 + 'px' : '0'}">
-          ${dishes.map(d => renderDish(d)).join('')}
+             style="max-height: ${isOpen ? dishes.length * 500 + 'px' : '0'}">
+          <div class="dishes-grid">
+            ${dishes.map(d => renderDish(d)).join('')}
+          </div>
         </div>
       </div>`;
   });
@@ -175,29 +177,29 @@ function renderDish(dish) {
   const inOrder = order.some(o => o.id === dish.id);
   return `
     <div class="dish-card">
-      <div>
+      <div class="dish-img-wrap">
+        ${dish.image
+          ? `<img src="${dish.image}" alt="${dish.name}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=dish-img-empty>🍽</div>'">`
+          : '<div class="dish-img-empty">🍽</div>'}
+        ${dish.extras && dish.extras.length
+          ? `<div class="dish-badges">${dish.extras.map(e => `<span class="dish-badge">⚡ ${e}</span>`).join('')}</div>`
+          : ''}
+      </div>
+      <div class="dish-body">
         <div class="dish-name">${dish.name}</div>
         ${dish.description ? `<div class="dish-desc">${dish.description}</div>` : ''}
         ${dish.composition ? `<div class="dish-composition">${dish.composition}</div>` : ''}
-        ${dish.extras && dish.extras.length
-          ? `<div class="dish-tags">${dish.extras.map(e => `<span class="dish-tag">⚡ ${e}</span>`).join('')}</div>`
-          : ''}
-        <div class="dish-meta">
-          <div class="dish-price">${dish.price} ₴</div>
-          ${dish.weight ? `<div class="dish-weight">⚖ ${dish.weight}</div>` : ''}
-        </div>
-        <button
-          class="add-btn ${inOrder ? 'added' : ''}"
-          onclick="addToOrder('${dish.id}')"
-          title="${inOrder ? 'Прибрати' : 'Додати до замовлення'}">
-          ${inOrder ? '✓ Додано' : '+ Додати в замовлення'}
-        </button>
-      </div>
-      <div class="dish-right">
-        <div class="dish-img-placeholder">
-          ${dish.image
-            ? `<img src="${dish.image}" alt="${dish.name}" loading="lazy" onerror="this.parentElement.innerHTML='🍽'">`
-            : '🍽'}
+        <div class="dish-footer">
+          <div class="dish-meta">
+            <div class="dish-price">${dish.price} ₴</div>
+            ${dish.weight ? `<div class="dish-weight">⚖ ${dish.weight}</div>` : ''}
+          </div>
+          <button
+            class="add-btn ${inOrder ? 'added' : ''}"
+            onclick="addToOrder('${dish.id}')"
+            title="${inOrder ? 'Прибрати' : 'Додати до замовлення'}">
+            ${inOrder ? '✓' : '+'}
+          </button>
         </div>
       </div>
     </div>`;
@@ -214,7 +216,7 @@ function toggleCat(catId) {
 
   if (openCats[catId]) {
     body.classList.remove('collapsed');
-    body.style.maxHeight = cat.dishes.length * 240 + 'px';
+    body.style.maxHeight = cat.dishes.length * 500 + 'px';
     chevron.classList.add('open');
   } else {
     body.classList.add('collapsed');
