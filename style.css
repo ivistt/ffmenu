@@ -1154,8 +1154,8 @@ aside::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; 
 
   .order-footer {
   margin-top: 14px;
-  padding-bottom: 56px;
   border-top: 2px solid var(--border);
+  max-width: 75%;
 }
 
   /* About page */
