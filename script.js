@@ -1,7 +1,16 @@
 /* ══════════════════════════════════════════
    РЕСТОРАН ОГОНЬ — script.js
-   Дані меню зберігаються в menu.json
+   Дані меню завантажуються з Google Sheets через Apps Script
+
+   НАЛАШТУВАННЯ:
+   1. Завантажте menu_google_sheets.xlsx у Google Sheets
+   2. Розширення → Apps Script → вставте код з appscript.js
+   3. Деплой → Новий деплой → Web App (доступ: Усі)
+   4. Скопіюйте URL деплою і вставте нижче
 ══════════════════════════════════════════ */
+
+const MENU_URL = 'https://script.google.com/macros/s/AKfycbyfb4nDNfrYMl9NZ90TfkYYehM75XRbp7uj6QpE34qUX3Fo6-JGKRVTWKRTqhk6iVeW/exec';
+// Приклад: 'https://script.google.com/macros/s/AKfycbyfb4nDNfrYMl9NZ90TfkYYehM75XRbp7uj6QpE34qUX3Fo6-JGKRVTWKRTqhk6iVeW/exec'
 
 // ══════════════════════════════
 //  STATE
@@ -12,17 +21,30 @@ let openCats    = {};
 let activeTabId = null;
 
 // ══════════════════════════════
-//  BOOTSTRAP — завантажити JSON
+//  BOOTSTRAP
 // ══════════════════════════════
 async function init() {
+  showMenuSkeleton();
+
   try {
-    const res = await fetch('menu.json');
+    if (!MENU_URL || MENU_URL === 'ВАШ_APPS_SCRIPT_URL_ТУТ') {
+      throw new Error('MENU_URL не налаштовано. Вкажіть URL Apps Script у script.js');
+    }
+
+    const res = await fetch(MENU_URL);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     menuData = await res.json();
+
+    if (!Array.isArray(menuData) || menuData.length === 0) {
+      throw new Error('Отримано порожнє або некоректне меню');
+    }
   } catch (err) {
-    console.error('Не вдалося завантажити menu.json:', err);
-    document.getElementById('menuContent').innerHTML =
-      '<div class="no-results">⚠️ Не вдалося завантажити меню. Відкрийте файл через веб-сервер (не file://).</div>';
+    console.error('Не вдалося завантажити меню:', err);
+    document.getElementById('menuContent').innerHTML = `
+      <div class="no-results">
+        ⚠️ Не вдалося завантажити меню.<br>
+        <small style="color:#aaa">${err.message}</small>
+      </div>`;
     return;
   }
 
@@ -31,6 +53,14 @@ async function init() {
 
   renderMenu();
   renderOrder();
+}
+
+function showMenuSkeleton() {
+  document.getElementById('menuContent').innerHTML = `
+    <div style="padding:32px;text-align:center;color:#888">
+      <div style="font-size:32px;margin-bottom:12px">⏳</div>
+      Завантаження меню…
+    </div>`;
 }
 
 // ══════════════════════════════
@@ -43,24 +73,18 @@ function showPage(pageId, btn) {
   if (btn) btn.classList.add('active');
 }
 
-// Mobile bottom nav page switch (syncs both navs)
 function mobileShowPage(pageId, btn) {
-  // Switch page
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + pageId).classList.add('active');
-  // Update mobile nav buttons
   document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
-  // Sync desktop nav buttons too
   document.querySelectorAll('.nav-btn').forEach(b => {
     b.classList.toggle('active',
       (pageId === 'menu'  && b.textContent.includes('Меню')) ||
       (pageId === 'about' && b.textContent.includes('Про нас'))
     );
   });
-  // Close order panel if open
   document.getElementById('orderPanel').classList.remove('open');
-  // Scroll to top
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -81,7 +105,6 @@ function renderTabs(visibleCats) {
 function jumpToCat(catId) {
   activeTabId = catId;
 
-  // Відкрити категорію, якщо згорнута
   if (!openCats[catId]) {
     openCats[catId] = true;
     const body = document.getElementById('body-' + catId);
@@ -94,7 +117,6 @@ function jumpToCat(catId) {
     }
   }
 
-  // Оновити активний таб
   const q = document.getElementById('searchInput').value.toLowerCase().trim();
   const visible = menuData.filter(cat =>
     !q || cat.dishes.some(d =>
@@ -105,7 +127,6 @@ function jumpToCat(catId) {
   );
   renderTabs(visible);
 
-  // Скролл до секції з урахуванням sticky header + sticky tabs
   isJumping = true;
   setTimeout(() => {
     const el = document.getElementById('cat-' + catId);
@@ -113,7 +134,6 @@ function jumpToCat(catId) {
       const y = el.getBoundingClientRect().top + window.scrollY - 64 - 52 - 8;
       window.scrollTo({ top: y, behavior: 'smooth' });
     }
-    // Знімаємо блокировку після завершення анімації скролу
     setTimeout(() => { isJumping = false; }, 600);
   }, 50);
 }
@@ -169,7 +189,6 @@ function renderMenu() {
   content.innerHTML = html;
   renderTabs(visibleCats);
 
-  // Запускаємо scroll spy після побудови DOM
   requestAnimationFrame(() => initScrollSpy());
 }
 
@@ -247,7 +266,6 @@ function removeFromOrder(dishId) {
 
 function clearOrder() {
   order = [];
-  // Reset all buttons at once without full re-render
   document.querySelectorAll('.add-btn.added').forEach(btn => {
     btn.classList.remove('added');
     btn.textContent = '+ Додати';
@@ -256,10 +274,8 @@ function clearOrder() {
   renderOrder();
 }
 
-// Оновлює лише кнопку конкретного блюда — без перерендеру всього меню
 function updateDishButton(dishId) {
   const inOrder = order.some(o => o.id === dishId);
-  // Знаходимо кнопку по атрибуту onclick
   const btn = document.querySelector(`.add-btn[onclick="addToOrder('${dishId}')"]`);
   if (!btn) return;
   btn.classList.toggle('added', inOrder);
@@ -276,7 +292,6 @@ function renderOrder() {
 
   badge.textContent = order.length;
 
-  // Mobile badge
   if (mobileBadge) {
     if (order.length > 0) {
       mobileBadge.textContent = order.length;
@@ -322,16 +337,13 @@ function plural(n, one, few, many) {
 }
 
 function toggleOrder() {
-  // If on "about" page — switch to menu page first (order panel lives there)
   const menuPage = document.getElementById('page-menu');
   if (!menuPage.classList.contains('active')) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     menuPage.classList.add('active');
-    // Sync desktop nav
     document.querySelectorAll('.nav-btn').forEach(b => {
       b.classList.toggle('active', b.textContent.includes('Меню'));
     });
-    // Sync drawer nav
     document.querySelectorAll('.drawer-page-btn').forEach(b => b.classList.remove('active'));
     const dm = document.getElementById('drawerMenuBtn');
     if (dm) dm.classList.add('active');
@@ -343,24 +355,21 @@ function toggleOrder() {
 //  SCROLL SPY
 // ══════════════════════════════
 let scrollSpyObserver = null;
-let isJumping = false; // блокуємо spy під час програмного скролу
+let isJumping = false;
 
 function initScrollSpy() {
   if (scrollSpyObserver) scrollSpyObserver.disconnect();
 
-  // Висота sticky header + sticky tabs ≈ 64 + 52 = 116px
   const OFFSET = 116;
 
   scrollSpyObserver = new IntersectionObserver((entries) => {
     if (isJumping) return;
 
-    // Знаходимо секцію, яка найближча до верху вьюпорту
     let best = null;
     let bestTop = Infinity;
 
     document.querySelectorAll('.cat-section').forEach(el => {
       const rect = el.getBoundingClientRect();
-      // Секція вважається "активною", якщо її верхній край вище середини екрану
       const top = rect.top - OFFSET;
       if (top <= window.innerHeight * 0.5 && rect.bottom > OFFSET) {
         if (Math.abs(top) < bestTop) {
@@ -388,19 +397,16 @@ function initScrollSpy() {
 }
 
 function updateActiveTab(catId) {
-  // Оновлюємо клас активного табу без повного перерендерингу
   document.querySelectorAll('.cat-tab').forEach(tab => {
     const isActive = tab.getAttribute('onclick')?.includes(`'${catId}'`);
     tab.classList.toggle('active', isActive);
   });
 
-  // Скролимо таб-рядок так, щоб активний таб був видимий
   const activeTab = document.querySelector(`.cat-tab.active`);
   if (activeTab) {
     activeTab.scrollIntoView({ inline: 'nearest', block: 'nearest' });
   }
 }
-
 
 // ══════════════════════════════
 //  BURGER DRAWER (mobile)
@@ -424,24 +430,20 @@ function closeDrawer() {
 }
 
 function drawerGoPage(pageId) {
-  // Switch pages
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + pageId).classList.add('active');
-  // Sync desktop nav buttons
   document.querySelectorAll('.nav-btn').forEach(b => {
     b.classList.toggle('active',
       (pageId === 'menu'  && b.textContent.includes('Меню')) ||
       (pageId === 'about' && b.textContent.includes('Про нас'))
     );
   });
-  // Update drawer nav buttons
   document.querySelectorAll('.drawer-page-btn').forEach(b => b.classList.remove('active'));
   const activeBtn = document.getElementById(pageId === 'menu' ? 'drawerMenuBtn' : 'drawerAboutBtn');
   if (activeBtn) activeBtn.classList.add('active');
   closeDrawer();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-
 
 // ══════════════════════════════
 //  START
