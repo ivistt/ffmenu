@@ -197,9 +197,9 @@ function renderDish(dish) {
   return `
     <div class="dish-card">
       <div class="dish-img-wrap">
-        ${dish.image
-          ? `<img src="${dish.image}" alt="${dish.name}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=dish-img-empty>🍽</div>'">`
-          : '<div class="dish-img-empty">🍽</div>'}
+        ${dish.image_url || dish.image
+            ? `<img src="${dish.image_url || dish.image}" alt="${dish.name}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=dish-img-empty>🍽</div>'">`
+            : '<div class="dish-img-empty">🍽</div>'}
         ${dish.extras && dish.extras.length
           ? `<div class="dish-badges">${dish.extras.map(e => `<span class="dish-badge">⚡ ${e}</span>`).join('')}</div>`
           : ''}
