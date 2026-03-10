@@ -9,7 +9,7 @@
    4. Скопіюйте URL деплою і вставте нижче
 ══════════════════════════════════════════ */
 
-const MENU_URL = 'https://script.google.com/macros/s/AKfycbyfb4nDNfrYMl9NZ90TfkYYehM75XRbp7uj6QpE34qUX3Fo6-JGKRVTWKRTqhk6iVeW/exec';
+const MENU_URL = 'https://script.google.com/macros/s/AKfycbw65OErsGP3sjTgB6_ZDrmk6z0L5TX8-_g5QwgvUTqVnGpTxGz3evpxmFFzcSBBIVbM/exec';
 // Приклад: 'https://script.google.com/macros/s/AKfycbyfb4nDNfrYMl9NZ90TfkYYehM75XRbp7uj6QpE34qUX3Fo6-JGKRVTWKRTqhk6iVeW/exec'
 
 // ══════════════════════════════
