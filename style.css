@@ -412,24 +412,25 @@ aside::-webkit-scrollbar-thumb { background: var(--border-light); border-radius:
   padding: 15px 20px;
   cursor: pointer;
   transition: background 0.15s;
-  background: var(--orange);
+  background: #c8b4e2;
   user-select: none;
-  position: sticky;
-  top: var(--sticky-top);
-  z-index: 10;
+  border-radius: 12px 12px 0 0;
+
 }
 
 
 .cat-header-left {
   display: flex;
+  width: 100%;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
 }
 
 .cat-title {
   font-size: 20px;
   font-weight: 700;
-  color: var(--bg);
+  color: var(--orange);
   letter-spacing: -0.3px;
 }
 
@@ -481,7 +482,6 @@ aside::-webkit-scrollbar-thumb { background: var(--border-light); border-radius:
   flex-direction: column;
   background: var(--bg2);
   border: 1px solid var(--border);
-  border-radius: var(--radius-md);
   overflow: hidden;
   transition: border-color 0.18s, background 0.18s, transform 0.15s;
 }
