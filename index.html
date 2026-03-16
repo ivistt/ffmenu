@@ -11,6 +11,17 @@
 <body>
 
 <!-- ══════════════════════════════════════════
+     LOADER
+══════════════════════════════════════════ -->
+<div class="site-loader" id="siteLoader">
+  <div class="site-loader-inner">
+    <div class="loader-spinner">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
      HEADER
 ══════════════════════════════════════════ -->
 <header>
@@ -208,18 +219,20 @@
         <div class="swiper-pagination"></div>
       </div>
 
-      <div class="search-bar">
-        <img class="search-icon" src="./images/search-ico.svg" alt="Search">
-        <input
-          type="text"
-          id="searchInput"
-          placeholder="Пошук страв, складів, категорій…"
-          oninput="renderMenu()">
-      </div>
+      <div class="search-tabs-sticky">
+        <div class="search-bar">
+          <img class="search-icon" src="./images/search-ico.svg" alt="Search">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Пошук страв, складів, категорій…"
+            oninput="renderMenu()">
+        </div>
 
-      <div class="cat-tabs-sticky">
-        <div class="swiper cat-tabs-swiper">
-          <div class="swiper-wrapper" id="catTabs"></div>
+        <div class="cat-tabs-sticky">
+          <div class="swiper cat-tabs-swiper">
+            <div class="swiper-wrapper" id="catTabs"></div>
+          </div>
         </div>
       </div>
 

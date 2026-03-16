@@ -22,21 +22,21 @@ const MENU_URL = 'https://script.google.com/macros/s/AKfycbw65OErsGP3sjTgB6_ZDrm
 ══════════════════════════════ */
 const BANNERS = [
   {
-    image: '',
+    image: 'images/banners/banner1.png',
     bg: 'linear-gradient(135deg, #1a0a00 0%, #6b2a00 100%)',
     label: '🔥 Хіт сезону',
     title: 'М\'ясо з тандиру',
     sub: 'Соковите, з димком — щодня з 12:00',
   },
   {
-    image: '',
+    image: 'images/banners/banner2.png',
     bg: 'linear-gradient(135deg, #001a0f 0%, #005c30 100%)',
     label: '🍣 Новинка',
     title: 'Суші-сет «Огонь»',
     sub: '24 ролли + місо-суп у подарунок',
   },
   {
-    image: '',
+    image: 'images/banners/banner3.png',
     bg: 'linear-gradient(135deg, #0d0a1a 0%, #3a1a6b 100%)',
     label: '🥂 Банкети',
     title: 'Святкуйте з нами',
@@ -75,7 +75,6 @@ function initBannerSwiper() {
   new Swiper('.banner-swiper', {
     loop: true,
     autoplay: { delay: 4500, disableOnInteraction: false },
-    pagination: { el: '.swiper-pagination', clickable: true },
     grabCursor: true,
     speed: 600,
     effect: 'slide',
@@ -108,6 +107,7 @@ async function init() {
         ⚠️ Не вдалося завантажити меню.<br>
         <small style="color:#aaa">${err.message}</small>
       </div>`;
+    hideLoader();
     return;
   }
 
@@ -262,7 +262,6 @@ function renderMenu() {
             <div class="cat-title">${cat.name}</div>
             <div class="cat-count">${dishes.length}</div>
           </div>
-          <div class="cat-chevron ${isOpen ? 'open' : ''}">▾</div>
         </div>
         <div class="cat-body ${isOpen ? '' : 'collapsed'}"
              id="body-${cat.id}"
@@ -281,7 +280,17 @@ function renderMenu() {
   content.innerHTML = html;
   renderTabs(visibleCats);
 
-  requestAnimationFrame(() => initScrollSpy());
+  requestAnimationFrame(() => {
+    initScrollSpy();
+    hideLoader();
+  });
+}
+
+function hideLoader() {
+  const loader = document.getElementById('siteLoader');
+  if (loader && !loader.classList.contains('hidden')) {
+    loader.classList.add('hidden');
+  }
 }
 
 function renderDish(dish) {
