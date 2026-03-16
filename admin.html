@@ -1,868 +1,1150 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Адмінка — Ресторан ОГОнь</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --orange:      #E8580A;
-      --orange-light:#FF6B1A;
-      --orange-dim:  rgba(232,88,10,0.10);
-      --bg:          #F5F3EF;
-      --bg2:         #EDEAE4;
-      --surface:     #FFFFFF;
-      --border:      #E2DED8;
-      --text:        #1A1614;
-      --text2:       #5A534E;
-      --text3:       #9E978F;
-      --green:       #1a8a4a;
-      --green-dim:   rgba(26,138,74,0.10);
-      --red:         #cc3333;
-      --red-dim:     rgba(204,51,51,0.09);
-      --radius:      12px;
-      --header-h:    64px;
-    }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ОГОнь — Адмінка</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Unbounded:wght@400;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #0d0b12;
+  --bg2:       #151220;
+  --bg3:       #1c1828;
+  --surface:   #221e30;
+  --surface2:  #2a2540;
+  --border:    rgba(151,84,203,0.18);
+  --border2:   rgba(151,84,203,0.35);
+  --accent:    #9754cb;
+  --accent2:   #c084fc;
+  --accent-bg: rgba(151,84,203,0.12);
+  --text:      #f0eaf8;
+  --text2:     #a89bc0;
+  --text3:     #6b5e82;
+  --red:       #e05555;
+  --red-bg:    rgba(224,85,85,0.12);
+  --green:     #4ade80;
+  --green-bg:  rgba(74,222,128,0.1);
+  --yellow:    #fbbf24;
+  --r:         10px;
+  --r-sm:      6px;
+}
 
-    /* ── HEADER ── */
-    header {
-      position: sticky; top: 0; z-index: 100;
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      height: var(--header-h);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 32px;
-      box-shadow: 0 1px 14px rgba(0,0,0,0.07);
-    }
-    .logo-wrap { display:flex; align-items:center; gap:12px; }
-    .logo { font-family:'Playfair Display',serif; font-size:20px; font-weight:900; }
-    .logo em { color:var(--orange); font-style:normal; }
-    .logo-sub { font-size:9px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:var(--text3); margin-top:1px; }
-    .header-badge {
-      background: var(--orange-dim); color: var(--orange);
-      border: 1.5px solid var(--orange);
-      border-radius: 8px; padding: 4px 12px;
-      font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
-    }
-    .header-actions { display:flex; gap:10px; align-items:center; }
+* { margin:0; padding:0; box-sizing:border-box; }
 
-    /* ── BUTTONS ── */
-    .btn {
-      display: inline-flex; align-items: center; gap: 7px;
-      padding: 9px 18px; border-radius: 9px; border: none;
-      font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600;
-      cursor: pointer; transition: all 0.15s; white-space: nowrap;
-    }
-    .btn-primary   { background:var(--orange); color:#fff; }
-    .btn-primary:hover { background:var(--orange-light); transform:translateY(-1px); }
-    .btn-outline   { background:none; border:1.5px solid var(--border); color:var(--text2); }
-    .btn-outline:hover { border-color:var(--orange); color:var(--orange); background:var(--orange-dim); }
-    .btn-green     { background:var(--green); color:#fff; }
-    .btn-green:hover { opacity:0.88; transform:translateY(-1px); }
-    .btn-red       { background:none; border:1.5px solid var(--border); color:var(--red); }
-    .btn-red:hover { border-color:var(--red); background:var(--red-dim); }
-    .btn-sm        { padding:6px 12px; font-size:12px; border-radius:7px; }
-    .btn-icon      { padding:7px; border-radius:8px; border:1.5px solid var(--border); background:none; cursor:pointer; color:var(--text2); transition:all 0.15s; font-size:14px; }
-    .btn-icon:hover { border-color:var(--orange); color:var(--orange); background:var(--orange-dim); }
-    .btn-icon.danger:hover { border-color:var(--red); color:var(--red); background:var(--red-dim); }
+body {
+  font-family: 'Manrope', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 14px;
+}
 
-    /* ── LAYOUT ── */
-    .app { display:grid; grid-template-columns:260px 1fr; min-height:calc(100vh - var(--header-h)); }
+/* ── LAYOUT ── */
+.app { display: flex; min-height: 100vh; }
 
-    /* ── SIDEBAR ── */
-    .sidebar {
-      background: var(--surface);
-      border-right: 1px solid var(--border);
-      padding: 20px 0;
-      position: sticky; top: var(--header-h);
-      height: calc(100vh - var(--header-h));
-      overflow-y: auto; display:flex; flex-direction:column;
-    }
-    .sidebar::-webkit-scrollbar { width:4px; }
-    .sidebar::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
-    .sidebar-label {
-      font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase;
-      color:var(--text3); padding:0 18px; margin-bottom:8px;
-    }
-    .cat-list { display:flex; flex-direction:column; gap:2px; padding:0 10px; flex:1; }
-    .cat-item {
-      display:flex; align-items:center; gap:8px;
-      padding:10px 10px; border-radius:9px; cursor:pointer;
-      transition:background 0.12s; font-size:13.5px; font-weight:500; color:var(--text2);
-      border:none; background:none; font-family:'DM Sans',sans-serif; text-align:left; width:100%;
-    }
-    .cat-item:hover { background:var(--bg); }
-    .cat-item.active { background:var(--orange-dim); color:var(--orange); font-weight:600; }
-    .cat-item .cat-count {
-      margin-left:auto; background:var(--bg2); color:var(--text3);
-      border-radius:20px; padding:1px 8px; font-size:11px; font-weight:600;
-    }
-    .cat-item.active .cat-count { background:rgba(232,88,10,0.15); color:var(--orange); }
-    .sidebar-footer { padding:14px 10px 0; border-top:1px solid var(--border); margin-top:8px; }
+.sidebar {
+  width: 260px;
+  min-width: 260px;
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
 
-    /* ── MAIN CONTENT ── */
-    .main { padding:28px 32px; }
-    .main-header {
-      display:flex; align-items:center; justify-content:space-between;
-      margin-bottom:24px;
-    }
-    .main-title { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; }
-    .main-title span { color:var(--orange); }
-    .main-sub { font-size:13px; color:var(--text3); margin-top:2px; }
+.main { flex: 1; overflow: auto; }
 
-    /* ── CATEGORY EDIT BAR ── */
-    .cat-edit-bar {
-      background:var(--surface); border:1.5px solid var(--border);
-      border-radius:var(--radius); padding:14px 18px;
-      display:flex; align-items:center; gap:12px; margin-bottom:20px;
-    }
-    .cat-edit-bar label { font-size:12px; font-weight:600; color:var(--text3); white-space:nowrap; }
-    .cat-edit-bar input {
-      flex:1; border:1.5px solid var(--border); border-radius:8px;
-      padding:8px 12px; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600;
-      background:var(--bg); color:var(--text); outline:none; transition:border-color 0.2s;
-    }
-    .cat-edit-bar input:focus { border-color:var(--orange); }
+/* ── SIDEBAR ── */
+.sidebar-head {
+  padding: 20px 18px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.sidebar-logo {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent2);
+  letter-spacing: -0.5px;
+  margin-bottom: 2px;
+}
+.sidebar-sub {
+  font-size: 11px;
+  color: var(--text3);
+  font-family: 'JetBrains Mono', monospace;
+}
 
-    /* ── DISH CARDS ── */
-    .dishes-grid { display:flex; flex-direction:column; gap:14px; }
+.sidebar-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 0;
+}
+.sidebar-scroll::-webkit-scrollbar { width: 3px; }
+.sidebar-scroll::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 2px; }
 
-    .dish-editor {
-      background:var(--surface);
-      border:1.5px solid var(--border);
-      border-radius:16px;
-      overflow:hidden;
-      transition:box-shadow 0.2s, border-color 0.2s;
-    }
-    .dish-editor:hover { box-shadow:0 4px 20px rgba(0,0,0,0.07); }
-    .dish-editor.expanded { border-color:var(--orange); }
+.cat-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  cursor: pointer;
+  border-radius: 0;
+  transition: background .15s;
+  border-left: 2px solid transparent;
+  color: var(--text2);
+  font-size: 13px;
+}
+.cat-item:hover { background: var(--accent-bg); color: var(--text); }
+.cat-item.active {
+  background: var(--accent-bg);
+  border-left-color: var(--accent);
+  color: var(--text);
+  font-weight: 600;
+}
+.cat-item-count {
+  margin-left: auto;
+  font-size: 11px;
+  background: var(--surface);
+  color: var(--text3);
+  padding: 1px 6px;
+  border-radius: 20px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.cat-item.active .cat-item-count {
+  background: var(--accent-bg);
+  color: var(--accent2);
+}
 
-    .dish-editor-head {
-      display:flex; align-items:center; gap:14px;
-      padding:14px 18px; cursor:pointer; user-select:none;
-    }
-    .dish-thumb {
-      width:52px; height:52px; border-radius:10px; object-fit:cover;
-      background:var(--bg2); flex-shrink:0;
-      display:flex; align-items:center; justify-content:center;
-      font-size:20px; overflow:hidden; border:1px solid var(--border);
-    }
-    .dish-thumb img { width:100%; height:100%; object-fit:cover; }
-    .dish-head-info { flex:1; min-width:0; }
-    .dish-head-name { font-size:15px; font-weight:600; color:var(--text); }
-    .dish-head-meta { font-size:12px; color:var(--text3); margin-top:2px; }
-    .dish-head-price { font-size:15px; font-weight:700; color:var(--orange); white-space:nowrap; }
-    .dish-chevron {
-      color:var(--text3); font-size:13px; transition:transform 0.22s; flex-shrink:0;
-    }
-    .dish-editor.expanded .dish-chevron { transform:rotate(180deg); }
+.sidebar-footer {
+  padding: 12px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
 
-    .dish-editor-body {
-      display:none; padding:0 18px 18px; border-top:1px solid var(--border);
-    }
-    .dish-editor.expanded .dish-editor-body { display:block; }
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--r-sm);
+  border: none;
+  cursor: pointer;
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all .15s;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-primary:hover { background: #a855f7; transform: translateY(-1px); }
+.btn-primary:active { transform: none; }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-    /* ── FORM GRID ── */
-    .form-grid {
-      display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px;
-    }
-    .form-group { display:flex; flex-direction:column; gap:5px; }
-    .form-group.full { grid-column:1/-1; }
-    .form-group label {
-      font-size:11px; font-weight:700; letter-spacing:1.5px;
-      text-transform:uppercase; color:var(--text3);
-    }
-    .form-group input,
-    .form-group textarea {
-      border:1.5px solid var(--border); border-radius:8px;
-      padding:9px 12px; font-family:'DM Sans',sans-serif; font-size:13.5px;
-      color:var(--text); background:var(--bg); outline:none;
-      transition:border-color 0.2s, box-shadow 0.2s; resize:vertical;
-    }
-    .form-group input:focus,
-    .form-group textarea:focus {
-      border-color:var(--orange);
-      box-shadow:0 0 0 3px rgba(232,88,10,0.08);
-    }
-    .form-group textarea { min-height:70px; }
+.btn-ghost {
+  background: var(--surface);
+  color: var(--text2);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover { background: var(--surface2); color: var(--text); border-color: var(--border2); }
 
-    /* ── IMAGE PICKER ── */
-    .image-picker-wrap { display:flex; gap:10px; align-items:flex-start; }
-    .image-preview {
-      width:72px; height:72px; border-radius:10px; flex-shrink:0;
-      background:var(--bg2); border:1.5px solid var(--border);
-      display:flex; align-items:center; justify-content:center;
-      font-size:24px; overflow:hidden;
-    }
-    .image-preview img { width:100%; height:100%; object-fit:cover; }
-    .image-picker-right { flex:1; display:flex; flex-direction:column; gap:7px; }
-    .image-path-input {
-      border:1.5px solid var(--border); border-radius:8px;
-      padding:9px 12px; font-family:'DM Sans',sans-serif; font-size:13px;
-      color:var(--text); background:var(--bg); outline:none;
-      transition:border-color 0.2s; width:100%;
-    }
-    .image-path-input:focus { border-color:var(--orange); box-shadow:0 0 0 3px rgba(232,88,10,0.08); }
-    .file-pick-btn {
-      display:inline-flex; align-items:center; gap:6px;
-      padding:8px 14px; border-radius:8px;
-      border:1.5px dashed var(--border); background:var(--bg);
-      font-family:'DM Sans',sans-serif; font-size:12.5px; font-weight:600;
-      color:var(--text2); cursor:pointer; transition:all 0.15s; width:fit-content;
-    }
-    .file-pick-btn:hover { border-color:var(--orange); color:var(--orange); background:var(--orange-dim); }
-    input[type="file"] { display:none; }
+.btn-danger {
+  background: var(--red-bg);
+  color: var(--red);
+  border: 1px solid rgba(224,85,85,0.2);
+}
+.btn-danger:hover { background: rgba(224,85,85,0.2); }
 
-    /* ── EXTRAS TAGS ── */
-    .extras-wrap { display:flex; flex-wrap:wrap; gap:7px; align-items:center; }
-    .extra-tag {
-      display:inline-flex; align-items:center; gap:5px;
-      background:var(--bg2); border:1.5px solid var(--border);
-      border-radius:20px; padding:4px 10px 4px 12px;
-      font-size:12px; font-weight:500; color:var(--text2);
-    }
-    .extra-tag button {
-      background:none; border:none; cursor:pointer; color:var(--text3);
-      font-size:12px; padding:0; line-height:1; transition:color 0.12s;
-    }
-    .extra-tag button:hover { color:var(--red); }
-    .extra-add {
-      display:inline-flex; align-items:center; gap:5px;
-      background:none; border:1.5px dashed var(--border);
-      border-radius:20px; padding:4px 12px;
-      font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600;
-      color:var(--text3); cursor:pointer; transition:all 0.15s;
-    }
-    .extra-add:hover { border-color:var(--orange); color:var(--orange); }
+.btn-sm { padding: 5px 10px; font-size: 12px; }
+.btn-icon { padding: 6px; }
+.btn-full { width: 100%; justify-content: center; }
 
-    .dish-editor-actions {
-      display:flex; justify-content:space-between; align-items:center;
-      margin-top:18px; padding-top:14px; border-top:1px solid var(--border);
-    }
+/* ── TOP BAR ── */
+.topbar {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.topbar-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  flex: 1;
+}
+.topbar-cat-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text3);
+  background: var(--surface);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
 
-    /* ── ADD DISH BUTTON ── */
-    .add-dish-btn {
-      display:flex; align-items:center; justify-content:center; gap:10px;
-      width:100%; padding:14px; border-radius:14px;
-      border:2px dashed var(--border); background:none;
-      font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600;
-      color:var(--text3); cursor:pointer; transition:all 0.15s; margin-top:4px;
-    }
-    .add-dish-btn:hover { border-color:var(--orange); color:var(--orange); background:var(--orange-dim); }
+/* ── SETTINGS PANEL ── */
+.settings-panel {
+  padding: 24px;
+  max-width: 560px;
+}
+.settings-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.settings-sub {
+  color: var(--text2);
+  font-size: 13px;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
 
-    /* ── EMPTY STATE ── */
-    .empty-state {
-      text-align:center; padding:60px 20px; color:var(--text3);
-    }
-    .empty-icon { font-size:48px; margin-bottom:14px; }
-    .empty-title { font-size:16px; font-weight:600; color:var(--text2); margin-bottom:6px; }
-    .empty-sub { font-size:13px; }
+.field {
+  margin-bottom: 16px;
+}
+.field-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text2);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.field-input {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--text);
+  padding: 9px 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  outline: none;
+  transition: border .15s;
+}
+.field-input:focus { border-color: var(--accent); }
+.field-hint {
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 5px;
+  line-height: 1.5;
+}
+.field-hint a { color: var(--accent2); }
 
-    /* ── TOAST ── */
-    .toast {
-      position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(20px);
-      background:var(--text); color:#fff; padding:12px 22px; border-radius:10px;
-      font-size:13.5px; font-weight:500; z-index:9999;
-      opacity:0; transition:all 0.3s; pointer-events:none; white-space:nowrap;
-    }
-    .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
-    .toast.success { background:var(--green); }
-    .toast.error   { background:var(--red); }
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: var(--r-sm);
+  font-size: 13px;
+  margin-top: 8px;
+}
+.status-bar.ok  { background: var(--green-bg); color: var(--green); }
+.status-bar.err { background: var(--red-bg); color: var(--red); }
+.status-bar.info { background: var(--accent-bg); color: var(--accent2); }
 
-    /* ── MODAL ── */
-    .modal-overlay {
-      display:none; position:fixed; inset:0;
-      background:rgba(0,0,0,0.4); z-index:500;
-      align-items:center; justify-content:center;
-    }
-    .modal-overlay.open { display:flex; }
-    .modal {
-      background:var(--surface); border-radius:18px;
-      padding:28px; width:min(440px,90vw);
-      box-shadow:0 20px 60px rgba(0,0,0,0.18);
-    }
-    .modal-title { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; margin-bottom:6px; }
-    .modal-sub { font-size:13px; color:var(--text3); margin-bottom:20px; }
-    .modal-actions { display:flex; gap:10px; justify-content:flex-end; margin-top:20px; }
-    .modal input {
-      width:100%; border:1.5px solid var(--border); border-radius:8px;
-      padding:10px 14px; font-family:'DM Sans',sans-serif; font-size:14px;
-      color:var(--text); background:var(--bg); outline:none; margin-bottom:10px;
-      transition:border-color 0.2s;
-    }
-    .modal input:focus { border-color:var(--orange); box-shadow:0 0 0 3px rgba(232,88,10,0.08); }
+/* ── DISHES GRID ── */
+.content-area { padding: 20px 24px; }
 
-    /* ── LOAD SCREEN ── */
-    #loadScreen {
-      position:fixed; inset:0; background:var(--bg);
-      display:flex; flex-direction:column; align-items:center; justify-content:center;
-      z-index:9998; gap:16px;
-    }
-    .load-logo { font-family:'Playfair Display',serif; font-size:32px; font-weight:900; }
-    .load-logo em { color:var(--orange); font-style:normal; }
-    .load-sub { font-size:13px; color:var(--text3); }
-    .load-btn-wrap { display:flex; flex-direction:column; align-items:center; gap:10px; margin-top:8px; }
-    .load-drop {
-      border:2px dashed var(--border); border-radius:16px;
-      padding:32px 48px; text-align:center; cursor:pointer;
-      transition:all 0.2s; background:var(--surface);
-    }
-    .load-drop:hover, .load-drop.dragover {
-      border-color:var(--orange); background:var(--orange-dim);
-    }
-    .load-drop-icon { font-size:36px; margin-bottom:10px; }
-    .load-drop-text { font-size:14px; font-weight:600; color:var(--text2); }
-    .load-drop-sub { font-size:12px; color:var(--text3); margin-top:4px; }
-  </style>
+.dishes-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.search-field {
+  flex: 1;
+  min-width: 180px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--text);
+  padding: 8px 12px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  outline: none;
+}
+.search-field:focus { border-color: var(--accent); }
+
+.dishes-list { display: flex; flex-direction: column; gap: 8px; }
+
+.dish-row {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  display: grid;
+  grid-template-columns: 52px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  transition: border .15s;
+}
+.dish-row:hover { border-color: var(--border2); }
+.dish-row.inactive { opacity: 0.45; }
+
+.dish-thumb {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--r-sm);
+  object-fit: cover;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.dish-thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--r-sm); }
+
+.dish-info {}
+.dish-name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 3px;
+}
+.dish-name { font-weight: 600; font-size: 14px; }
+.badge {
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 20px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.badge-rec { background: rgba(251,191,36,0.15); color: var(--yellow); }
+.badge-inactive { background: var(--surface); color: var(--text3); }
+
+.dish-meta {
+  font-size: 12px;
+  color: var(--text2);
+  display: flex;
+  gap: 12px;
+}
+.dish-price { color: var(--accent2); font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+
+.dish-actions { display: flex; gap: 6px; }
+
+/* ── EDIT MODAL ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,8,18,0.85);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+
+.modal {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 14px;
+  width: 100%;
+  max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: translateY(16px);
+  transition: transform .2s;
+}
+.modal-overlay.open .modal { transform: none; }
+
+.modal-head {
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  background: var(--bg2);
+  z-index: 1;
+}
+.modal-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+}
+.modal-body { padding: 20px; }
+.modal-footer {
+  padding: 14px 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  position: sticky;
+  bottom: 0;
+  background: var(--bg2);
+}
+
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-full { grid-column: 1 / -1; }
+
+textarea.field-input {
+  resize: vertical;
+  min-height: 70px;
+  font-family: 'Manrope', sans-serif;
+}
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 10px 12px;
+}
+.toggle-label { font-size: 13px; font-weight: 500; }
+.toggle {
+  width: 36px;
+  height: 20px;
+  background: var(--surface2);
+  border-radius: 20px;
+  position: relative;
+  cursor: pointer;
+  transition: background .2s;
+}
+.toggle.on { background: var(--accent); }
+.toggle::after {
+  content: '';
+  position: absolute;
+  width: 14px; height: 14px;
+  background: #fff;
+  border-radius: 50%;
+  top: 3px; left: 3px;
+  transition: transform .2s;
+}
+.toggle.on::after { transform: translateX(16px); }
+
+/* ── CAT EDIT ── */
+.cat-edit-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 10px 14px;
+  margin-bottom: 18px;
+}
+.cat-edit-bar input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ── PUBLISH MODAL ── */
+.publish-log {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text2);
+  min-height: 100px;
+  max-height: 200px;
+  overflow-y: auto;
+  line-height: 1.8;
+}
+.log-ok   { color: var(--green); }
+.log-err  { color: var(--red); }
+.log-info { color: var(--accent2); }
+
+/* ── EMPTY ── */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text3);
+}
+.empty-icon { font-size: 40px; margin-bottom: 12px; }
+.empty-title { font-size: 16px; font-weight: 600; color: var(--text2); margin-bottom: 6px; }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  padding: 12px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  z-index: 999;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all .25s;
+  max-width: 320px;
+}
+.toast.show { transform: none; opacity: 1; }
+.toast.ok  { border-color: rgba(74,222,128,0.3); color: var(--green); }
+.toast.err { border-color: rgba(224,85,85,0.3); color: var(--red); }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 3px; }
+
+/* ── DIVIDER ── */
+.divider { height: 1px; background: var(--border); margin: 16px 0; }
+
+.spinner {
+  width: 16px; height: 16px;
+  border: 2px solid rgba(255,255,255,0.2);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin .6s linear infinite;
+  display: inline-block;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+</style>
 </head>
 <body>
 
-<!-- ── LOAD SCREEN ── -->
-<div id="loadScreen">
-  <div class="load-logo">🔥 Ресторан <em>ОГОнь</em></div>
-  <div class="load-sub">Адміністративна панель</div>
-  <div class="load-btn-wrap">
-    <div class="load-drop" id="loadDrop" onclick="document.getElementById('jsonFileInput').click()">
-      <div class="load-drop-icon">📂</div>
-      <div class="load-drop-text">Відкрити menu.json</div>
-      <div class="load-drop-sub">Натисніть або перетягніть файл сюди</div>
-    </div>
-    <span style="font-size:12px;color:var(--text3);">або</span>
-    <button class="btn btn-outline" onclick="loadEmpty()">Створити нове меню з нуля</button>
-  </div>
-  <input type="file" id="jsonFileInput" accept=".json" onchange="loadFromFile(this)">
-</div>
-
-<!-- ── HEADER ── -->
-<header>
-  <div class="logo-wrap">
-    <div>
-      <div class="logo">🔥 Ресторан <em>ОГОнь</em></div>
-      <div class="logo-sub">Редактор меню</div>
-    </div>
-  </div>
-  <div class="header-badge">Admin</div>
-  <div class="header-actions">
-    <button class="btn btn-outline" onclick="document.getElementById('jsonFileInput').click()">📂 Відкрити інший файл</button>
-    <button class="btn btn-green" onclick="saveJSON()">💾 Зберегти menu.json</button>
-  </div>
-</header>
-
-<!-- ── APP ── -->
 <div class="app">
 
-  <!-- SIDEBAR -->
-  <div class="sidebar">
-    <div class="sidebar-label">Категорії</div>
-    <div class="cat-list" id="catList"></div>
+  <!-- ══ SIDEBAR ══ -->
+  <aside class="sidebar">
+    <div class="sidebar-head">
+      <div class="sidebar-logo">ОГОнь</div>
+      <div class="sidebar-sub">menu admin</div>
+    </div>
+    <div class="sidebar-scroll" id="catList">
+      <!-- populated by JS -->
+    </div>
     <div class="sidebar-footer">
-      <button class="btn btn-outline" style="width:100%" onclick="openAddCatModal()">+ Додати категорію</button>
+      <button class="btn btn-ghost btn-sm" onclick="openSettings()">⚙ Налаштування GitHub</button>
+      <button class="btn btn-primary btn-full" id="publishBtn" onclick="openPublish()">
+        ↑ Опублікувати
+      </button>
     </div>
-  </div>
+  </aside>
 
-  <!-- MAIN -->
-  <div class="main" id="mainContent">
-    <div class="empty-state">
-      <div class="empty-icon">🍽</div>
-      <div class="empty-title">Завантажте menu.json</div>
-      <div class="empty-sub">Оберіть файл щоб почати редагування</div>
-    </div>
+  <!-- ══ MAIN ══ -->
+  <div class="main" id="mainArea">
+    <!-- content injected by JS -->
   </div>
-
 </div>
 
-<!-- ── ADD CATEGORY MODAL ── -->
-<div class="modal-overlay" id="addCatModal">
+<!-- ══ EDIT DISH MODAL ══ -->
+<div class="modal-overlay" id="dishModal">
   <div class="modal">
-    <div class="modal-title">Нова категорія</div>
-    <div class="modal-sub">Введіть назву та ID категорії</div>
-    <input type="text" id="newCatName" placeholder="Назва (наприклад: Холодні роли)">
-    <input type="text" id="newCatId" placeholder="ID (наприклад: cold-rolls, без пробілів)">
-    <div class="modal-actions">
-      <button class="btn btn-outline" onclick="closeModal('addCatModal')">Скасувати</button>
-      <button class="btn btn-primary" onclick="confirmAddCat()">Додати</button>
+    <div class="modal-head">
+      <div class="modal-title" id="dishModalTitle">Редагувати страву</div>
+      <button class="btn btn-ghost btn-sm btn-icon" onclick="closeDishModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="field form-full">
+          <label class="field-label">Назва</label>
+          <input type="text" class="field-input" id="f-name" placeholder="Філадельфія Класік">
+        </div>
+        <div class="field">
+          <label class="field-label">Ціна (₴)</label>
+          <input type="number" class="field-input" id="f-price" placeholder="340">
+        </div>
+        <div class="field">
+          <label class="field-label">Вага</label>
+          <input type="text" class="field-input" id="f-weight" placeholder="290г">
+        </div>
+        <div class="field form-full">
+          <label class="field-label">Опис</label>
+          <textarea class="field-input" id="f-desc" placeholder="Короткий опис страви…"></textarea>
+        </div>
+        <div class="field form-full">
+          <label class="field-label">Склад</label>
+          <textarea class="field-input" id="f-comp" placeholder="Інгредієнт 1, Інгредієнт 2…"></textarea>
+        </div>
+        <div class="field form-full">
+          <label class="field-label">URL зображення</label>
+          <input type="text" class="field-input" id="f-img" placeholder="/images/dish.png">
+        </div>
+        <div class="field form-full">
+          <label class="field-label">Мітки (через кому)</label>
+          <input type="text" class="field-input" id="f-extras" placeholder="рекомендуємо, новинка">
+          <div class="field-hint">Страви з міткою «рекомендуємо» з'являться у категорії ⭐ Рекомендації</div>
+        </div>
+        <div class="field form-full">
+          <div class="toggle-row">
+            <span class="toggle-label">Показувати в меню</span>
+            <div class="toggle on" id="f-active" onclick="this.classList.toggle('on')"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger btn-sm" id="deleteDishBtn" onclick="confirmDeleteDish()">Видалити</button>
+      <div style="flex:1"></div>
+      <button class="btn btn-ghost btn-sm" onclick="closeDishModal()">Скасувати</button>
+      <button class="btn btn-primary btn-sm" onclick="saveDish()">Зберегти</button>
     </div>
   </div>
 </div>
 
-<!-- ── DELETE CONFIRM MODAL ── -->
-<div class="modal-overlay" id="deleteModal">
+<!-- ══ SETTINGS MODAL ══ -->
+<div class="modal-overlay" id="settingsModal">
   <div class="modal">
-    <div class="modal-title">Видалити страву?</div>
-    <div class="modal-sub" id="deleteModalSub">Цю дію не можна скасувати.</div>
-    <div class="modal-actions">
-      <button class="btn btn-outline" onclick="closeModal('deleteModal')">Скасувати</button>
-      <button class="btn btn-red" onclick="confirmDelete()">Видалити</button>
+    <div class="modal-head">
+      <div class="modal-title">⚙ Налаштування GitHub</div>
+      <button class="btn btn-ghost btn-sm btn-icon" onclick="closeSettings()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="field">
+        <label class="field-label">GitHub Personal Access Token</label>
+        <input type="password" class="field-input" id="gh-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+        <div class="field-hint">
+          Створи токен на <a href="https://github.com/settings/tokens/new" target="_blank">github.com/settings/tokens</a><br>
+          Права: <strong>repo → Contents (write)</strong>. Токен зберігається лише у твоєму браузері.
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">Репозиторій</label>
+        <input type="text" class="field-input" id="gh-repo" placeholder="username/repo-name">
+      </div>
+      <div class="field">
+        <label class="field-label">Гілка</label>
+        <input type="text" class="field-input" id="gh-branch" placeholder="main">
+      </div>
+      <div class="field">
+        <label class="field-label">Шлях до файлу в репозиторії</label>
+        <input type="text" class="field-input" id="gh-path" placeholder="menu.json">
+        <div class="field-hint">Наприклад: <code>public/menu.json</code> або просто <code>menu.json</code></div>
+      </div>
+      <div id="settings-status"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost btn-sm" onclick="closeSettings()">Скасувати</button>
+      <button class="btn btn-primary btn-sm" onclick="saveSettings()">Зберегти</button>
     </div>
   </div>
 </div>
 
-<!-- ── TOAST ── -->
+<!-- ══ PUBLISH MODAL ══ -->
+<div class="modal-overlay" id="publishModal">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-head">
+      <div class="modal-title">↑ Публікація меню</div>
+      <button class="btn btn-ghost btn-sm btn-icon" onclick="closePublish()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="color:var(--text2);font-size:13px;margin-bottom:16px;line-height:1.6">
+        Поточний стан меню буде збережено як <code style="color:var(--accent2)">menu.json</code> у GitHub репозиторії. Сайт оновиться автоматично.
+      </p>
+      <div class="field">
+        <label class="field-label">Коментар до змін</label>
+        <input type="text" class="field-input" id="commit-msg" value="Update menu.json">
+      </div>
+      <div class="publish-log" id="publishLog">Очікування…</div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost btn-sm" onclick="closePublish()">Закрити</button>
+      <button class="btn btn-primary btn-sm" id="doPublishBtn" onclick="doPublish()">
+        ↑ Завантажити в GitHub
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TOAST ══ -->
 <div class="toast" id="toast"></div>
 
 <script>
-/* ══════════════════════════════════
-   STATE
-══════════════════════════════════ */
+// ══════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════
 let menuData = [];
 let activeCatId = null;
-let pendingDeleteCatId = null;
-let pendingDeleteDishId = null;
+let editingDishId = null;
+let editingIsNew = false;
+let changedSincePublish = false;
 
-/* ══════════════════════════════════
-   LOAD
-══════════════════════════════════ */
+// ══════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════
+async function init() {
+  loadSettings();
+
+  const token  = localStorage.getItem("gh_token");
+  const repo   = localStorage.getItem("gh_repo");
+  const branch = localStorage.getItem("gh_branch") || "main";
+  const path   = localStorage.getItem("gh_path")   || "menu.json";
+
+  if (token && repo) {
+    showLoading();
+    try {
+      const res = await fetch(
+        `https://api.github.com/repos/${repo}/contents/${path}?ref=${branch}`,
+        { headers: { "Authorization": `Bearer ${token}`, "Accept": "application/vnd.github+json" } }
+      );
+      if (!res.ok) throw new Error(`GitHub API: ${res.status}`);
+      const data = await res.json();
+      menuData = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\n/g, "")))));
+      saveToLocal();
+      renderAll();
+      toast("Меню завантажено з GitHub", "ok");
+      return;
+    } catch (err) {
+      toast("Не вдалось завантажити з GitHub: " + err.message, "err");
+    }
+  }
+
+  const backup = localStorage.getItem("ogon_admin_menu");
+  if (backup) {
+    try {
+      menuData = JSON.parse(backup);
+      renderAll();
+      toast("Завантажено з локального кешу", "ok");
+      return;
+    } catch (_) {}
+  }
+
+  showWelcome();
+}
+
+function showLoading() {
+  document.getElementById("mainArea").innerHTML = `<div class="empty-state"><div style="font-size:32px;margin-bottom:12px">⏳</div><div class="empty-title">Завантаження з GitHub…</div></div>`;
+  renderCatList();
+}
+
+function showWelcome() {
+  document.getElementById('mainArea').innerHTML = `
+    <div class="settings-panel" style="padding:40px 24px">
+      <div class="settings-title">Ласкаво просимо 👋</div>
+      <div class="settings-sub">
+        Файл <code style="color:var(--accent2)">menu.json</code> не знайдено поруч з адмінкою.<br>
+        Завантаж файл вручну або налаштуй GitHub для автозавантаження.
+      </div>
+      <div class="field">
+        <label class="field-label">Завантажити menu.json</label>
+        <input type="file" accept=".json" class="field-input" style="padding:7px" onchange="loadFromFile(this)">
+      </div>
+      <div class="divider"></div>
+      <p style="color:var(--text3);font-size:12px">Або налаштуй GitHub у sidebar → меню завантажиться звідти автоматично</p>
+    </div>`;
+  renderCatList();
+}
+
 function loadFromFile(input) {
   const file = input.files[0];
   if (!file) return;
-  const reader = new FileReader();
-  reader.onload = e => {
+  const r = new FileReader();
+  r.onload = e => {
     try {
       menuData = JSON.parse(e.target.result);
-      document.getElementById('loadScreen').style.display = 'none';
-      activeCatId = menuData[0]?.id || null;
-      renderSidebar();
-      renderMain();
-      showToast('✅ Файл завантажено', 'success');
-    } catch {
-      showToast('❌ Невірний формат JSON', 'error');
+      saveToLocal();
+      renderAll();
+      toast('Файл завантажено', 'ok');
+    } catch (_) {
+      toast('Помилка парсингу JSON', 'err');
     }
   };
-  reader.readAsText(file);
-  input.value = '';
+  r.readAsText(file);
 }
 
-function loadEmpty() {
-  menuData = [];
-  document.getElementById('loadScreen').style.display = 'none';
-  activeCatId = null;
-  renderSidebar();
-  renderMain();
+// ══════════════════════════════════════════
+//  RENDER
+// ══════════════════════════════════════════
+function renderAll() {
+  if (!activeCatId && menuData.length) activeCatId = menuData[0].id;
+  renderCatList();
+  renderCatContent();
 }
 
-// Drag & drop on load screen
-const loadDrop = document.getElementById('loadDrop');
-loadDrop.addEventListener('dragover', e => { e.preventDefault(); loadDrop.classList.add('dragover'); });
-loadDrop.addEventListener('dragleave', () => loadDrop.classList.remove('dragover'));
-loadDrop.addEventListener('drop', e => {
-  e.preventDefault(); loadDrop.classList.remove('dragover');
-  const file = e.dataTransfer.files[0];
-  if (file && file.name.endsWith('.json')) {
-    const fakeInput = { files: [file] };
-    loadFromFile(fakeInput);
-  }
-});
-
-/* ══════════════════════════════════
-   SIDEBAR
-══════════════════════════════════ */
-function renderSidebar() {
-  const list = document.getElementById('catList');
+function renderCatList() {
+  const el = document.getElementById('catList');
   if (!menuData.length) {
-    list.innerHTML = '<div style="padding:16px;font-size:13px;color:var(--text3);text-align:center;">Немає категорій</div>';
+    el.innerHTML = `<div style="padding:16px;color:var(--text3);font-size:12px;text-align:center">Немає категорій</div>`;
     return;
   }
-  list.innerHTML = menuData.map(cat => `
-    <button class="cat-item ${cat.id === activeCatId ? 'active' : ''}"
-            onclick="selectCat('${cat.id}')">
-      <span>${cat.name}</span>
-      <span class="cat-count">${cat.dishes.length}</span>
-    </button>
-  `).join('');
-}
-
-function selectCat(catId) {
-  activeCatId = catId;
-  renderSidebar();
-  renderMain();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-/* ══════════════════════════════════
-   MAIN AREA
-══════════════════════════════════ */
-function renderMain() {
-  const el = document.getElementById('mainContent');
-  if (!menuData.length || !activeCatId) {
-    el.innerHTML = `<div class="empty-state">
-      <div class="empty-icon">🗂</div>
-      <div class="empty-title">Оберіть або створіть категорію</div>
-      <div class="empty-sub">Скористайтеся панеллю зліва</div>
+  el.innerHTML = menuData.map(cat => `
+    <div class="cat-item ${cat.id === activeCatId ? 'active' : ''}" onclick="selectCat('${cat.id}')">
+      <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${cat.name}</span>
+      <span class="cat-item-count">${cat.dishes.length}</span>
+    </div>
+  `).join('') + `
+    <div class="cat-item" onclick="addCategory()" style="color:var(--text3);margin-top:4px">
+      <span>+ Нова категорія</span>
     </div>`;
+}
+
+function renderCatContent() {
+  const cat = menuData.find(c => c.id === activeCatId);
+  if (!cat) {
+    document.getElementById('mainArea').innerHTML = `<div class="empty-state"><div class="empty-icon">🍽</div><div class="empty-title">Оберіть категорію</div></div>`;
     return;
   }
+
+  const q = (document.getElementById('dishSearch')?.value || '').toLowerCase().trim();
+  const dishes = q
+    ? cat.dishes.filter(d => d.name.toLowerCase().includes(q) || (d.composition || '').toLowerCase().includes(q))
+    : cat.dishes;
+
+  document.getElementById('mainArea').innerHTML = `
+    <div class="topbar">
+      <div class="topbar-title">${cat.name}</div>
+      <span class="topbar-cat-id">${cat.id}</span>
+      <button class="btn btn-ghost btn-sm" onclick="editCategory()">✎ Перейменувати</button>
+      <button class="btn btn-danger btn-sm" onclick="deleteCategory()">Видалити</button>
+    </div>
+    <div class="content-area">
+      <div class="cat-edit-bar">
+        <span style="color:var(--text3);font-size:12px">Назва:</span>
+        <input type="text" value="${cat.name}" onchange="renameCat(this.value)" id="catNameInput">
+        <span style="color:var(--text3);font-size:12px;margin-left:8px">ID:</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent2)">${cat.id}</span>
+      </div>
+
+      <div class="dishes-toolbar">
+        <input type="text" class="search-field" id="dishSearch" placeholder="Пошук страв…" oninput="renderCatContent()" value="${q}">
+        <button class="btn btn-primary btn-sm" onclick="openNewDish()">+ Страва</button>
+      </div>
+
+      <div class="dishes-list">
+        ${dishes.length ? dishes.map(d => renderDishRow(d)).join('') : `
+          <div class="empty-state">
+            <div class="empty-icon">🔍</div>
+            <div class="empty-title">Нічого не знайдено</div>
+          </div>`}
+      </div>
+    </div>`;
+}
+
+function renderDishRow(d) {
+  const isRec = d.extras && d.extras.some(e => e.toLowerCase() === 'рекомендуємо');
+  const isActive = d.active !== false;
+  return `
+    <div class="dish-row ${!isActive ? 'inactive' : ''}">
+      <div class="dish-thumb">
+        ${d.image_url ? `<img src="${d.image_url}" onerror="this.parentElement.textContent='🍽'">` : '🍽'}
+      </div>
+      <div class="dish-info">
+        <div class="dish-name-row">
+          <span class="dish-name">${d.name}</span>
+          ${isRec ? `<span class="badge badge-rec">⭐ рекомендуємо</span>` : ''}
+          ${!isActive ? `<span class="badge badge-inactive">прихована</span>` : ''}
+        </div>
+        <div class="dish-meta">
+          <span class="dish-price">${d.price} ₴</span>
+          ${d.weight ? `<span>${d.weight}</span>` : ''}
+          ${d.composition ? `<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:300px">${d.composition}</span>` : ''}
+        </div>
+      </div>
+      <div class="dish-actions">
+        <button class="btn btn-ghost btn-sm btn-icon" title="Редагувати" onclick="openEditDish('${d.id}')">✎</button>
+      </div>
+    </div>`;
+}
+
+// ══════════════════════════════════════════
+//  CATEGORIES
+// ══════════════════════════════════════════
+function selectCat(id) {
+  activeCatId = id;
+  renderAll();
+}
+
+function renameCat(newName) {
+  const cat = menuData.find(c => c.id === activeCatId);
+  if (cat) { cat.name = newName; saveToLocal(); markChanged(); renderCatList(); }
+}
+
+function addCategory() {
+  const name = prompt('Назва нової категорії:');
+  if (!name) return;
+  const id = name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') + '-' + Date.now().toString(36);
+  const sortMax = menuData.reduce((m, c) => Math.max(m, c.sort_order || 0), 0);
+  menuData.push({ id, name, sort_order: sortMax + 1, dishes: [] });
+  activeCatId = id;
+  saveToLocal(); markChanged(); renderAll();
+  toast('Категорію створено', 'ok');
+}
+
+function deleteCategory() {
   const cat = menuData.find(c => c.id === activeCatId);
   if (!cat) return;
-
-  el.innerHTML = `
-    <div class="main-header">
-      <div>
-        <div class="main-title">${cat.name} <span>(${cat.dishes.length})</span></div>
-        <div class="main-sub">Редагуйте страви категорії</div>
-      </div>
-      <div style="display:flex;gap:8px">
-        <button class="btn btn-outline btn-sm" onclick="openRenameCatModal()">✏️ Перейменувати</button>
-        <button class="btn btn-red btn-sm" onclick="deleteCat('${cat.id}')">🗑 Видалити категорію</button>
-      </div>
-    </div>
-
-    <div class="cat-edit-bar">
-      <label>ID категорії:</label>
-      <input type="text" value="${cat.id}" onchange="updateCatId('${cat.id}', this.value)"
-             style="max-width:240px" placeholder="cat-id">
-    </div>
-
-    <div class="dishes-grid" id="dishesGrid">
-      ${cat.dishes.map(d => renderDishEditor(d)).join('')}
-    </div>
-
-    <button class="add-dish-btn" onclick="addDish('${cat.id}')">
-      <span style="font-size:20px">+</span> Додати страву
-    </button>
-  `;
-}
-
-/* ══════════════════════════════════
-   DISH EDITOR CARD
-══════════════════════════════════ */
-function renderDishEditor(dish) {
-  const imgSrc = dish.image || '';
-  const imgHtml = imgSrc
-    ? `<img src="${imgSrc}" onerror="this.parentElement.innerHTML='🍽'">`
-    : '🍽';
-  const extrasHtml = (dish.extras || []).map((e, i) => `
-    <span class="extra-tag">
-      ⚡ ${e}
-      <button onclick="removeExtra('${dish.id}', ${i})" title="Видалити">✕</button>
-    </span>`).join('');
-
-  return `
-  <div class="dish-editor" id="dish-${dish.id}">
-    <div class="dish-editor-head" onclick="toggleDish('${dish.id}')">
-      <div class="dish-thumb">${imgHtml}</div>
-      <div class="dish-head-info">
-        <div class="dish-head-name">${dish.name || '<без назви>'}</div>
-        <div class="dish-head-meta">${dish.weight ? '⚖ ' + dish.weight : ''}${dish.weight && dish.composition ? ' · ' : ''}${dish.composition ? dish.composition.substring(0,50) + (dish.composition.length > 50 ? '…' : '') : ''}</div>
-      </div>
-      <div class="dish-head-price">${dish.price ? dish.price + ' ₴' : '—'}</div>
-      <div class="dish-chevron">▾</div>
-    </div>
-
-    <div class="dish-editor-body">
-      <div class="form-grid">
-
-        <div class="form-group">
-          <label>Назва</label>
-          <input type="text" value="${esc(dish.name)}"
-                 oninput="updateField('${dish.id}','name',this.value);updateHeadName('${dish.id}',this.value)">
-        </div>
-
-        <div class="form-group">
-          <label>Ціна (₴)</label>
-          <input type="number" value="${dish.price || ''}"
-                 oninput="updateField('${dish.id}','price',+this.value);updateHeadPrice('${dish.id}',+this.value)">
-        </div>
-
-        <div class="form-group full">
-          <label>Опис</label>
-          <textarea oninput="updateField('${dish.id}','description',this.value)">${esc(dish.description||'')}</textarea>
-        </div>
-
-        <div class="form-group full">
-          <label>Склад</label>
-          <textarea oninput="updateField('${dish.id}','composition',this.value)">${esc(dish.composition||'')}</textarea>
-        </div>
-
-        <div class="form-group">
-          <label>Вага</label>
-          <input type="text" value="${esc(dish.weight||'')}"
-                 placeholder="270г"
-                 oninput="updateField('${dish.id}','weight',this.value)">
-        </div>
-
-        <div class="form-group">
-          <label>ID страви</label>
-          <input type="text" value="${esc(dish.id)}"
-                 onchange="updateDishId('${dish.id}',this.value)">
-        </div>
-
-        <div class="form-group full">
-          <label>Зображення</label>
-          <div class="image-picker-wrap">
-            <div class="dish-thumb image-preview" id="preview-${dish.id}">${imgHtml}</div>
-            <div class="image-picker-right">
-              <input class="image-path-input" type="text"
-                     value="${esc(imgSrc)}"
-                     id="imgPath-${dish.id}"
-                     placeholder="./images/dish.webp"
-                     oninput="updateImagePath('${dish.id}',this.value)">
-              <label class="file-pick-btn" for="imgFile-${dish.id}">
-                📁 Вибрати файл з /images/
-              </label>
-              <input type="file" id="imgFile-${dish.id}" accept="image/*"
-                     onchange="pickImageFile('${dish.id}',this)">
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group full">
-          <label>Теги / особливості</label>
-          <div class="extras-wrap" id="extras-${dish.id}">
-            ${extrasHtml}
-            <button class="extra-add" onclick="addExtra('${dish.id}')">+ Додати тег</button>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="dish-editor-actions">
-        <button class="btn btn-red btn-sm" onclick="openDeleteModal('${dish.id}','${esc(dish.name)}')">
-          🗑 Видалити страву
-        </button>
-        <button class="btn btn-outline btn-sm" onclick="toggleDish('${dish.id}')">Згорнути</button>
-      </div>
-    </div>
-  </div>`;
-}
-
-/* ══════════════════════════════════
-   TOGGLE EXPAND
-══════════════════════════════════ */
-function toggleDish(dishId) {
-  document.getElementById('dish-' + dishId)?.classList.toggle('expanded');
-}
-
-/* ══════════════════════════════════
-   FIELD UPDATES
-══════════════════════════════════ */
-function getCat() { return menuData.find(c => c.id === activeCatId); }
-function getDish(dishId) { return getCat()?.dishes.find(d => d.id === dishId); }
-
-function updateField(dishId, field, value) {
-  const dish = getDish(dishId);
-  if (dish) dish[field] = value;
-}
-
-function updateHeadName(dishId, val) {
-  const el = document.querySelector(`#dish-${dishId} .dish-head-name`);
-  if (el) el.textContent = val || '<без назви>';
-}
-
-function updateHeadPrice(dishId, val) {
-  const el = document.querySelector(`#dish-${dishId} .dish-head-price`);
-  if (el) el.textContent = val ? val + ' ₴' : '—';
-}
-
-function updateDishId(oldId, newId) {
-  newId = newId.trim();
-  if (!newId || newId === oldId) return;
-  if (getCat()?.dishes.find(d => d.id === newId)) {
-    showToast('❌ ID вже існує', 'error'); return;
-  }
-  const dish = getDish(oldId);
-  if (dish) {
-    dish.id = newId;
-    renderMain(); // re-render to sync all refs
-  }
-}
-
-function updateCatId(oldId, newId) {
-  newId = newId.trim();
-  if (!newId || newId === oldId) return;
-  const cat = menuData.find(c => c.id === oldId);
-  if (cat) { cat.id = newId; activeCatId = newId; renderSidebar(); }
-}
-
-/* ══════════════════════════════════
-   IMAGE PICKER
-══════════════════════════════════ */
-function pickImageFile(dishId, input) {
-  const file = input.files[0];
-  if (!file) return;
-  const path = './images/' + file.name;
-  document.getElementById('imgPath-' + dishId).value = path;
-  updateImagePath(dishId, path);
-  input.value = '';
-}
-
-function updateImagePath(dishId, path) {
-  updateField(dishId, 'image', path);
-  const preview = document.getElementById('preview-' + dishId);
-  const thumb   = document.querySelector(`#dish-${dishId} .dish-thumb`);
-  if (path) {
-    const imgTag = `<img src="${path}" onerror="this.parentElement.innerHTML='🍽'">`;
-    if (preview) preview.innerHTML = imgTag;
-    if (thumb)   thumb.innerHTML   = imgTag;
-  } else {
-    if (preview) preview.innerHTML = '🍽';
-    if (thumb)   thumb.innerHTML   = '🍽';
-  }
-}
-
-/* ══════════════════════════════════
-   EXTRAS
-══════════════════════════════════ */
-function addExtra(dishId) {
-  const val = prompt('Введіть тег (наприклад: новинка, хіт, гостре):');
-  if (!val?.trim()) return;
-  const dish = getDish(dishId);
-  if (!dish.extras) dish.extras = [];
-  dish.extras.push(val.trim());
-  rerenderExtras(dishId, dish.extras);
-}
-
-function removeExtra(dishId, idx) {
-  const dish = getDish(dishId);
-  if (dish?.extras) {
-    dish.extras.splice(idx, 1);
-    rerenderExtras(dishId, dish.extras);
-  }
-}
-
-function rerenderExtras(dishId, extras) {
-  const wrap = document.getElementById('extras-' + dishId);
-  if (!wrap) return;
-  wrap.innerHTML = (extras||[]).map((e, i) => `
-    <span class="extra-tag">
-      ⚡ ${e}
-      <button onclick="removeExtra('${dishId}', ${i})" title="Видалити">✕</button>
-    </span>`).join('') +
-    `<button class="extra-add" onclick="addExtra('${dishId}')">+ Додати тег</button>`;
-}
-
-/* ══════════════════════════════════
-   ADD / DELETE DISH
-══════════════════════════════════ */
-function addDish(catId) {
-  const cat = menuData.find(c => c.id === catId);
-  if (!cat) return;
-  const id = 'dish-' + Date.now();
-  cat.dishes.push({ id, name: 'Нова страва', description: '', composition: '', price: 0, weight: '', image: '', extras: [] });
-  renderSidebar();
-  renderMain();
-  // auto-expand the new card
-  setTimeout(() => {
-    const el = document.getElementById('dish-' + id);
-    if (el) { el.classList.add('expanded'); el.scrollIntoView({ behavior:'smooth', block:'center' }); }
-  }, 80);
-}
-
-function openDeleteModal(dishId, dishName) {
-  pendingDeleteDishId = dishId;
-  document.getElementById('deleteModalSub').textContent = `«${dishName}» буде видалено назавжди.`;
-  document.getElementById('deleteModal').classList.add('open');
-}
-
-function confirmDelete() {
-  const cat = getCat();
-  if (cat && pendingDeleteDishId) {
-    cat.dishes = cat.dishes.filter(d => d.id !== pendingDeleteDishId);
-    closeModal('deleteModal');
-    renderSidebar();
-    renderMain();
-    showToast('🗑 Страву видалено');
-  }
-}
-
-/* ══════════════════════════════════
-   CATEGORIES
-══════════════════════════════════ */
-function openAddCatModal() {
-  document.getElementById('newCatName').value = '';
-  document.getElementById('newCatId').value = '';
-  document.getElementById('addCatModal').classList.add('open');
-  setTimeout(() => document.getElementById('newCatName').focus(), 100);
-}
-
-function confirmAddCat() {
-  const name = document.getElementById('newCatName').value.trim();
-  const id   = document.getElementById('newCatId').value.trim().replace(/\s+/g, '-');
-  if (!name || !id) { showToast('❌ Заповніть обидва поля', 'error'); return; }
-  if (menuData.find(c => c.id === id)) { showToast('❌ ID вже існує', 'error'); return; }
-  menuData.push({ id, name, dishes: [] });
-  activeCatId = id;
-  closeModal('addCatModal');
-  renderSidebar();
-  renderMain();
-  showToast('✅ Категорію додано', 'success');
-}
-
-let renameCatTarget = null;
-function openRenameCatModal() {
-  const cat = getCat();
-  if (!cat) return;
-  renameCatTarget = cat.id;
-  document.getElementById('newCatName').value = cat.name;
-  document.getElementById('newCatId').value = cat.id;
-  document.getElementById('addCatModal').classList.add('open');
-}
-
-function deleteCat(catId) {
-  if (!confirm(`Видалити категорію і всі її страви?`)) return;
-  menuData = menuData.filter(c => c.id !== catId);
+  if (!confirm(`Видалити категорію «${cat.name}» і всі ${cat.dishes.length} страв?`)) return;
+  menuData = menuData.filter(c => c.id !== activeCatId);
   activeCatId = menuData[0]?.id || null;
-  renderSidebar();
-  renderMain();
-  showToast('🗑 Категорію видалено');
+  saveToLocal(); markChanged(); renderAll();
+  toast('Категорію видалено', 'ok');
 }
 
-/* ══════════════════════════════════
-   SAVE JSON
-══════════════════════════════════ */
-function saveJSON() {
-  const json = JSON.stringify(menuData, null, 2);
-  const blob = new Blob([json], { type: 'application/json' });
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement('a');
-  a.href = url; a.download = 'menu.json';
-  a.click();
-  URL.revokeObjectURL(url);
-  showToast('💾 menu.json збережено!', 'success');
+// ══════════════════════════════════════════
+//  DISH MODAL
+// ══════════════════════════════════════════
+function openNewDish() {
+  editingIsNew = true;
+  editingDishId = null;
+  document.getElementById('dishModalTitle').textContent = '+ Нова страва';
+  document.getElementById('deleteDishBtn').style.display = 'none';
+  setFields({ name:'', price:'', weight:'', description:'', composition:'', image_url:'', extras:[], active:true });
+  document.getElementById('dishModal').classList.add('open');
 }
 
-/* ══════════════════════════════════
-   MODALS / TOAST / UTILS
-══════════════════════════════════ */
-function closeModal(id) {
-  document.getElementById(id).classList.remove('open');
+function openEditDish(id) {
+  const cat = menuData.find(c => c.id === activeCatId);
+  const dish = cat?.dishes.find(d => d.id === id);
+  if (!dish) return;
+  editingIsNew = false;
+  editingDishId = id;
+  document.getElementById('dishModalTitle').textContent = 'Редагувати страву';
+  document.getElementById('deleteDishBtn').style.display = '';
+  setFields(dish);
+  document.getElementById('dishModal').classList.add('open');
 }
 
+function setFields(d) {
+  document.getElementById('f-name').value    = d.name || '';
+  document.getElementById('f-price').value   = d.price || '';
+  document.getElementById('f-weight').value  = d.weight || '';
+  document.getElementById('f-desc').value    = d.description || '';
+  document.getElementById('f-comp').value    = d.composition || '';
+  document.getElementById('f-img').value     = d.image_url || '';
+  document.getElementById('f-extras').value  = (d.extras || []).join(', ');
+  const toggle = document.getElementById('f-active');
+  toggle.classList.toggle('on', d.active !== false);
+}
+
+function getFields() {
+  return {
+    name:        document.getElementById('f-name').value.trim(),
+    price:       Number(document.getElementById('f-price').value) || 0,
+    weight:      document.getElementById('f-weight').value.trim(),
+    description: document.getElementById('f-desc').value.trim(),
+    composition: document.getElementById('f-comp').value.trim(),
+    image_url:   document.getElementById('f-img').value.trim(),
+    extras:      document.getElementById('f-extras').value.split(',').map(e => e.trim()).filter(Boolean),
+    active:      document.getElementById('f-active').classList.contains('on'),
+  };
+}
+
+function saveDish() {
+  const cat = menuData.find(c => c.id === activeCatId);
+  if (!cat) return;
+  const fields = getFields();
+  if (!fields.name) { toast('Вкажи назву страви', 'err'); return; }
+
+  if (editingIsNew) {
+    const id = fields.name.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'') + '-' + Date.now().toString(36);
+    cat.dishes.push({ id, ...fields });
+    toast('Страву додано', 'ok');
+  } else {
+    const idx = cat.dishes.findIndex(d => d.id === editingDishId);
+    if (idx !== -1) cat.dishes[idx] = { ...cat.dishes[idx], ...fields };
+    toast('Збережено', 'ok');
+  }
+
+  saveToLocal(); markChanged();
+  closeDishModal();
+  renderCatContent();
+}
+
+function confirmDeleteDish() {
+  if (!confirm('Видалити цю страву?')) return;
+  const cat = menuData.find(c => c.id === activeCatId);
+  if (cat) cat.dishes = cat.dishes.filter(d => d.id !== editingDishId);
+  saveToLocal(); markChanged();
+  closeDishModal();
+  renderCatContent();
+  toast('Страву видалено', 'ok');
+}
+
+function closeDishModal() {
+  document.getElementById('dishModal').classList.remove('open');
+}
+
+// ══════════════════════════════════════════
+//  SETTINGS
+// ══════════════════════════════════════════
+function loadSettings() {
+  document.getElementById('gh-token').value  = localStorage.getItem('gh_token')  || '';
+  document.getElementById('gh-repo').value   = localStorage.getItem('gh_repo')   || '';
+  document.getElementById('gh-branch').value = localStorage.getItem('gh_branch') || 'main';
+  document.getElementById('gh-path').value   = localStorage.getItem('gh_path')   || 'menu.json';
+}
+
+function saveSettings() {
+  localStorage.setItem('gh_token',  document.getElementById('gh-token').value.trim());
+  localStorage.setItem('gh_repo',   document.getElementById('gh-repo').value.trim());
+  localStorage.setItem('gh_branch', document.getElementById('gh-branch').value.trim() || 'main');
+  localStorage.setItem('gh_path',   document.getElementById('gh-path').value.trim() || 'menu.json');
+  closeSettings();
+  toast('Налаштування збережено', 'ok');
+}
+
+function openSettings() {
+  loadSettings();
+  document.getElementById('settingsModal').classList.add('open');
+}
+function closeSettings() { document.getElementById('settingsModal').classList.remove('open'); }
+
+// ══════════════════════════════════════════
+//  PUBLISH
+// ══════════════════════════════════════════
+function openPublish() {
+  document.getElementById('publishLog').innerHTML = 'Готово до публікації.';
+  document.getElementById('doPublishBtn').disabled = false;
+  document.getElementById('doPublishBtn').innerHTML = '↑ Завантажити в GitHub';
+  document.getElementById('publishModal').classList.add('open');
+}
+function closePublish() { document.getElementById('publishModal').classList.remove('open'); }
+
+function log(msg, cls='') {
+  const el = document.getElementById('publishLog');
+  el.innerHTML += `<div class="${cls}">${msg}</div>`;
+  el.scrollTop = el.scrollHeight;
+}
+
+async function doPublish() {
+  const token  = localStorage.getItem('gh_token');
+  const repo   = localStorage.getItem('gh_repo');
+  const branch = localStorage.getItem('gh_branch') || 'main';
+  const path   = localStorage.getItem('gh_path')   || 'menu.json';
+  const msg    = document.getElementById('commit-msg').value.trim() || 'Update menu.json';
+
+  if (!token || !repo) {
+    log('⚠ Спочатку налаштуй GitHub токен і репозиторій', 'log-err');
+    return;
+  }
+
+  const btn = document.getElementById('doPublishBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Публікація…';
+
+  document.getElementById('publishLog').innerHTML = '';
+  log(`→ Репозиторій: ${repo}`, 'log-info');
+  log(`→ Гілка: ${branch}, файл: ${path}`, 'log-info');
+
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(menuData, null, 2))));
+  const apiBase = `https://api.github.com/repos/${repo}/contents/${path}`;
+  const headers = {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json',
+    'Accept': 'application/vnd.github+json',
+  };
+
+  try {
+    // Get current SHA (needed for update)
+    log('◦ Отримую поточний SHA файлу…');
+    let sha = null;
+    const getRes = await fetch(`${apiBase}?ref=${branch}`, { headers });
+    if (getRes.ok) {
+      const data = await getRes.json();
+      sha = data.sha;
+      log(`◦ SHA: ${sha.slice(0,8)}…`);
+    } else if (getRes.status === 404) {
+      log('◦ Файл не існує — буде створений', 'log-info');
+    } else {
+      throw new Error(`GitHub API: ${getRes.status} ${getRes.statusText}`);
+    }
+
+    // Push
+    log('◦ Відправляю файл…');
+    const body = { message: msg, content, branch };
+    if (sha) body.sha = sha;
+
+    const putRes = await fetch(apiBase, {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify(body),
+    });
+
+    if (!putRes.ok) {
+      const err = await putRes.json();
+      throw new Error(err.message || putRes.statusText);
+    }
+
+    const result = await putRes.json();
+    log(`✓ Опубліковано! Коміт: ${result.commit.sha.slice(0,8)}`, 'log-ok');
+    log(`✓ ${result.commit.html_url}`, 'log-ok');
+
+    changedSincePublish = false;
+    updatePublishBtn();
+    btn.disabled = false;
+    btn.innerHTML = '✓ Опубліковано';
+    toast('Меню опубліковано в GitHub', 'ok');
+
+  } catch (err) {
+    log(`✕ Помилка: ${err.message}`, 'log-err');
+    btn.disabled = false;
+    btn.innerHTML = '↑ Спробувати знову';
+    toast('Помилка публікації', 'err');
+  }
+}
+
+// ══════════════════════════════════════════
+//  HELPERS
+// ══════════════════════════════════════════
+function saveToLocal() {
+  try { localStorage.setItem('ogon_admin_menu', JSON.stringify(menuData)); } catch(_) {}
+}
+
+function markChanged() {
+  changedSincePublish = true;
+  updatePublishBtn();
+}
+
+function updatePublishBtn() {
+  const btn = document.getElementById('publishBtn');
+  if (changedSincePublish) {
+    btn.textContent = '↑ Опублікувати ●';
+    btn.style.background = '#c084fc';
+  } else {
+    btn.textContent = '↑ Опублікувати';
+    btn.style.background = '';
+  }
+}
+
+let toastTimer;
+function toast(msg, type='') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = `toast show ${type}`;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+// Close modals on overlay click
 document.querySelectorAll('.modal-overlay').forEach(overlay => {
   overlay.addEventListener('click', e => {
     if (e.target === overlay) overlay.classList.remove('open');
   });
 });
 
-// Enter key in modal
-document.getElementById('newCatId').addEventListener('keydown', e => {
-  if (e.key === 'Enter') confirmAddCat();
-});
-
-let toastTimer;
-function showToast(msg, type = '') {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'toast show' + (type ? ' ' + type : '');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => { t.className = 'toast'; }, 2800);
-}
-
-function esc(str) {
-  return (str || '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-// Ctrl+S shortcut
+// Keyboard: Escape closes modals
 document.addEventListener('keydown', e => {
-  if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); saveJSON(); }
+  if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
 });
+
+init();
 </script>
 </body>
 </html>
