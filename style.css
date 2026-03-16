@@ -338,7 +338,7 @@ aside::-webkit-scrollbar-thumb { background: var(--border-light); border-radius:
   outline: none;
   color: var(--text);
   font-family: 'Manrope', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   flex: 1;
 }
 
