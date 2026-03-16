@@ -160,7 +160,7 @@ function buildAndRender() {
 
   const base = menuData.filter(c => c.id !== '__recommended__');
   menuData = recommended.length
-    ? [{ id: '__recommended__', name: '⭐ Рекомендації', dishes: recommended }, ...base]
+    ? [{ id: '__recommended__', name: 'Рекомендації', dishes: recommended }, ...base]
     : base;
 
   menuData.forEach(c => { if (openCats[c.id] === undefined) openCats[c.id] = true; });

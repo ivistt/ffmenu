@@ -417,7 +417,6 @@ aside::-webkit-scrollbar-thumb { background: var(--border-light); border-radius:
   position: sticky;
   top: var(--sticky-top);
   z-index: 10;
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 
 
@@ -1212,7 +1211,7 @@ aside::-webkit-scrollbar-thumb { background: var(--border-light); border-radius:
   .search-tabs-sticky { padding: 10px 0 0; }
 
   .dishes-grid { grid-template-columns: 1fr;  gap: 9px; }
-  .dish-card { border-right: none; }
+
   .dish-img-wrap { aspect-ratio: 21 / 9; }
   .dish-name { font-size: 18px; }
   .dish-desc { font-size: 12px; }
@@ -1220,7 +1219,7 @@ aside::-webkit-scrollbar-thumb { background: var(--border-light); border-radius:
   .dish-price { font-size: 16px; }
 
   .cat-title { font-size: 16px; }
-  .cat-header { padding: 6px 15px; top: 161px; }
+  .cat-header { padding: 6px 15px; top: 162px; }
 
   .order-panel {
     position: fixed;
