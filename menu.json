@@ -12,7 +12,7 @@
         "price": 340,
         "weight": "290г",
         "extras": [],
-        "image_url": "./images/классик.png"
+        "image_url": "/ffmenu/images/классик.png"
       },
       {
         "id": "hr2",
@@ -24,7 +24,7 @@
         "extras": [
           "рекомендуємо"
         ],
-        "image_url": "/images/фила с креветкой.png"
+        "image_url": "/ffmenu/images/фила с креветкой.png"
       },
       {
         "id": "hr3",
@@ -34,7 +34,7 @@
         "price": 385,
         "weight": "310г",
         "extras": [],
-        "image_url": "/images/икура.png"
+        "image_url": "/ffmenu/images/икура.png"
       },
       {
         "id": "hr4",
@@ -46,7 +46,7 @@
         "extras": [
           "рекомендуємо"
         ],
-        "image_url": "/images/САМУРАЙ.png"
+        "image_url": "/ffmenu/images/САМУРАЙ.png"
       },
       {
         "id": "hr5",
@@ -56,7 +56,7 @@
         "price": 405,
         "weight": "280г",
         "extras": [],
-        "image_url": "/images/инь ян.png"
+        "image_url": "/ffmenu/images/инь ян.png"
       },
       {
         "id": "hr6",
@@ -68,7 +68,7 @@
         "extras": [
           "рекомендуємо"
         ],
-        "image_url": "/images/філа міні.png"
+        "image_url": "/ffmenu/images/філа міні.png"
       },
       {
         "id": "hr7",
@@ -78,7 +78,7 @@
         "price": 325,
         "weight": "260г",
         "extras": [],
-        "image_url": "/images/кранч.png"
+        "image_url": "/ffmenu/images/кранч.png"
       },
       {
         "id": "hr8",
@@ -88,7 +88,7 @@
         "price": 380,
         "weight": "270г",
         "extras": [],
-        "image_url": "/images/файр.png"
+        "image_url": "/ffmenu/images/файр.png"
       },
       {
         "id": "hr9",
@@ -98,7 +98,7 @@
         "price": 325,
         "weight": "260г",
         "extras": [],
-        "image_url": "/images/калифорния краб.png"
+        "image_url": "/ffmenu/images/калифорния краб.png"
       },
       {
         "id": "hr10",
@@ -110,7 +110,7 @@
         "extras": [
           "рекомендуємо"
         ],
-        "image_url": "/images/вулкан.png"
+        "image_url": "/ffmenu/images/вулкан.png"
       },
       {
         "id": "hr11",
@@ -120,7 +120,7 @@
         "price": 410,
         "weight": "270г",
         "extras": [],
-        "image_url": "/images/канада.png"
+        "image_url": "/ffmenu/images/канада.png"
       },
       {
         "id": "hr12",
@@ -130,7 +130,7 @@
         "price": 345,
         "weight": "290г",
         "extras": [],
-        "image_url": "/images/хантер.png"
+        "image_url": "/ffmenu/images/хантер.png"
       },
       {
         "id": "hr13",
@@ -140,7 +140,7 @@
         "price": 366,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/вегас.png"
+        "image_url": "/ffmenu/images/вегас.png"
       },
       {
         "id": "hr14",
@@ -150,7 +150,7 @@
         "price": 325,
         "weight": "290г",
         "extras": [],
-        "image_url": "/images/токио.png"
+        "image_url": "/ffmenu/images/токио.png"
       },
       {
         "id": "hr15",
@@ -160,7 +160,7 @@
         "price": 305,
         "weight": "240г",
         "extras": [],
-        "image_url": "/images/эби.png"
+        "image_url": "/ffmenu/images/эби.png"
       },
       {
         "id": "hr16",
@@ -173,7 +173,7 @@
           "новинка",
           "рекомендуємо"
         ],
-        "image_url": "/images/огняный дракон.png"
+        "image_url": "/ffmenu/images/огняный дракон.png"
       },
       {
         "id": "hr17",
@@ -185,7 +185,7 @@
         "extras": [
           "новинка"
         ],
-        "image_url": "/images/черный дракон.png"
+        "image_url": "/ffmenu/images/черный дракон.png"
       },
       {
         "id": "hr18",
@@ -197,7 +197,7 @@
         "extras": [
           "новинка"
         ],
-        "image_url": "/images/зелений дракон.png"
+        "image_url": "/ffmenu/images/зелений дракон.png"
       },
       {
         "id": "hr19",
@@ -207,7 +207,7 @@
         "price": 360,
         "weight": "310г",
         "extras": [],
-        "image_url": "/images/аризона.png"
+        "image_url": "/ffmenu/images/аризона.png"
       },
       {
         "id": "hr20",
@@ -219,7 +219,7 @@
         "extras": [
           "новинка"
         ],
-        "image_url": "/images/дракон с угрем.png"
+        "image_url": "/ffmenu/images/дракон с угрем.png"
       },
       {
         "id": "hr21",
@@ -229,7 +229,7 @@
         "price": 380,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/амур.png"
+        "image_url": "/ffmenu/images/амур.png"
       },
       {
         "id": "hr22",
@@ -241,7 +241,7 @@
         "extras": [
           "новинка"
         ],
-        "image_url": "/images/червоний оксами.png"
+        "image_url": "/ffmenu/images/червоний оксами.png"
       },
       {
         "id": "hr23",
@@ -253,7 +253,7 @@
         "extras": [
           "новинка"
         ],
-        "image_url": "/images/вулкан з креветкой.png"
+        "image_url": "/ffmenu/images/вулкан з креветкой.png"
       },
       {
         "id": "hr24",
@@ -265,7 +265,7 @@
         "extras": [
           "новинка"
         ],
-        "image_url": "/images/ікура фіш.png"
+        "image_url": "/ffmenu/images/ікура фіш.png"
       },
       {
         "id": "hr25",
@@ -277,7 +277,7 @@
         "extras": [
           "рекомендуємо"
         ],
-        "image_url": "/images/чиз ролл.png"
+        "image_url": "/ffmenu/images/чиз ролл.png"
       },
       {
         "id": "hr26",
@@ -287,7 +287,7 @@
         "price": 365,
         "weight": "320г",
         "extras": [],
-        "image_url": "/images/унагі ікура.png"
+        "image_url": "/ffmenu/images/унагі ікура.png"
       },
       {
         "id": "hr27",
@@ -297,7 +297,7 @@
         "price": 355,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/лососева хвиля.png"
+        "image_url": "/ffmenu/images/лососева хвиля.png"
       },
       {
         "id": "hr28",
@@ -307,7 +307,7 @@
         "price": 280,
         "weight": "350г",
         "extras": [],
-        "image_url": "/images/рол цезар.png"
+        "image_url": "/ffmenu/images/рол цезар.png"
       },
       {
         "id": "hr29",
@@ -317,7 +317,7 @@
         "price": 410,
         "weight": "280г",
         "extras": [],
-        "image_url": "/images/йокогама.png"
+        "image_url": "/ffmenu/images/йокогама.png"
       },
       {
         "id": "hr30",
@@ -327,7 +327,7 @@
         "price": 365,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/вулкан.png"
+        "image_url": "/ffmenu/images/вулкан.png"
       },
       {
         "id": "dish-1772966488430",
@@ -339,7 +339,7 @@
         "extras": [
           "тестовый тег"
         ],
-        "image_url": "/images/main-1.png"
+        "image_url": "/ffmenu/images/main-1.png"
       }
     ]
   },
@@ -356,7 +356,7 @@
         "price": 315,
         "weight": "340г",
         "extras": [],
-        "image_url": "/images/блек хот.png"
+        "image_url": "/ffmenu/images/блек хот.png"
       },
       {
         "id": "gr2",
@@ -366,7 +366,7 @@
         "price": 290,
         "weight": "310г",
         "extras": [],
-        "image_url": "/images/филадельфия хот.png"
+        "image_url": "/ffmenu/images/филадельфия хот.png"
       },
       {
         "id": "gr3",
@@ -376,7 +376,7 @@
         "price": 370,
         "weight": "330г",
         "extras": [],
-        "image_url": "/images/бансай.png"
+        "image_url": "/ffmenu/images/бансай.png"
       },
       {
         "id": "gr4",
@@ -386,7 +386,7 @@
         "price": 375,
         "weight": "320г",
         "extras": [],
-        "image_url": "/images/хот ред.png"
+        "image_url": "/ffmenu/images/хот ред.png"
       },
       {
         "id": "gr5",
@@ -396,7 +396,7 @@
         "price": 1145,
         "weight": "1280г",
         "extras": [],
-        "image_url": "/images/хот сет.png"
+        "image_url": "/ffmenu/images/хот сет.png"
       },
       {
         "id": "gr6",
@@ -406,7 +406,7 @@
         "price": 290,
         "weight": "310г",
         "extras": [],
-        "image_url": "/images/креветка хот-1.png"
+        "image_url": "/ffmenu/images/креветка хот-1.png"
       },
       {
         "id": "gr7",
@@ -416,7 +416,7 @@
         "price": 370,
         "weight": "310г",
         "extras": [],
-        "image_url": "/images/катаифи.png"
+        "image_url": "/ffmenu/images/катаифи.png"
       },
       {
         "id": "gr8",
@@ -426,7 +426,7 @@
         "price": 260,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/чикен хот.png"
+        "image_url": "/ffmenu/images/чикен хот.png"
       },
       {
         "id": "gr9",
@@ -436,7 +436,7 @@
         "price": 395,
         "weight": "450г",
         "extras": [],
-        "image_url": "/images/суши бургер фрмовий.png"
+        "image_url": "/ffmenu/images/суши бургер фрмовий.png"
       },
       {
         "id": "gr10",
@@ -446,7 +446,7 @@
         "price": 385,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/суши бургер з лососем.png"
+        "image_url": "/ffmenu/images/суши бургер з лососем.png"
       },
       {
         "id": "gr11",
@@ -456,7 +456,7 @@
         "price": 360,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/суши док з лососем.png"
+        "image_url": "/ffmenu/images/суши док з лососем.png"
       },
       {
         "id": "gr12",
@@ -466,7 +466,7 @@
         "price": 365,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/суши док з лососем.png"
+        "image_url": "/ffmenu/images/суши док з лососем.png"
       }
     ]
   },
@@ -483,7 +483,7 @@
         "price": 1670,
         "weight": "1360г",
         "extras": [],
-        "image_url": "/images/сет драконов.png"
+        "image_url": "/ffmenu/images/сет драконов.png"
       },
       {
         "id": "st2",
@@ -493,7 +493,7 @@
         "price": 2290,
         "weight": "2кг",
         "extras": [],
-        "image_url": "/images/великий сет.png"
+        "image_url": "/ffmenu/images/великий сет.png"
       },
       {
         "id": "st3",
@@ -503,7 +503,7 @@
         "price": 1430,
         "weight": "1150г",
         "extras": [],
-        "image_url": "/images/СЕТ ФИЛАДЕЛЬФИЯ1.png"
+        "image_url": "/ffmenu/images/СЕТ ФИЛАДЕЛЬФИЯ1.png"
       },
       {
         "id": "st4",
@@ -513,7 +513,7 @@
         "price": 1785,
         "weight": "1.8кг",
         "extras": [],
-        "image_url": "/images/великий лайт сет.png"
+        "image_url": "/ffmenu/images/великий лайт сет.png"
       },
       {
         "id": "st5",
@@ -523,7 +523,7 @@
         "price": 910,
         "weight": "800г",
         "extras": [],
-        "image_url": "/images/креветка сет.png"
+        "image_url": "/ffmenu/images/креветка сет.png"
       },
       {
         "id": "st6",
@@ -533,7 +533,7 @@
         "price": 1925,
         "weight": "1500г",
         "extras": [],
-        "image_url": "/images/супер сет.png"
+        "image_url": "/ffmenu/images/супер сет.png"
       },
       {
         "id": "st7",
@@ -543,7 +543,7 @@
         "price": 1220,
         "weight": "1.1кг",
         "extras": [],
-        "image_url": "/images/вулкан сет.png"
+        "image_url": "/ffmenu/images/вулкан сет.png"
       },
       {
         "id": "st8",
@@ -553,7 +553,7 @@
         "price": 1220,
         "weight": "1.1кг",
         "extras": [],
-        "image_url": "/images/вулкан сет.png"
+        "image_url": "/ffmenu/images/вулкан сет.png"
       },
       {
         "id": "st9",
@@ -563,7 +563,7 @@
         "price": 1220,
         "weight": "1.1кг",
         "extras": [],
-        "image_url": "/images/вулкан сет.png"
+        "image_url": "/ffmenu/images/вулкан сет.png"
       },
       {
         "id": "st10",
@@ -573,7 +573,7 @@
         "price": 1220,
         "weight": "1.1кг",
         "extras": [],
-        "image_url": "/images/вулкан сет.png"
+        "image_url": "/ffmenu/images/вулкан сет.png"
       },
       {
         "id": "st11",
@@ -583,7 +583,7 @@
         "price": 1390,
         "weight": "1.3кг",
         "extras": [],
-        "image_url": "/images/фиш сет.png"
+        "image_url": "/ffmenu/images/фиш сет.png"
       },
       {
         "id": "st12",
@@ -593,7 +593,7 @@
         "price": 911,
         "weight": "1кг",
         "extras": [],
-        "image_url": "/images/лайт сет.png"
+        "image_url": "/ffmenu/images/лайт сет.png"
       }
     ]
   },
@@ -604,14 +604,13 @@
     "dishes": [
       {
         "id": "pz1",
-        "name": "Фірмова Вогонь1",
+        "name": "Фірмова Вогонь",
         "description": "Фірмова піца з телячою вирізкою, білими грибами і сиром дор блю",
         "composition": "Вирізка телятини, білі гриби, вершки, пармезан, сир дор блю, моцарела, мисливські ковбаски, солоний огірок, чері, рукола, чилі, печериці, перчик червоний",
         "price": 360,
         "weight": "750г/32см",
         "extras": [],
-        "image_url": "/images/пицца фирменная.png",
-        "active": true
+        "image_url": "/ffmenu/images/пицца фирменная.png"
       },
       {
         "id": "pz2",
@@ -621,7 +620,7 @@
         "price": 295,
         "weight": "700г/32см",
         "extras": [],
-        "image_url": "/images/деревенская.png"
+        "image_url": "/ffmenu/images/деревенская.png"
       },
       {
         "id": "pz3",
@@ -631,7 +630,7 @@
         "price": 280,
         "weight": "600г/32см",
         "extras": [],
-        "image_url": "/images/пеперони.png"
+        "image_url": "/ffmenu/images/пеперони.png"
       },
       {
         "id": "pz4",
@@ -641,7 +640,7 @@
         "price": 345,
         "weight": "700г/32см",
         "extras": [],
-        "image_url": "/images/мясная.png"
+        "image_url": "/ffmenu/images/мясная.png"
       },
       {
         "id": "pz5",
@@ -651,7 +650,7 @@
         "price": 315,
         "weight": "700г/32см",
         "extras": [],
-        "image_url": "/images/гавайская.png"
+        "image_url": "/ffmenu/images/гавайская.png"
       },
       {
         "id": "pz6",
@@ -661,7 +660,7 @@
         "price": 345,
         "weight": "600г/32см",
         "extras": [],
-        "image_url": "/images/4-сыра.png"
+        "image_url": "/ffmenu/images/4-сыра.png"
       },
       {
         "id": "pz7",
@@ -671,7 +670,7 @@
         "price": 410,
         "weight": "750г/32см",
         "extras": [],
-        "image_url": "/images/морепродукты.png"
+        "image_url": "/ffmenu/images/морепродукты.png"
       },
       {
         "id": "pz8",
@@ -681,7 +680,7 @@
         "price": 335,
         "weight": "800г/32см",
         "extras": [],
-        "image_url": "/images/цезарь1.png"
+        "image_url": "/ffmenu/images/цезарь1.png"
       },
       {
         "id": "pz9",
@@ -691,7 +690,7 @@
         "price": 320,
         "weight": "750г/32см",
         "extras": [],
-        "image_url": "/images/груша.png"
+        "image_url": "/ffmenu/images/груша.png"
       },
       {
         "id": "pz10",
@@ -701,7 +700,7 @@
         "price": 255,
         "weight": "650г/32см",
         "extras": [],
-        "image_url": "/images/маргаріта.png"
+        "image_url": "/ffmenu/images/маргаріта.png"
       },
       {
         "id": "pz11",
@@ -711,7 +710,7 @@
         "price": 310,
         "weight": "750г/32см",
         "extras": [],
-        "image_url": "/images/митбол.png"
+        "image_url": "/ffmenu/images/митбол.png"
       },
       {
         "id": "pz12",
@@ -721,7 +720,7 @@
         "price": 355,
         "weight": "750г/32см",
         "extras": [],
-        "image_url": "/images/сирна з трюфелем.png"
+        "image_url": "/ffmenu/images/сирна з трюфелем.png"
       },
       {
         "id": "pz13",
@@ -731,7 +730,7 @@
         "price": 365,
         "weight": "700г/32см",
         "extras": [],
-        "image_url": "/images/по пекінськи.png"
+        "image_url": "/ffmenu/images/по пекінськи.png"
       },
       {
         "id": "pz14",
@@ -743,7 +742,7 @@
         "extras": [
           "новинка"
         ],
-        "image_url": "/images/грибна піца.png"
+        "image_url": "/ffmenu/images/грибна піца.png"
       },
       {
         "id": "pz15",
@@ -755,7 +754,7 @@
         "extras": [
           "новинка"
         ],
-        "image_url": "/images/кіндер.png"
+        "image_url": "/ffmenu/images/кіндер.png"
       },
       {
         "id": "pz16",
@@ -767,7 +766,7 @@
         "extras": [
           "новинка"
         ],
-        "image_url": "/images/кальцоне.png"
+        "image_url": "/ffmenu/images/кальцоне.png"
       },
       {
         "id": "pz17",
@@ -779,7 +778,7 @@
         "extras": [
           "новинка"
         ],
-        "image_url": "/images/карбонара.png"
+        "image_url": "/ffmenu/images/карбонара.png"
       },
       {
         "id": "pz18",
@@ -791,7 +790,7 @@
         "extras": [
           "новинка"
         ],
-        "image_url": "/images/жульєн.png"
+        "image_url": "/ffmenu/images/жульєн.png"
       },
       {
         "id": "pz19",
@@ -803,7 +802,7 @@
         "extras": [
           "новинка"
         ],
-        "image_url": "/images/піца ін-янь.png"
+        "image_url": "/ffmenu/images/піца ін-янь.png"
       },
       {
         "id": "pz20",
@@ -815,7 +814,7 @@
         "extras": [
           "новинка"
         ],
-        "image_url": "/images/піца бургер.png"
+        "image_url": "/ffmenu/images/піца бургер.png"
       },
       {
         "id": "pz21",
@@ -827,7 +826,7 @@
         "extras": [
           "новинка"
         ],
-        "image_url": "/images/роял песто.png"
+        "image_url": "/ffmenu/images/роял песто.png"
       }
     ]
   },
@@ -844,7 +843,7 @@
         "price": 265,
         "weight": "600г",
         "extras": [],
-        "image_url": "/images/Пирог с капустой.png"
+        "image_url": "/ffmenu/images/Пирог с капустой.png"
       },
       {
         "id": "kh2",
@@ -854,7 +853,7 @@
         "price": 215,
         "weight": "600г",
         "extras": [],
-        "image_url": "/images/Пирог с капустой.png"
+        "image_url": "/ffmenu/images/Пирог с капустой.png"
       },
       {
         "id": "kh3",
@@ -864,7 +863,7 @@
         "price": 240,
         "weight": "600г",
         "extras": [],
-        "image_url": "/images/Пирог с капустой.png"
+        "image_url": "/ffmenu/images/Пирог с капустой.png"
       },
       {
         "id": "kh4",
@@ -874,7 +873,7 @@
         "price": 275,
         "weight": "600г",
         "extras": [],
-        "image_url": "/images/Пирог с капустой.png"
+        "image_url": "/ffmenu/images/Пирог с капустой.png"
       },
       {
         "id": "kh5",
@@ -884,7 +883,7 @@
         "price": 345,
         "weight": "600г",
         "extras": [],
-        "image_url": "/images/лобіані з тел.png"
+        "image_url": "/ffmenu/images/лобіані з тел.png"
       },
       {
         "id": "kh6",
@@ -894,7 +893,7 @@
         "price": 335,
         "weight": "550г",
         "extras": [],
-        "image_url": "/images/лобіані.png"
+        "image_url": "/ffmenu/images/лобіані.png"
       },
       {
         "id": "kh7",
@@ -904,7 +903,7 @@
         "price": 390,
         "weight": "650г",
         "extras": [],
-        "image_url": "/images/лобіані.png"
+        "image_url": "/ffmenu/images/лобіані.png"
       },
       {
         "id": "kh8",
@@ -914,7 +913,7 @@
         "price": 385,
         "weight": "700г",
         "extras": [],
-        "image_url": "/images/хачапури.png"
+        "image_url": "/ffmenu/images/хачапури.png"
       },
       {
         "id": "kh9",
@@ -924,7 +923,7 @@
         "price": 335,
         "weight": "650г",
         "extras": [],
-        "image_url": "/images/хачапури.png"
+        "image_url": "/ffmenu/images/хачапури.png"
       },
       {
         "id": "kh10",
@@ -934,7 +933,7 @@
         "price": 290,
         "weight": "500г",
         "extras": [],
-        "image_url": "/images/хачапури.png"
+        "image_url": "/ffmenu/images/хачапури.png"
       },
       {
         "id": "kh11",
@@ -1012,7 +1011,7 @@
         "price": 280,
         "weight": "350г",
         "extras": [],
-        "image_url": "/images/карбонара.png"
+        "image_url": "/ffmenu/images/карбонара.png"
       },
       {
         "id": "ps2",
@@ -1059,7 +1058,7 @@
         "price": 310,
         "weight": "400/100г",
         "extras": [],
-        "image_url": "/images/бургер з уткою 1.png"
+        "image_url": "/ffmenu/images/бургер з уткою 1.png"
       },
       {
         "id": "bg2",
@@ -1069,7 +1068,7 @@
         "price": 335,
         "weight": "400/100г",
         "extras": [],
-        "image_url": "/images/бургер з уткою 1.png"
+        "image_url": "/ffmenu/images/бургер з уткою 1.png"
       },
       {
         "id": "bg3",
@@ -1079,7 +1078,7 @@
         "price": 310,
         "weight": "400/100г",
         "extras": [],
-        "image_url": "/images/бургер з уткою 1.png"
+        "image_url": "/ffmenu/images/бургер з уткою 1.png"
       },
       {
         "id": "bg4",
@@ -1089,7 +1088,7 @@
         "price": 365,
         "weight": "400/100г",
         "extras": [],
-        "image_url": "/images/бургер з уткою 1.png"
+        "image_url": "/ffmenu/images/бургер з уткою 1.png"
       }
     ]
   },
@@ -1126,7 +1125,7 @@
         "price": 225,
         "weight": "350г",
         "extras": [],
-        "image_url": "/images/сніданок по французськи.png"
+        "image_url": "/ffmenu/images/сніданок по французськи.png"
       },
       {
         "id": "sn4",
@@ -1341,7 +1340,7 @@
         "price": 325,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/помидори по вірменськи.png"
+        "image_url": "/ffmenu/images/помидори по вірменськи.png"
       },
       {
         "id": "hz2",
@@ -1351,7 +1350,7 @@
         "price": 180,
         "weight": "1/2 частини",
         "extras": [],
-        "image_url": "/images/скумбрія селедка.png"
+        "image_url": "/ffmenu/images/скумбрія селедка.png"
       },
       {
         "id": "hz3",
@@ -1361,7 +1360,7 @@
         "price": 295,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/помідори по італьянськи.png"
+        "image_url": "/ffmenu/images/помідори по італьянськи.png"
       },
       {
         "id": "hz4",
@@ -1371,7 +1370,7 @@
         "price": 310,
         "weight": "350г",
         "extras": [],
-        "image_url": "/images/фаршмак.png"
+        "image_url": "/ffmenu/images/фаршмак.png"
       },
       {
         "id": "hz5",
@@ -1381,7 +1380,7 @@
         "price": 245,
         "weight": "250г",
         "extras": [],
-        "image_url": "/images/тартар з печених овочів.png"
+        "image_url": "/ffmenu/images/тартар з печених овочів.png"
       },
       {
         "id": "hz6",
@@ -1391,7 +1390,7 @@
         "price": 295,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/соління домашні.png"
+        "image_url": "/ffmenu/images/соління домашні.png"
       },
       {
         "id": "hz7",
@@ -1401,7 +1400,7 @@
         "price": 980,
         "weight": "1000/100г",
         "extras": [],
-        "image_url": "/images/закуска под водочку.png"
+        "image_url": "/ffmenu/images/закуска под водочку.png"
       },
       {
         "id": "hz8",
@@ -1411,7 +1410,7 @@
         "price": 345,
         "weight": "250г",
         "extras": [],
-        "image_url": "/images/карпаччо з вирізкою телятини.png"
+        "image_url": "/ffmenu/images/карпаччо з вирізкою телятини.png"
       },
       {
         "id": "hz9",
@@ -1421,7 +1420,7 @@
         "price": 255,
         "weight": "250г",
         "extras": [],
-        "image_url": "/images/карпачо томата.png"
+        "image_url": "/ffmenu/images/карпачо томата.png"
       },
       {
         "id": "hz10",
@@ -1431,7 +1430,7 @@
         "price": 445,
         "weight": "300/50г",
         "extras": [],
-        "image_url": "/images/сырное ассорти.png"
+        "image_url": "/ffmenu/images/сырное ассорти.png"
       },
       {
         "id": "hz11",
@@ -1441,7 +1440,7 @@
         "price": 290,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/капрезе.png"
+        "image_url": "/ffmenu/images/капрезе.png"
       },
       {
         "id": "hz12",
@@ -1451,7 +1450,7 @@
         "price": 380,
         "weight": "6шт",
         "extras": [],
-        "image_url": "/images/брускета  лососем.png"
+        "image_url": "/ffmenu/images/брускета  лососем.png"
       },
       {
         "id": "hz13",
@@ -1461,7 +1460,7 @@
         "price": 325,
         "weight": "250г",
         "extras": [],
-        "image_url": "/images/асорті сала.png"
+        "image_url": "/ffmenu/images/асорті сала.png"
       },
       {
         "id": "hz14",
@@ -1471,7 +1470,7 @@
         "price": 330,
         "weight": "250г",
         "extras": [],
-        "image_url": "/images/болгарская закуска.png"
+        "image_url": "/ffmenu/images/болгарская закуска.png"
       },
       {
         "id": "hz15",
@@ -1491,7 +1490,7 @@
         "price": 665,
         "weight": "500г",
         "extras": [],
-        "image_url": "/images/бесарабська закуска.png"
+        "image_url": "/ffmenu/images/бесарабська закуска.png"
       },
       {
         "id": "hz17",
@@ -1501,7 +1500,7 @@
         "price": 260,
         "weight": "200г",
         "extras": [],
-        "image_url": "/images/товстолобік.png"
+        "image_url": "/ffmenu/images/товстолобік.png"
       },
       {
         "id": "hz18",
@@ -1511,7 +1510,7 @@
         "price": 260,
         "weight": "200г",
         "extras": [],
-        "image_url": "/images/мариновані гриби.png"
+        "image_url": "/ffmenu/images/мариновані гриби.png"
       },
       {
         "id": "hz19",
@@ -1521,7 +1520,7 @@
         "price": 240,
         "weight": "350г",
         "extras": [],
-        "image_url": "/images/одеська тюлька.png"
+        "image_url": "/ffmenu/images/одеська тюлька.png"
       },
       {
         "id": "hz20",
@@ -1531,7 +1530,7 @@
         "price": 265,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/овочеве асорті.png"
+        "image_url": "/ffmenu/images/овочеве асорті.png"
       },
       {
         "id": "hz21",
@@ -1581,7 +1580,7 @@
         "price": 375,
         "weight": "250г",
         "extras": [],
-        "image_url": "/images/карпачо з лосося та манго.png"
+        "image_url": "/ffmenu/images/карпачо з лосося та манго.png"
       },
       {
         "id": "hz26",
@@ -1591,7 +1590,7 @@
         "price": 255,
         "weight": "250г",
         "extras": [],
-        "image_url": "/images/тар тар авокадо чіабата.png"
+        "image_url": "/ffmenu/images/тар тар авокадо чіабата.png"
       },
       {
         "id": "hz27",
@@ -1601,7 +1600,7 @@
         "price": 365,
         "weight": "350г",
         "extras": [],
-        "image_url": "/images/шая.png"
+        "image_url": "/ffmenu/images/шая.png"
       },
       {
         "id": "hz28",
@@ -1611,7 +1610,7 @@
         "price": 420,
         "weight": "250г",
         "extras": [],
-        "image_url": "/images/лосось соло.png"
+        "image_url": "/ffmenu/images/лосось соло.png"
       },
       {
         "id": "hz29",
@@ -1621,7 +1620,7 @@
         "price": 365,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/віп солення.png"
+        "image_url": "/ffmenu/images/віп солення.png"
       },
       {
         "id": "hz30",
@@ -1631,7 +1630,7 @@
         "price": 290,
         "weight": "200г",
         "extras": [],
-        "image_url": "/images/росбиф1.png"
+        "image_url": "/ffmenu/images/росбиф1.png"
       }
     ]
   },
@@ -1648,7 +1647,7 @@
         "price": 275,
         "weight": "350г",
         "extras": [],
-        "image_url": "/images/шопський салат.png"
+        "image_url": "/ffmenu/images/шопський салат.png"
       },
       {
         "id": "sl2",
@@ -1658,7 +1657,7 @@
         "price": 325,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/салат з ростбіфом від шефа.png"
+        "image_url": "/ffmenu/images/салат з ростбіфом від шефа.png"
       },
       {
         "id": "sl3",
@@ -1668,7 +1667,7 @@
         "price": 295,
         "weight": "350г",
         "extras": [],
-        "image_url": "/images/грузинський салат.png"
+        "image_url": "/ffmenu/images/грузинський салат.png"
       },
       {
         "id": "sl4",
@@ -1678,7 +1677,7 @@
         "price": 375,
         "weight": "350г",
         "extras": [],
-        "image_url": "/images/салат з гребішком.png"
+        "image_url": "/ffmenu/images/салат з гребішком.png"
       },
       {
         "id": "sl5",
@@ -1688,7 +1687,7 @@
         "price": 275,
         "weight": "350г",
         "extras": [],
-        "image_url": "/images/грецький салат.png"
+        "image_url": "/ffmenu/images/грецький салат.png"
       },
       {
         "id": "sl6",
@@ -1698,7 +1697,7 @@
         "price": 315,
         "weight": "350г",
         "extras": [],
-        "image_url": "/images/старо грецький.png"
+        "image_url": "/ffmenu/images/старо грецький.png"
       },
       {
         "id": "sl7",
@@ -1708,7 +1707,7 @@
         "price": 365,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/салат з язиком.png"
+        "image_url": "/ffmenu/images/салат з язиком.png"
       },
       {
         "id": "sl8",
@@ -1718,7 +1717,7 @@
         "price": 240,
         "weight": "350г",
         "extras": [],
-        "image_url": "/images/салат літній.png"
+        "image_url": "/ffmenu/images/салат літній.png"
       },
       {
         "id": "sl9",
@@ -1728,7 +1727,7 @@
         "price": 380,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/голандець.png"
+        "image_url": "/ffmenu/images/голандець.png"
       },
       {
         "id": "sl10",
@@ -1738,7 +1737,7 @@
         "price": 415,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/салат с семгой.png"
+        "image_url": "/ffmenu/images/салат с семгой.png"
       },
       {
         "id": "sl11",
@@ -1748,7 +1747,7 @@
         "price": 325,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/цезарь с курицей.png"
+        "image_url": "/ffmenu/images/цезарь с курицей.png"
       },
       {
         "id": "sl12",
@@ -1758,7 +1757,7 @@
         "price": 345,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/салат солоний буйвол.png"
+        "image_url": "/ffmenu/images/салат солоний буйвол.png"
       },
       {
         "id": "sl13",
@@ -1768,7 +1767,7 @@
         "price": 370,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/салат с телятиной в ореховом соусе.png"
+        "image_url": "/ffmenu/images/салат с телятиной в ореховом соусе.png"
       },
       {
         "id": "sl14",
@@ -1778,7 +1777,7 @@
         "price": 375,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/буржуй.png"
+        "image_url": "/ffmenu/images/буржуй.png"
       },
       {
         "id": "sl15",
@@ -1788,7 +1787,7 @@
         "price": 315,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/олівʼє з куркою.png"
+        "image_url": "/ffmenu/images/олівʼє з куркою.png"
       },
       {
         "id": "sl16",
@@ -1798,7 +1797,7 @@
         "price": 375,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/олівʼє з лососем.png"
+        "image_url": "/ffmenu/images/олівʼє з лососем.png"
       },
       {
         "id": "sl17",
@@ -1808,7 +1807,7 @@
         "price": 325,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/кальмаровий салат.png"
+        "image_url": "/ffmenu/images/кальмаровий салат.png"
       }
     ]
   },
@@ -1825,7 +1824,7 @@
         "price": 480,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/блакитна лагуна.png"
+        "image_url": "/ffmenu/images/блакитна лагуна.png"
       },
       {
         "id": "ts2",
@@ -1835,7 +1834,7 @@
         "price": 545,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/Океан.png"
+        "image_url": "/ffmenu/images/Океан.png"
       },
       {
         "id": "ts3",
@@ -1845,7 +1844,7 @@
         "price": 380,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/биф салат.png"
+        "image_url": "/ffmenu/images/биф салат.png"
       },
       {
         "id": "ts4",
@@ -1855,7 +1854,7 @@
         "price": 375,
         "weight": "350г",
         "extras": [],
-        "image_url": "/images/Салат с уткой.png"
+        "image_url": "/ffmenu/images/Салат с уткой.png"
       },
       {
         "id": "ts5",
@@ -1865,7 +1864,7 @@
         "price": 345,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/цезарь с курицей.png"
+        "image_url": "/ffmenu/images/цезарь с курицей.png"
       },
       {
         "id": "ts6",
@@ -1875,7 +1874,7 @@
         "price": 315,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/салат с печени.png"
+        "image_url": "/ffmenu/images/салат с печени.png"
       },
       {
         "id": "ts7",
@@ -1885,7 +1884,7 @@
         "price": 430,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/тайский салат.png"
+        "image_url": "/ffmenu/images/тайский салат.png"
       },
       {
         "id": "ts8",
@@ -1895,7 +1894,7 @@
         "price": 355,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/салат с белых грибов.png"
+        "image_url": "/ffmenu/images/салат с белых грибов.png"
       },
       {
         "id": "ts9",
@@ -1905,7 +1904,7 @@
         "price": 335,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/салат з індички.png"
+        "image_url": "/ffmenu/images/салат з індички.png"
       },
       {
         "id": "ts10",
@@ -1915,7 +1914,7 @@
         "price": 335,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/салат гриль з куркою.png"
+        "image_url": "/ffmenu/images/салат гриль з куркою.png"
       },
       {
         "id": "ts11",
@@ -1925,7 +1924,7 @@
         "price": 365,
         "weight": "350г",
         "extras": [],
-        "image_url": "/images/салат лососева сакура.png"
+        "image_url": "/ffmenu/images/салат лососева сакура.png"
       },
       {
         "id": "ts12",
@@ -1935,7 +1934,7 @@
         "price": 360,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/салат з язиком_1.png"
+        "image_url": "/ffmenu/images/салат з язиком_1.png"
       }
     ]
   },
@@ -1952,7 +1951,7 @@
         "price": 315,
         "weight": "8шт",
         "extras": [],
-        "image_url": "/images/сулугуні фрі.png"
+        "image_url": "/ffmenu/images/сулугуні фрі.png"
       },
       {
         "id": "gz2",
@@ -1962,7 +1961,7 @@
         "price": 360,
         "weight": "8шт",
         "extras": [],
-        "image_url": "/images/камамбер фрі.png"
+        "image_url": "/ffmenu/images/камамбер фрі.png"
       },
       {
         "id": "gz3",
@@ -1972,7 +1971,7 @@
         "price": 340,
         "weight": "6шт",
         "extras": [],
-        "image_url": "/images/сир в клярі 4 сира.png"
+        "image_url": "/ffmenu/images/сир в клярі 4 сира.png"
       },
       {
         "id": "gz4",
@@ -1982,7 +1981,7 @@
         "price": 290,
         "weight": "250г",
         "extras": [],
-        "image_url": "/images/халуми.png"
+        "image_url": "/ffmenu/images/халуми.png"
       },
       {
         "id": "gz5",
@@ -1992,7 +1991,7 @@
         "price": 275,
         "weight": "6шт",
         "extras": [],
-        "image_url": "/images/Сырные шарики.png"
+        "image_url": "/ffmenu/images/Сырные шарики.png"
       },
       {
         "id": "gz6",
@@ -2002,7 +2001,7 @@
         "price": 325,
         "weight": "8шт",
         "extras": [],
-        "image_url": "/images/блины с курицей.png"
+        "image_url": "/ffmenu/images/блины с курицей.png"
       },
       {
         "id": "gz7",
@@ -2012,7 +2011,7 @@
         "price": 345,
         "weight": "8шт",
         "extras": [],
-        "image_url": "/images/блины с курицей.png"
+        "image_url": "/ffmenu/images/блины с курицей.png"
       },
       {
         "id": "gz8",
@@ -2022,7 +2021,7 @@
         "price": 1135,
         "weight": "1000/100г",
         "extras": [],
-        "image_url": "/images/дошка під пиво 1.png"
+        "image_url": "/ffmenu/images/дошка під пиво 1.png"
       },
       {
         "id": "gz9",
@@ -2032,7 +2031,7 @@
         "price": 365,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/млинці дор блю.png"
+        "image_url": "/ffmenu/images/млинці дор блю.png"
       },
       {
         "id": "gz10",
@@ -2042,7 +2041,7 @@
         "price": 245,
         "weight": "8шт",
         "extras": [],
-        "image_url": "/images/наггетсы.png"
+        "image_url": "/ffmenu/images/наггетсы.png"
       },
       {
         "id": "gz11",
@@ -2052,7 +2051,7 @@
         "price": 385,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/огненные блинчики.png"
+        "image_url": "/ffmenu/images/огненные блинчики.png"
       },
       {
         "id": "gz12",
@@ -2062,7 +2061,7 @@
         "price": 990,
         "weight": "800/100г",
         "extras": [],
-        "image_url": "/images/снек дошка.png"
+        "image_url": "/ffmenu/images/снек дошка.png"
       },
       {
         "id": "gz13",
@@ -2072,7 +2071,7 @@
         "price": 280,
         "weight": "8шт",
         "extras": [],
-        "image_url": "/images/грибы с сыром.png"
+        "image_url": "/ffmenu/images/грибы с сыром.png"
       },
       {
         "id": "gz14",
@@ -2082,7 +2081,7 @@
         "price": 240,
         "weight": "8шт",
         "extras": [],
-        "image_url": "/images/грибы с сыром.png"
+        "image_url": "/ffmenu/images/грибы с сыром.png"
       }
     ]
   },
@@ -2099,7 +2098,7 @@
         "price": 425,
         "weight": "6шт",
         "extras": [],
-        "image_url": "/images/креветки катаіфі.png"
+        "image_url": "/ffmenu/images/креветки катаіфі.png"
       },
       {
         "id": "ms2",
@@ -2109,7 +2108,7 @@
         "price": 360,
         "weight": "6шт",
         "extras": [],
-        "image_url": "/images/креветки катаіфі.png"
+        "image_url": "/ffmenu/images/креветки катаіфі.png"
       },
       {
         "id": "ms3",
@@ -2119,7 +2118,7 @@
         "price": 325,
         "weight": "250/50г",
         "extras": [],
-        "image_url": "/images/кальмари за авокадо.png"
+        "image_url": "/ffmenu/images/кальмари за авокадо.png"
       },
       {
         "id": "ms4",
@@ -2129,7 +2128,7 @@
         "price": 355,
         "weight": "9шт",
         "extras": [],
-        "image_url": "/images/лососеві нагетси.png"
+        "image_url": "/ffmenu/images/лососеві нагетси.png"
       },
       {
         "id": "ms5",
@@ -2139,7 +2138,7 @@
         "price": 445,
         "weight": "6шт",
         "extras": [],
-        "image_url": "/images/катаіфі з лосося.png"
+        "image_url": "/ffmenu/images/катаіфі з лосося.png"
       },
       {
         "id": "ms6",
@@ -2149,7 +2148,7 @@
         "price": 345,
         "weight": "8шт",
         "extras": [],
-        "image_url": "/images/мидии по венг.png"
+        "image_url": "/ffmenu/images/мидии по венг.png"
       },
       {
         "id": "ms7",
@@ -2159,7 +2158,7 @@
         "price": 2100,
         "weight": "1.5кг",
         "extras": [],
-        "image_url": "/images/морський сет.png"
+        "image_url": "/ffmenu/images/морський сет.png"
       },
       {
         "id": "ms8",
@@ -2169,7 +2168,7 @@
         "price": 385,
         "weight": "350г",
         "extras": [],
-        "image_url": "/images/креветки тигрові від шефа.png"
+        "image_url": "/ffmenu/images/креветки тигрові від шефа.png"
       },
       {
         "id": "ms9",
@@ -2179,7 +2178,7 @@
         "price": 380,
         "weight": "700г",
         "extras": [],
-        "image_url": "/images/мідії у вершковому соусі.png"
+        "image_url": "/ffmenu/images/мідії у вершковому соусі.png"
       },
       {
         "id": "ms10",
@@ -2189,7 +2188,7 @@
         "price": 310,
         "weight": "600г",
         "extras": [],
-        "image_url": "/images/мідії у вершковому соусі.png"
+        "image_url": "/ffmenu/images/мідії у вершковому соусі.png"
       },
       {
         "id": "ms11",
@@ -2199,7 +2198,7 @@
         "price": 325,
         "weight": "750г",
         "extras": [],
-        "image_url": "/images/мідії у вершковому соусі.png"
+        "image_url": "/ffmenu/images/мідії у вершковому соусі.png"
       },
       {
         "id": "ms12",
@@ -2209,7 +2208,7 @@
         "price": 325,
         "weight": "8шт",
         "extras": [],
-        "image_url": "/images/равлики.png"
+        "image_url": "/ffmenu/images/равлики.png"
       },
       {
         "id": "ms13",
@@ -2219,7 +2218,7 @@
         "price": 325,
         "weight": "8шт",
         "extras": [],
-        "image_url": "/images/равлики.png"
+        "image_url": "/ffmenu/images/равлики.png"
       },
       {
         "id": "ms14",
@@ -2229,7 +2228,7 @@
         "price": 325,
         "weight": "8шт",
         "extras": [],
-        "image_url": "/images/равлики.png"
+        "image_url": "/ffmenu/images/равлики.png"
       },
       {
         "id": "ms15",
@@ -2239,7 +2238,7 @@
         "price": 325,
         "weight": "8шт",
         "extras": [],
-        "image_url": "/images/равлики.png"
+        "image_url": "/ffmenu/images/равлики.png"
       },
       {
         "id": "ms16",
@@ -2249,7 +2248,7 @@
         "price": 370,
         "weight": "6шт",
         "extras": [],
-        "image_url": "/images/креветка тісто філо.png"
+        "image_url": "/ffmenu/images/креветка тісто філо.png"
       }
     ]
   },
@@ -2266,7 +2265,7 @@
         "price": 280,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/крильця бафало.png"
+        "image_url": "/ffmenu/images/крильця бафало.png"
       },
       {
         "id": "gp2",
@@ -2276,7 +2275,7 @@
         "price": 265,
         "weight": "220г",
         "extras": [],
-        "image_url": "/images/креветки грен у соєвому.png"
+        "image_url": "/ffmenu/images/креветки грен у соєвому.png"
       },
       {
         "id": "gp3",
@@ -2286,7 +2285,7 @@
         "price": 315,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/тропічні рулети з гротеном.png"
+        "image_url": "/ffmenu/images/тропічні рулети з гротеном.png"
       },
       {
         "id": "gp4",
@@ -2296,7 +2295,7 @@
         "price": 335,
         "weight": "350г",
         "extras": [],
-        "image_url": "/images/сковородка з мідій.png"
+        "image_url": "/ffmenu/images/сковородка з мідій.png"
       },
       {
         "id": "gp5",
@@ -2306,7 +2305,7 @@
         "price": 430,
         "weight": "350г",
         "extras": [],
-        "image_url": "/images/сковородка з рапанів.png"
+        "image_url": "/ffmenu/images/сковородка з рапанів.png"
       },
       {
         "id": "gp6",
@@ -2316,7 +2315,7 @@
         "price": 340,
         "weight": "500г",
         "extras": [],
-        "image_url": "/images/пательня з вирізкою телятини.png"
+        "image_url": "/ffmenu/images/пательня з вирізкою телятини.png"
       },
       {
         "id": "gp7",
@@ -2326,7 +2325,7 @@
         "price": 280,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/сковорідка зі свининою.png"
+        "image_url": "/ffmenu/images/сковорідка зі свининою.png"
       },
       {
         "id": "gp8",
@@ -2336,7 +2335,7 @@
         "price": 265,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/мини гранд лазанья.png"
+        "image_url": "/ffmenu/images/мини гранд лазанья.png"
       },
       {
         "id": "gp9",
@@ -2346,7 +2345,7 @@
         "price": 285,
         "weight": "450г",
         "extras": [],
-        "image_url": "/images/курча пательня.png"
+        "image_url": "/ffmenu/images/курча пательня.png"
       },
       {
         "id": "gp10",
@@ -2356,7 +2355,7 @@
         "price": 415,
         "weight": "450г",
         "extras": [],
-        "image_url": "/images/запечені реберця ягня.png"
+        "image_url": "/ffmenu/images/запечені реберця ягня.png"
       },
       {
         "id": "gp11",
@@ -2366,7 +2365,7 @@
         "price": 435,
         "weight": "350г",
         "extras": [],
-        "image_url": "/images/смажене теля у соусі песто та гротеном.png"
+        "image_url": "/ffmenu/images/смажене теля у соусі песто та гротеном.png"
       }
     ]
   },
@@ -2383,7 +2382,7 @@
         "price": 355,
         "weight": "350г",
         "extras": [],
-        "image_url": "/images/шая.png"
+        "image_url": "/ffmenu/images/шая.png"
       },
       {
         "id": "tn2",
@@ -2393,7 +2392,7 @@
         "price": 355,
         "weight": "350г",
         "extras": [],
-        "image_url": "/images/ребра.png"
+        "image_url": "/ffmenu/images/ребра.png"
       },
       {
         "id": "tn3",
@@ -2403,7 +2402,7 @@
         "price": 270,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/крылышки.png"
+        "image_url": "/ffmenu/images/крылышки.png"
       },
       {
         "id": "tn4",
@@ -2413,7 +2412,7 @@
         "price": 290,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/филе курица.png"
+        "image_url": "/ffmenu/images/филе курица.png"
       },
       {
         "id": "tn5",
@@ -2423,7 +2422,7 @@
         "price": 290,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/бедра.png"
+        "image_url": "/ffmenu/images/бедра.png"
       },
       {
         "id": "tn6",
@@ -2433,7 +2432,7 @@
         "price": 355,
         "weight": "2шт",
         "extras": [],
-        "image_url": "/images/перепелка.png"
+        "image_url": "/ffmenu/images/перепелка.png"
       },
       {
         "id": "tn7",
@@ -2443,7 +2442,7 @@
         "price": 355,
         "weight": "500г",
         "extras": [],
-        "image_url": "/images/курча табака.png"
+        "image_url": "/ffmenu/images/курча табака.png"
       },
       {
         "id": "tn8",
@@ -2453,7 +2452,7 @@
         "price": 335,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/стегно в беконі.png"
+        "image_url": "/ffmenu/images/стегно в беконі.png"
       },
       {
         "id": "tn9",
@@ -2463,7 +2462,7 @@
         "price": 485,
         "weight": "250г",
         "extras": [],
-        "image_url": "/images/Вирізка теляча.png"
+        "image_url": "/ffmenu/images/Вирізка теляча.png"
       },
       {
         "id": "tn10",
@@ -2473,7 +2472,7 @@
         "price": 385,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/антрекот телятина.png"
+        "image_url": "/ffmenu/images/антрекот телятина.png"
       },
       {
         "id": "tn11",
@@ -2483,7 +2482,7 @@
         "price": 455,
         "weight": "250г",
         "extras": [],
-        "image_url": "/images/каре ягненка.png"
+        "image_url": "/ffmenu/images/каре ягненка.png"
       },
       {
         "id": "tn12",
@@ -2493,7 +2492,7 @@
         "price": 410,
         "weight": "250г",
         "extras": [],
-        "image_url": "/images/шашлик з ягня.png"
+        "image_url": "/ffmenu/images/шашлик з ягня.png"
       },
       {
         "id": "tn13",
@@ -2503,7 +2502,7 @@
         "price": 325,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/люля телятина свинина.png"
+        "image_url": "/ffmenu/images/люля телятина свинина.png"
       },
       {
         "id": "tn14",
@@ -2513,7 +2512,7 @@
         "price": 310,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/люля курица.png"
+        "image_url": "/ffmenu/images/люля курица.png"
       },
       {
         "id": "tn15",
@@ -2523,7 +2522,7 @@
         "price": 355,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/люля телятина свинина.png"
+        "image_url": "/ffmenu/images/люля телятина свинина.png"
       },
       {
         "id": "tn16",
@@ -2533,7 +2532,7 @@
         "price": 350,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/люля карп.png"
+        "image_url": "/ffmenu/images/люля карп.png"
       },
       {
         "id": "tn17",
@@ -2543,7 +2542,7 @@
         "price": 2290,
         "weight": "2.3кг",
         "extras": [],
-        "image_url": "/images/дошка шашликів.png"
+        "image_url": "/ffmenu/images/дошка шашликів.png"
       },
       {
         "id": "tn18",
@@ -2553,7 +2552,7 @@
         "price": 1885,
         "weight": "1.8кг",
         "extras": [],
-        "image_url": "/images/садж.png"
+        "image_url": "/ffmenu/images/садж.png"
       },
       {
         "id": "tn19",
@@ -2563,7 +2562,7 @@
         "price": 415,
         "weight": "500г",
         "extras": [],
-        "image_url": "/images/колбаски.png"
+        "image_url": "/ffmenu/images/колбаски.png"
       },
       {
         "id": "tn9b",
@@ -2592,7 +2591,7 @@
         "price": 220,
         "weight": "100г",
         "extras": [],
-        "image_url": "/images/стейк з сьомги.png"
+        "image_url": "/ffmenu/images/стейк з сьомги.png"
       },
       {
         "id": "rm2",
@@ -2602,7 +2601,7 @@
         "price": 220,
         "weight": "100г",
         "extras": [],
-        "image_url": "/images/шашлички сьомга.png"
+        "image_url": "/ffmenu/images/шашлички сьомга.png"
       },
       {
         "id": "rm3",
@@ -2612,7 +2611,7 @@
         "price": 260,
         "weight": "100г",
         "extras": [],
-        "image_url": "/images/сьомга по цар.png"
+        "image_url": "/ffmenu/images/сьомга по цар.png"
       },
       {
         "id": "rm4",
@@ -2622,7 +2621,7 @@
         "price": 380,
         "weight": "1шт",
         "extras": [],
-        "image_url": "/images/дорадо на вогні.png"
+        "image_url": "/ffmenu/images/дорадо на вогні.png"
       },
       {
         "id": "rm5",
@@ -2632,7 +2631,7 @@
         "price": 1265,
         "weight": "800г",
         "extras": [],
-        "image_url": "/images/фиш сет.png"
+        "image_url": "/ffmenu/images/фиш сет.png"
       },
       {
         "id": "rm6",
@@ -2642,7 +2641,7 @@
         "price": 355,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/скумбрія печена.png"
+        "image_url": "/ffmenu/images/скумбрія печена.png"
       },
       {
         "id": "rm7",
@@ -2652,7 +2651,7 @@
         "price": 420,
         "weight": "250г",
         "extras": [],
-        "image_url": "/images/судак.png"
+        "image_url": "/ffmenu/images/судак.png"
       },
       {
         "id": "rm8",
@@ -2662,7 +2661,7 @@
         "price": 315,
         "weight": "2шт",
         "extras": [],
-        "image_url": "/images/бычки.png"
+        "image_url": "/ffmenu/images/бычки.png"
       }
     ]
   },
@@ -2679,7 +2678,7 @@
         "price": 275,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/соте з печених овочів.png"
+        "image_url": "/ffmenu/images/соте з печених овочів.png"
       },
       {
         "id": "gn2",
@@ -2689,7 +2688,7 @@
         "price": 315,
         "weight": "350г",
         "extras": [],
-        "image_url": "/images/овочі гриль.png"
+        "image_url": "/ffmenu/images/овочі гриль.png"
       },
       {
         "id": "gn3",
@@ -2699,7 +2698,7 @@
         "price": 150,
         "weight": "200г",
         "extras": [],
-        "image_url": "/images/фрі.png"
+        "image_url": "/ffmenu/images/фрі.png"
       },
       {
         "id": "gn4",
@@ -2709,7 +2708,7 @@
         "price": 350,
         "weight": "350г",
         "extras": [],
-        "image_url": "/images/картошка по дом.png"
+        "image_url": "/ffmenu/images/картошка по дом.png"
       },
       {
         "id": "gn5",
@@ -2719,7 +2718,7 @@
         "price": 165,
         "weight": "250г",
         "extras": [],
-        "image_url": "/images/картопля по сел.png"
+        "image_url": "/ffmenu/images/картопля по сел.png"
       },
       {
         "id": "gn6",
@@ -2729,7 +2728,7 @@
         "price": 195,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/картошка с фетой.png"
+        "image_url": "/ffmenu/images/картошка с фетой.png"
       },
       {
         "id": "gn7",
@@ -2739,7 +2738,7 @@
         "price": 125,
         "weight": "5 половинок",
         "extras": [],
-        "image_url": "/images/картопля печена у тандирі.png"
+        "image_url": "/ffmenu/images/картопля печена у тандирі.png"
       },
       {
         "id": "gn8",
@@ -2749,7 +2748,7 @@
         "price": 215,
         "weight": "200г",
         "extras": [],
-        "image_url": "/images/картопля батат фрі.png"
+        "image_url": "/ffmenu/images/картопля батат фрі.png"
       },
       {
         "id": "gn9",
@@ -2759,7 +2758,7 @@
         "price": 155,
         "weight": "2шт",
         "extras": [],
-        "image_url": "/images/лаваш сулугуні.png"
+        "image_url": "/ffmenu/images/лаваш сулугуні.png"
       },
       {
         "id": "gn10",
@@ -2769,7 +2768,7 @@
         "price": 235,
         "weight": "6шт",
         "extras": [],
-        "image_url": "/images/картопля з мʼясною начінкою.png"
+        "image_url": "/ffmenu/images/картопля з мʼясною начінкою.png"
       }
     ]
   },
@@ -2786,7 +2785,7 @@
         "price": 335,
         "weight": "500г",
         "extras": [],
-        "image_url": "/images/голубці по укр.png"
+        "image_url": "/ffmenu/images/голубці по укр.png"
       },
       {
         "id": "bng2",
@@ -2796,7 +2795,7 @@
         "price": 580,
         "weight": "500г",
         "extras": [],
-        "image_url": "/images/лента ребер.png"
+        "image_url": "/ffmenu/images/лента ребер.png"
       },
       {
         "id": "bng3",
@@ -2806,7 +2805,7 @@
         "price": 375,
         "weight": "500г",
         "extras": [],
-        "image_url": "/images/долма.png"
+        "image_url": "/ffmenu/images/долма.png"
       },
       {
         "id": "bng4",
@@ -2816,7 +2815,7 @@
         "price": 415,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/креветка в кур.png"
+        "image_url": "/ffmenu/images/креветка в кур.png"
       },
       {
         "id": "bng5",
@@ -2826,7 +2825,7 @@
         "price": 315,
         "weight": "500г",
         "extras": [],
-        "image_url": "/images/печень с вишней и яблоком.png"
+        "image_url": "/ffmenu/images/печень с вишней и яблоком.png"
       },
       {
         "id": "bng6",
@@ -2846,7 +2845,7 @@
         "price": 545,
         "weight": "500г",
         "extras": [],
-        "image_url": "/images/ребра.png"
+        "image_url": "/ffmenu/images/ребра.png"
       },
       {
         "id": "bng8",
@@ -2856,7 +2855,7 @@
         "price": 390,
         "weight": "6шт",
         "extras": [],
-        "image_url": "/images/мини велингтон.png"
+        "image_url": "/ffmenu/images/мини велингтон.png"
       },
       {
         "id": "bng9",
@@ -2866,7 +2865,7 @@
         "price": 380,
         "weight": "500г",
         "extras": [],
-        "image_url": "/images/гранд.png"
+        "image_url": "/ffmenu/images/гранд.png"
       },
       {
         "id": "bng10",
@@ -2876,7 +2875,7 @@
         "price": 315,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/печінка теля.png"
+        "image_url": "/ffmenu/images/печінка теля.png"
       },
       {
         "id": "bng11",
@@ -2886,7 +2885,7 @@
         "price": 335,
         "weight": "400г",
         "extras": [],
-        "image_url": "/images/баклажаны кебаб.png"
+        "image_url": "/ffmenu/images/баклажаны кебаб.png"
       }
     ]
   },
@@ -2903,7 +2902,7 @@
         "price": 345,
         "weight": "8шт",
         "extras": [],
-        "image_url": "/images/тарталетка с крабом.png"
+        "image_url": "/ffmenu/images/тарталетка с крабом.png"
       },
       {
         "id": "bnh2",
@@ -2923,7 +2922,7 @@
         "price": 385,
         "weight": "6шт",
         "extras": [],
-        "image_url": "/images/тарталетки с крев.png"
+        "image_url": "/ffmenu/images/тарталетки с крев.png"
       },
       {
         "id": "bnh4",
@@ -2933,7 +2932,7 @@
         "price": 330,
         "weight": "6шт",
         "extras": [],
-        "image_url": "/images/тарталетки з росбіфом.png"
+        "image_url": "/ffmenu/images/тарталетки з росбіфом.png"
       },
       {
         "id": "bnh5",
@@ -2943,7 +2942,7 @@
         "price": 445,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/ковбасне ассорті.png"
+        "image_url": "/ffmenu/images/ковбасне ассорті.png"
       },
       {
         "id": "bnh6",
@@ -2953,7 +2952,7 @@
         "price": 435,
         "weight": "350г",
         "extras": [],
-        "image_url": "/images/мясная доска.png"
+        "image_url": "/ffmenu/images/мясная доска.png"
       },
       {
         "id": "bnh7",
@@ -2963,7 +2962,7 @@
         "price": 515,
         "weight": "500г",
         "extras": [],
-        "image_url": "/images/м'ясна дошка від шефу.png"
+        "image_url": "/ffmenu/images/м'ясна дошка від шефу.png"
       },
       {
         "id": "bnh8",
@@ -2973,7 +2972,7 @@
         "price": 555,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/рибне тріо.png"
+        "image_url": "/ffmenu/images/рибне тріо.png"
       },
       {
         "id": "bnh9",
@@ -2983,7 +2982,7 @@
         "price": 485,
         "weight": "6шт",
         "extras": [],
-        "image_url": "/images/блинчики с икрой.png"
+        "image_url": "/ffmenu/images/блинчики с икрой.png"
       },
       {
         "id": "bnh10",
@@ -2993,7 +2992,7 @@
         "price": 265,
         "weight": "8шт",
         "extras": [],
-        "image_url": "/images/оселедець під шубой.png"
+        "image_url": "/ffmenu/images/оселедець під шубой.png"
       },
       {
         "id": "bnh11",
@@ -3003,7 +3002,7 @@
         "price": 270,
         "weight": "6шт",
         "extras": [],
-        "image_url": "/images/кабачок гриль.png"
+        "image_url": "/ffmenu/images/кабачок гриль.png"
       },
       {
         "id": "bnh12",
@@ -3013,7 +3012,7 @@
         "price": 390,
         "weight": "500г",
         "extras": [],
-        "image_url": "/images/курица фаршированная.png"
+        "image_url": "/ffmenu/images/курица фаршированная.png"
       },
       {
         "id": "bnh13",
@@ -3023,7 +3022,7 @@
         "price": 310,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/баклажан с орехом.png"
+        "image_url": "/ffmenu/images/баклажан с орехом.png"
       },
       {
         "id": "bnh14",
@@ -3033,7 +3032,7 @@
         "price": 320,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/рулет с ветчиной.png"
+        "image_url": "/ffmenu/images/рулет с ветчиной.png"
       },
       {
         "id": "bnh15",
@@ -3043,7 +3042,7 @@
         "price": 490,
         "weight": "500г",
         "extras": [],
-        "image_url": "/images/риба фарш.png"
+        "image_url": "/ffmenu/images/риба фарш.png"
       },
       {
         "id": "bnh16",
@@ -3053,7 +3052,7 @@
         "price": 355,
         "weight": "6шт",
         "extras": [],
-        "image_url": "/images/брускетта с хамоном.png"
+        "image_url": "/ffmenu/images/брускетта с хамоном.png"
       },
       {
         "id": "bnh17",
@@ -3063,7 +3062,7 @@
         "price": 385,
         "weight": "6шт",
         "extras": [],
-        "image_url": "/images/креветка на брускете.png"
+        "image_url": "/ffmenu/images/креветка на брускете.png"
       },
       {
         "id": "bnh18",
@@ -3073,7 +3072,7 @@
         "price": 375,
         "weight": "6шт",
         "extras": [],
-        "image_url": "/images/брускетта с тунцом.png"
+        "image_url": "/ffmenu/images/брускетта с тунцом.png"
       },
       {
         "id": "bnh19",
@@ -3083,7 +3082,7 @@
         "price": 345,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/хамон с грушей.png"
+        "image_url": "/ffmenu/images/хамон с грушей.png"
       },
       {
         "id": "bnh20",
@@ -3093,7 +3092,7 @@
         "price": 335,
         "weight": "350г",
         "extras": [],
-        "image_url": "/images/куриный рулет.png"
+        "image_url": "/ffmenu/images/куриный рулет.png"
       },
       {
         "id": "bnh21",
@@ -3103,7 +3102,7 @@
         "price": 355,
         "weight": "500г",
         "extras": [],
-        "image_url": "/images/грин рулет.png"
+        "image_url": "/ffmenu/images/грин рулет.png"
       },
       {
         "id": "bnh22",
@@ -3113,7 +3112,7 @@
         "price": 395,
         "weight": "250г",
         "extras": [],
-        "image_url": "/images/рулетики з лососем.png"
+        "image_url": "/ffmenu/images/рулетики з лососем.png"
       },
       {
         "id": "bnh23",
@@ -3123,7 +3122,7 @@
         "price": 390,
         "weight": "250г",
         "extras": [],
-        "image_url": "/images/рулетики з масляної.png"
+        "image_url": "/ffmenu/images/рулетики з масляної.png"
       },
       {
         "id": "bnh24",
@@ -3133,7 +3132,7 @@
         "price": 345,
         "weight": "8шт",
         "extras": [],
-        "image_url": "/images/Закуска на чипс.png"
+        "image_url": "/ffmenu/images/Закуска на чипс.png"
       },
       {
         "id": "bnh25",
@@ -3143,7 +3142,7 @@
         "price": 395,
         "weight": "350г",
         "extras": [],
-        "image_url": "/images/млинці блек.png"
+        "image_url": "/ffmenu/images/млинці блек.png"
       },
       {
         "id": "bnh26",
@@ -3153,7 +3152,7 @@
         "price": 375,
         "weight": "500г",
         "extras": [],
-        "image_url": "/images/печінковий торт.png"
+        "image_url": "/ffmenu/images/печінковий торт.png"
       },
       {
         "id": "bnh27",
@@ -3163,7 +3162,7 @@
         "price": 355,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/блинчики с креветкой.png"
+        "image_url": "/ffmenu/images/блинчики с креветкой.png"
       },
       {
         "id": "bnh28",
@@ -3173,7 +3172,7 @@
         "price": 435,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/млинці бейліс.png"
+        "image_url": "/ffmenu/images/млинці бейліс.png"
       },
       {
         "id": "bnh29",
@@ -3183,7 +3182,7 @@
         "price": 295,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/профітролі за паштетом.png"
+        "image_url": "/ffmenu/images/профітролі за паштетом.png"
       },
       {
         "id": "bnh30",
@@ -3193,7 +3192,7 @@
         "price": 615,
         "weight": "100/50/30г",
         "extras": [],
-        "image_url": "/images/щучья икра.png"
+        "image_url": "/ffmenu/images/щучья икра.png"
       },
       {
         "id": "bnh31",
@@ -3203,7 +3202,7 @@
         "price": 465,
         "weight": "600г",
         "extras": [],
-        "image_url": "/images/мізе з заморських закусок.png"
+        "image_url": "/ffmenu/images/мізе з заморських закусок.png"
       },
       {
         "id": "bnh32",
@@ -3213,7 +3212,7 @@
         "price": 285,
         "weight": "6шт",
         "extras": [],
-        "image_url": "/images/паштет авторский.png"
+        "image_url": "/ffmenu/images/паштет авторский.png"
       },
       {
         "id": "bnh33",
@@ -3223,7 +3222,7 @@
         "price": 320,
         "weight": "350г",
         "extras": [],
-        "image_url": "/images/профітролі з мусом лосося.png"
+        "image_url": "/ffmenu/images/профітролі з мусом лосося.png"
       },
       {
         "id": "bnh34",
@@ -3233,7 +3232,7 @@
         "price": 315,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/асорті бринза.png"
+        "image_url": "/ffmenu/images/асорті бринза.png"
       },
       {
         "id": "bnh35",
@@ -3243,7 +3242,7 @@
         "price": 315,
         "weight": "8шт",
         "extras": [],
-        "image_url": "/images/закуска с рапанов.png"
+        "image_url": "/ffmenu/images/закуска с рапанов.png"
       },
       {
         "id": "bnh36",
@@ -3253,7 +3252,7 @@
         "price": 265,
         "weight": "300г",
         "extras": [],
-        "image_url": "/images/шоколадні млинці з сиром.png"
+        "image_url": "/ffmenu/images/шоколадні млинці з сиром.png"
       },
       {
         "id": "bnh37",
@@ -3263,7 +3262,7 @@
         "price": 1200,
         "weight": "1кг",
         "extras": [],
-        "image_url": "/images/щука.png"
+        "image_url": "/ffmenu/images/щука.png"
       },
       {
         "id": "bnh38",
@@ -3273,7 +3272,7 @@
         "price": 335,
         "weight": "500г",
         "extras": [],
-        "image_url": "/images/холодец.png"
+        "image_url": "/ffmenu/images/холодец.png"
       },
       {
         "id": "bnh39",
@@ -3293,7 +3292,7 @@
         "price": 820,
         "weight": "1.2кг",
         "extras": [],
-        "image_url": "/images/індичка запечена.png"
+        "image_url": "/ffmenu/images/індичка запечена.png"
       },
       {
         "id": "bnh41",
@@ -3387,7 +3386,7 @@
         "price": 180,
         "weight": "200г",
         "extras": [],
-        "image_url": "/images/наполеон.png"
+        "image_url": "/ffmenu/images/наполеон.png"
       },
       {
         "id": "ds2",
@@ -3407,7 +3406,7 @@
         "price": 195,
         "weight": "180г",
         "extras": [],
-        "image_url": "/images/чизкейк.png"
+        "image_url": "/ffmenu/images/чизкейк.png"
       },
       {
         "id": "ds4",
@@ -3419,7 +3418,7 @@
         "extras": [
           "час приготування ~40 хвилин"
         ],
-        "image_url": "/images/штрудель.png"
+        "image_url": "/ffmenu/images/штрудель.png"
       },
       {
         "id": "ds5",
@@ -3429,7 +3428,7 @@
         "price": 215,
         "weight": "2шт",
         "extras": [],
-        "image_url": "/images/фондан.png"
+        "image_url": "/ffmenu/images/фондан.png"
       },
       {
         "id": "ds6",
@@ -3441,7 +3440,7 @@
         "extras": [
           "час приготування ~40 хвилин"
         ],
-        "image_url": "/images/тарта.png"
+        "image_url": "/ffmenu/images/тарта.png"
       }
     ]
   }
