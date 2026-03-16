@@ -12,7 +12,7 @@
         "price": 340,
         "weight": "290г",
         "extras": [],
-        "image_url": "/images/классик.png"
+        "image_url": "./images/классик.png"
       },
       {
         "id": "hr2",
