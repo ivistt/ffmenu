@@ -482,8 +482,15 @@ aside::-webkit-scrollbar-thumb { background: var(--border-light); border-radius:
   flex-direction: column;
   background: var(--bg2);
   border: 1px solid var(--border);
+  border-radius: var(--radius-md);
   overflow: hidden;
   transition: border-color 0.18s, background 0.18s, transform 0.15s;
+}
+
+.dishes-grid .dish-card:nth-child(1),
+.dishes-grid .dish-card:nth-child(2) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .dish-card:hover {
@@ -1211,6 +1218,11 @@ aside::-webkit-scrollbar-thumb { background: var(--border-light); border-radius:
   .search-tabs-sticky { padding: 10px 0 0; }
 
   .dishes-grid { grid-template-columns: 1fr;  gap: 9px; }
+
+  .dishes-grid .dish-card:nth-child(2) {
+    border-top-left-radius: var(--radius-md);
+    border-top-right-radius: var(--radius-md);
+  }
 
   .dish-img-wrap { aspect-ratio: 21 / 9; }
   .dish-name { font-size: 18px; }
