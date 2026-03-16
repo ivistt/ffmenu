@@ -1211,7 +1211,7 @@ aside::-webkit-scrollbar-thumb { background: var(--border-light); border-radius:
   .cat-tabs-sticky { padding: 8px 0; border-radius: 0; border-width: 0; }
   .search-tabs-sticky { padding: 10px 0 0; }
 
-  .dishes-grid { grid-template-columns: 1fr; padding: 10px; gap: 9px; }
+  .dishes-grid { grid-template-columns: 1fr;  gap: 9px; }
   .dish-card { border-right: none; }
   .dish-img-wrap { aspect-ratio: 21 / 9; }
   .dish-name { font-size: 18px; }
@@ -1219,8 +1219,8 @@ aside::-webkit-scrollbar-thumb { background: var(--border-light); border-radius:
   .dish-composition { font-size: 11px; }
   .dish-price { font-size: 16px; }
 
-  .cat-title { font-size: 19px; }
-  .cat-header { padding: 14px 15px; }
+  .cat-title { font-size: 16px; }
+  .cat-header { padding: 6px 15px; top: 161px; }
 
   .order-panel {
     position: fixed;
