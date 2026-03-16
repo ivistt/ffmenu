@@ -9,7 +9,7 @@
    4. Скопіюйте URL деплою і вставте нижче
 ══════════════════════════════════════════ */
 
-const MENU_URL = 'https://script.google.com/macros/s/AKfycbw65OErsGP3sjTgB6_ZDrmk6z0L5TX8-_g5QwgvUTqVnGpTxGz3evpxmFFzcSBBIVbM/exec';
+const MENU_URL = './menu.json';
 
 /* ══════════════════════════════
    BANNERS
@@ -82,52 +82,91 @@ function initBannerSwiper() {
 }
 
 // ══════════════════════════════
+//  DISH LOOKUP MAP  (O(1) пошук)
+// ══════════════════════════════
+let dishMap = new Map();
+
+function buildDishMap() {
+  dishMap = new Map();
+  menuData.forEach(cat => cat.dishes.forEach(d => dishMap.set(d.id, d)));
+}
+
+// ══════════════════════════════
 //  BOOTSTRAP
 // ══════════════════════════════
+const CACHE_KEY     = 'ogon_menu_v1';
+const CACHE_TIME_KEY= 'ogon_menu_time_v1';
+const CACHE_TTL     = 10 * 60 * 1000; // 10 хвилин
+
 async function init() {
   initBannerSwiper();
-  showMenuSkeleton();
 
+  // Показуємо кешоване меню миттєво
   try {
-    if (!MENU_URL || MENU_URL === 'ВАШ_APPS_SCRIPT_URL_ТУТ') {
-      throw new Error('MENU_URL не налаштовано. Вкажіть URL Apps Script у script.js');
+    const cached   = localStorage.getItem(CACHE_KEY);
+    const cacheAge = Date.now() - Number(localStorage.getItem(CACHE_TIME_KEY) || 0);
+    if (cached && cacheAge < CACHE_TTL) {
+      menuData = JSON.parse(cached);
+      buildAndRender();
+      fetchMenu(/* silent */ true); // оновити в фоні
+      return;
     }
+  } catch (_) {}
 
+  showMenuSkeleton();
+  await fetchMenu(false);
+}
+
+async function fetchMenu(silent) {
+  try {
     const res = await fetch(MENU_URL);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    menuData = await res.json();
+    const data = await res.json();
+    if (!Array.isArray(data) || !data.length) throw new Error('Порожнє меню');
 
-    if (!Array.isArray(menuData) || menuData.length === 0) {
-      throw new Error('Отримано порожнє або некоректне меню');
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+      localStorage.setItem(CACHE_TIME_KEY, String(Date.now()));
+    } catch (_) {}
+
+    if (silent) {
+      // Тихе оновлення — перемальовуємо тільки якщо дані змінились
+      if (JSON.stringify(data) !== JSON.stringify(menuData)) {
+        menuData = data;
+        buildAndRender();
+      }
+    } else {
+      menuData = data;
+      buildAndRender();
     }
   } catch (err) {
     console.error('Не вдалося завантажити меню:', err);
-    document.getElementById('menuContent').innerHTML = `
-      <div class="no-results">
-        ⚠️ Не вдалося завантажити меню.<br>
-        <small style="color:#aaa">${err.message}</small>
-      </div>`;
-    hideLoader();
-    return;
+    if (!silent) {
+      document.getElementById('menuContent').innerHTML = `
+        <div class="no-results">
+          ⚠️ Не вдалося завантажити меню.<br>
+          <small style="color:#aaa">${err.message}</small>
+        </div>`;
+      hideLoader();
+    }
   }
+}
 
-  // Збираємо страви з extras "рекомендуємо" і створюємо окрему категорію
-  const recommendedDishes = menuData
+function buildAndRender() {
+  // Категорія "Рекомендації"
+  const recommended = menuData
     .flatMap(c => c.dishes)
     .filter(d => d.extras && d.extras.some(e => e.toLowerCase() === 'рекомендуємо'));
 
-  if (recommendedDishes.length > 0) {
-    const recommendedCat = {
-      id: '__recommended__',
-      name: '⭐ Рекомендації',
-      dishes: recommendedDishes
-    };
-    menuData = [recommendedCat, ...menuData];
-  }
+  const base = menuData.filter(c => c.id !== '__recommended__');
+  menuData = recommended.length
+    ? [{ id: '__recommended__', name: '⭐ Рекомендації', dishes: recommended }, ...base]
+    : base;
 
-  menuData.forEach(c => openCats[c.id] = true);
+  menuData.forEach(c => { if (openCats[c.id] === undefined) openCats[c.id] = true; });
   activeTabId = menuData[0]?.id || null;
 
+  buildDishMap();
   renderMenu();
   renderOrder();
 }
@@ -281,7 +320,7 @@ function renderMenu() {
   renderTabs(visibleCats);
 
   requestAnimationFrame(() => {
-    initScrollSpy();
+    reobserveScrollSpy();
     hideLoader();
   });
 }
@@ -315,6 +354,7 @@ function renderDish(dish) {
             ${dish.weight ? `<div class="dish-weight">⚖ ${dish.weight}</div>` : ''}
           </div>
           <button
+            id="btn-${dish.id}"
             class="add-btn ${inOrder ? 'added' : ''}"
             onclick="addToOrder('${dish.id}')"
             title="${inOrder ? 'Прибрати' : 'Додати до замовлення'}">
@@ -352,7 +392,7 @@ function addToOrder(dishId) {
   if (order.some(o => o.id === dishId)) {
     order = order.filter(o => o.id !== dishId);
   } else {
-    const dish = menuData.flatMap(c => c.dishes).find(d => d.id === dishId);
+    const dish = dishMap.get(dishId);
     if (dish) order.push({ id: dish.id, name: dish.name, price: dish.price });
   }
   updateDishButton(dishId);
@@ -376,12 +416,12 @@ function clearOrder() {
 }
 
 function updateDishButton(dishId) {
+  const btn = document.getElementById('btn-' + dishId);
+  if (!btn) return;
   const inOrder = order.some(o => o.id === dishId);
-  document.querySelectorAll(`.add-btn[onclick="addToOrder('${dishId}')"]`).forEach(btn => {
-    btn.classList.toggle('added', inOrder);
-    btn.textContent = inOrder ? '✓ Додано' : '+ Додати';
-    btn.title = inOrder ? 'Прибрати' : 'Додати до замовлення';
-  });
+  btn.classList.toggle('added', inOrder);
+  btn.textContent = inOrder ? '✓ Додано' : '+ Додати';
+  btn.title = inOrder ? 'Прибрати' : 'Додати до замовлення';
 }
 
 function renderOrder() {
@@ -495,6 +535,12 @@ function initScrollSpy() {
   document.querySelectorAll('.cat-section').forEach(el => {
     scrollSpyObserver.observe(el);
   });
+}
+
+function reobserveScrollSpy() {
+  if (!scrollSpyObserver) { initScrollSpy(); return; }
+  scrollSpyObserver.disconnect();
+  document.querySelectorAll('.cat-section').forEach(el => scrollSpyObserver.observe(el));
 }
 
 function updateActiveTab(catId) {
