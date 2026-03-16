@@ -10,6 +10,39 @@
 ══════════════════════════════════════════ */
 
 const MENU_URL = 'https://script.google.com/macros/s/AKfycbw65OErsGP3sjTgB6_ZDrmk6z0L5TX8-_g5QwgvUTqVnGpTxGz3evpxmFFzcSBBIVbM/exec';
+
+/* ══════════════════════════════
+   BANNERS
+   Додайте/відредагуйте банери тут.
+   image: URL картинки (або '' для кольорового фону)
+   label: маленький підпис зверху
+   title: великий заголовок
+   sub: підзаголовок
+   bg: CSS градієнт/колір якщо немає картинки
+══════════════════════════════ */
+const BANNERS = [
+  {
+    image: '',
+    bg: 'linear-gradient(135deg, #1a0a00 0%, #6b2a00 100%)',
+    label: '🔥 Хіт сезону',
+    title: 'М\'ясо з тандиру',
+    sub: 'Соковите, з димком — щодня з 12:00',
+  },
+  {
+    image: '',
+    bg: 'linear-gradient(135deg, #001a0f 0%, #005c30 100%)',
+    label: '🍣 Новинка',
+    title: 'Суші-сет «Огонь»',
+    sub: '24 ролли + місо-суп у подарунок',
+  },
+  {
+    image: '',
+    bg: 'linear-gradient(135deg, #0d0a1a 0%, #3a1a6b 100%)',
+    label: '🥂 Банкети',
+    title: 'Святкуйте з нами',
+    sub: 'Організуємо будь-яке свято — від 20 осіб',
+  },
+];
 // Приклад: 'https://script.google.com/macros/s/AKfycbyfb4nDNfrYMl9NZ90TfkYYehM75XRbp7uj6QpE34qUX3Fo6-JGKRVTWKRTqhk6iVeW/exec'
 
 // ══════════════════════════════
@@ -21,9 +54,39 @@ let openCats    = {};
 let activeTabId = null;
 
 // ══════════════════════════════
+//  BANNER SWIPER
+// ══════════════════════════════
+function initBannerSwiper() {
+  const wrap = document.getElementById('bannerSlides');
+  if (!wrap) return;
+
+  wrap.innerHTML = BANNERS.map(b => `
+    <div class="swiper-slide">
+      <div class="banner-slide" style="${b.image ? `background-image:url('${b.image}');background-size:cover;background-position:center;` : `background:${b.bg};`}">
+        <div class="banner-slide-inner">
+          ${b.label ? `<div class="banner-label">${b.label}</div>` : ''}
+          <div class="banner-title">${b.title}</div>
+          ${b.sub ? `<div class="banner-sub">${b.sub}</div>` : ''}
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  new Swiper('.banner-swiper', {
+    loop: true,
+    autoplay: { delay: 4500, disableOnInteraction: false },
+    pagination: { el: '.swiper-pagination', clickable: true },
+    grabCursor: true,
+    speed: 600,
+    effect: 'slide',
+  });
+}
+
+// ══════════════════════════════
 //  BOOTSTRAP
 // ══════════════════════════════
 async function init() {
+  initBannerSwiper();
   showMenuSkeleton();
 
   try {
@@ -46,6 +109,20 @@ async function init() {
         <small style="color:#aaa">${err.message}</small>
       </div>`;
     return;
+  }
+
+  // Збираємо страви з extras "рекомендуємо" і створюємо окрему категорію
+  const recommendedDishes = menuData
+    .flatMap(c => c.dishes)
+    .filter(d => d.extras && d.extras.some(e => e.toLowerCase() === 'рекомендуємо'));
+
+  if (recommendedDishes.length > 0) {
+    const recommendedCat = {
+      id: '__recommended__',
+      name: '⭐ Рекомендації',
+      dishes: recommendedDishes
+    };
+    menuData = [recommendedCat, ...menuData];
   }
 
   menuData.forEach(c => openCats[c.id] = true);
@@ -91,15 +168,30 @@ function mobileShowPage(pageId, btn) {
 // ══════════════════════════════
 //  CATEGORY TABS
 // ══════════════════════════════
+let catTabsSwiper = null;
+
 function renderTabs(visibleCats) {
   const el = document.getElementById('catTabs');
   if (!el) return;
+
   el.innerHTML = visibleCats.map(cat => `
-    <div class="cat-tab ${activeTabId === cat.id ? 'active' : ''}"
+    <div class="swiper-slide cat-tab ${activeTabId === cat.id ? 'active' : ''}"
          onclick="jumpToCat('${cat.id}')">
       ${cat.name}
     </div>
   `).join('');
+
+  if (!catTabsSwiper) {
+    catTabsSwiper = new Swiper('.cat-tabs-swiper', {
+      slidesPerView: 'auto',
+      spaceBetween: 7,
+      freeMode: true,
+      mousewheel: { forceToAxis: true },
+      grabCursor: true,
+    });
+  } else {
+    catTabsSwiper.update();
+  }
 }
 
 function jumpToCat(catId) {
@@ -276,11 +368,11 @@ function clearOrder() {
 
 function updateDishButton(dishId) {
   const inOrder = order.some(o => o.id === dishId);
-  const btn = document.querySelector(`.add-btn[onclick="addToOrder('${dishId}')"]`);
-  if (!btn) return;
-  btn.classList.toggle('added', inOrder);
-  btn.textContent = inOrder ? '✓ Додано' : '+ Додати';
-  btn.title = inOrder ? 'Прибрати' : 'Додати до замовлення';
+  document.querySelectorAll(`.add-btn[onclick="addToOrder('${dishId}')"]`).forEach(btn => {
+    btn.classList.toggle('added', inOrder);
+    btn.textContent = inOrder ? '✓ Додано' : '+ Додати';
+    btn.title = inOrder ? 'Прибрати' : 'Додати до замовлення';
+  });
 }
 
 function renderOrder() {
@@ -402,9 +494,24 @@ function updateActiveTab(catId) {
     tab.classList.toggle('active', isActive);
   });
 
-  const activeTab = document.querySelector(`.cat-tab.active`);
-  if (activeTab) {
-    activeTab.scrollIntoView({ inline: 'nearest', block: 'nearest' });
+  const activeTab = document.querySelector('.cat-tab.active');
+  if (activeTab && catTabsSwiper) {
+    const tabLeft = activeTab.offsetLeft;
+    const tabWidth = activeTab.offsetWidth;
+    const wrapperWidth = catTabsSwiper.el.offsetWidth;
+    const currentTranslate = catTabsSwiper.getTranslate();
+    const tabRight = tabLeft + tabWidth;
+
+    // Якщо таб виходить за правий край — підсуваємо
+    if (tabRight + currentTranslate > wrapperWidth) {
+      catTabsSwiper.setTranslate(wrapperWidth - tabRight - 8);
+      catTabsSwiper.updateProgress();
+    }
+    // Якщо таб виходить за лівий край — підсуваємо назад
+    if (tabLeft + currentTranslate < 0) {
+      catTabsSwiper.setTranslate(-tabLeft + 8);
+      catTabsSwiper.updateProgress();
+    }
   }
 }
 
