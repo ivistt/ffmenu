@@ -28,6 +28,7 @@
   --sidebar-w:   270px;
   --order-w:     300px;
   --header-h:    64px;
+  --sticky-top:  171px; /* header + search-tabs-sticky */
   --radius-lg:   16px;
   --radius-md:   10px;
   --radius-sm:   7px;
@@ -401,10 +402,7 @@ aside::-webkit-scrollbar-thumb { background: var(--border-light); border-radius:
 ══════════════════ */
 .cat-section {
   margin-bottom: 14px;
-  background: var(--surface);
-  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  overflow: hidden;
 }
 
 .cat-header {
@@ -416,6 +414,10 @@ aside::-webkit-scrollbar-thumb { background: var(--border-light); border-radius:
   transition: background 0.15s;
   background: var(--orange);
   user-select: none;
+  position: sticky;
+  top: var(--sticky-top);
+  z-index: 10;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 
 
@@ -461,6 +463,7 @@ aside::-webkit-scrollbar-thumb { background: var(--border-light); border-radius:
 .cat-body {
   overflow: hidden;
   transition: max-height 0.35s cubic-bezier(.4, 0, .2, 1);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
 }
 
 .cat-body.collapsed { max-height: 0 !important; }
@@ -469,7 +472,6 @@ aside::-webkit-scrollbar-thumb { background: var(--border-light); border-radius:
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
-  padding: 12px;
 }
 
 /* ══════════════════
@@ -1068,7 +1070,7 @@ aside::-webkit-scrollbar-thumb { background: var(--border-light); border-radius:
 
 /* ── Mobile ── */
 @media (max-width: 768px) {
-  :root { --header-h: 56px; }
+  :root { --header-h: 56px; --sticky-top: 154px; }
 
   header { padding: 0 16px; height: var(--header-h); border-radius: 0; }
   .header-nav { display: none; }
