@@ -1171,7 +1171,7 @@ padding: 8px 0px;
     border-left: none;
     border-bottom: none;
     border-top: 1px solid var(--border);
-    padding-bottom: 24px;
+    padding-bottom: 110px;
     transform: translateY(110%);
     transition: transform 0.38s cubic-bezier(.4,0,.2,1);
     box-shadow: 0 -8px 32px rgba(0,0,0,0.22);
@@ -1181,6 +1181,24 @@ padding: 8px 0px;
     margin: 0;
   }
   .order-panel.open { transform: translateY(0); }
+
+  /* Order panel header with close button */
+  .order-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 16px 10px;
+    position: sticky;
+    top: 0;
+    background: var(--surface);
+    z-index: 2;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Hide tg-actions inside panel on mobile — replaced by cart bar buttons */
+  #tgActions {
+    display: none !important;
+  }
 
   /* Затемнення під панеллю (не перекриває кнопку) */
   .order-overlay {
@@ -1233,6 +1251,36 @@ padding: 8px 0px;
   .scroll-top-btn:active {
     transform: scale(0.95);
     box-shadow: 0 3px 14px rgba(0,0,0,0.1);
+  }
+
+  /* Кнопка "позвати офіціанта" — показується коли панель відкрита */
+  .waiter-panel-btn {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 14px;
+    height: 58px;
+    border-radius: 18px;
+    border: none;
+    background: var(--orange);
+    color: var(--bg);
+    box-shadow: 0 6px 28px rgba(0,0,0,0.12);
+    cursor: pointer;
+    pointer-events: auto;
+    transition: transform 0.15s, box-shadow 0.15s;
+    white-space: nowrap;
+  }
+  .waiter-panel-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 3px 14px rgba(0,0,0,0.1);
+  }
+  .waiter-panel-btn-label {
+    font-family: 'Manrope', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.4;
+    text-align: left;
   }
 
   /* Кнопка корзини — з'являється при .visible */
@@ -1486,6 +1534,41 @@ padding: 8px 0px;
 /* ══════════════════════════════════════════
    TELEGRAM MODAL
 ══════════════════════════════════════════ */
+/* ══════════════════════════════════════════
+   ORDER PANEL HEADER (close button)
+══════════════════════════════════════════ */
+.order-panel-header {
+  display: none; /* shown only on mobile via media query */
+}
+
+.order-panel-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.order-panel-close {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border-light);
+  background: var(--bg2);
+  color: var(--text2);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+.order-panel-close:hover {
+  background: var(--orange-dim);
+  color: var(--orange);
+  border-color: var(--orange);
+}
+
 .tg-modal-overlay {
   display: none;
   position: fixed;

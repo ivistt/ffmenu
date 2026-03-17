@@ -233,6 +233,10 @@
 
     <!-- ── ORDER PANEL ── -->
     <div class="order-panel" id="orderPanel">
+      <div class="order-panel-header">
+        <div class="order-panel-title">Ваше замовлення</div>
+        <button class="order-panel-close" onclick="closeOrderPanel()" aria-label="Закрити">✕</button>
+      </div>
       <div class="order-subtitle" id="orderSubtitle">Порожньо</div>
       <div class="order-divider"></div>
 
@@ -296,17 +300,25 @@
 <!-- mobile-nav removed: navigation moved to burger drawer -->
 
 <!-- Order overlay (mobile) -->
-<div class="order-overlay" id="orderOverlay" onclick="toggleOrder()"></div>
+<div class="order-overlay" id="orderOverlay" onclick="closeOrderPanel()"></div>
 
 <!-- Floating cart button (mobile only) -->
 <div class="mobile-cart-bar" id="mobileCartBar">
   <div class="mobile-cart-bar-inner">
-    <button class="scroll-top-btn" onclick="scrollToTop()" aria-label="Вгору">
+    <!-- Default state: scroll-to-top button -->
+    <button class="scroll-top-btn cart-bar-default-btn" onclick="scrollToTop()" aria-label="Вгору">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </button>
-    <button class="mobile-cart-btn" onclick="toggleOrder()">
+    <!-- Panel-open state: call waiter button -->
+    <button class="waiter-panel-btn cart-bar-panel-btn" onclick="callWaiter()" aria-label="Викликати офіціанта" style="display:none;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="waiter-panel-btn-label">Позвати<br>офіціанта</span>
+    </button>
+    <button class="mobile-cart-btn" id="mobileCartMainBtn" onclick="toggleOrder()">
       <div class="mobile-cart-btn-icon">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
@@ -318,7 +330,7 @@
         <span class="mobile-cart-btn-count" id="mobileCartCount">1 позиція</span>
         <span class="mobile-cart-btn-price" id="mobileCartPrice">0 ₴</span>
       </div>
-      <div class="mobile-cart-btn-action">
+      <div class="mobile-cart-btn-action" id="mobileCartAction">
         Подивитись
       </div>
     </button>

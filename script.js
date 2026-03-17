@@ -572,6 +572,40 @@ function toggleOrder() {
   const overlay = document.getElementById('orderOverlay');
   const isOpen  = panel.classList.toggle('open');
   if (overlay) overlay.classList.toggle('open', isOpen);
+  updateCartBarPanelState(isOpen);
+}
+
+function closeOrderPanel() {
+  const panel   = document.getElementById('orderPanel');
+  const overlay = document.getElementById('orderOverlay');
+  panel.classList.remove('open');
+  if (overlay) overlay.classList.remove('open');
+  updateCartBarPanelState(false);
+}
+
+function updateCartBarPanelState(isOpen) {
+  const defaultBtn = document.querySelector('.cart-bar-default-btn');
+  const panelBtn   = document.querySelector('.cart-bar-panel-btn');
+  const actionEl   = document.getElementById('mobileCartAction');
+  const mainBtn    = document.getElementById('mobileCartMainBtn');
+
+  if (isOpen) {
+    // Panel is open: show waiter bell, change action to "Замовити" that sends order
+    if (defaultBtn) defaultBtn.style.display = 'none';
+    if (panelBtn)   panelBtn.style.display = 'flex';
+    if (actionEl)   actionEl.textContent = 'Замовити';
+    if (mainBtn) {
+      mainBtn.onclick = function() { sendOrder(); };
+    }
+  } else {
+    // Panel is closed: restore scroll-top, show "Подивитись"
+    if (defaultBtn) defaultBtn.style.display = 'flex';
+    if (panelBtn)   panelBtn.style.display = 'none';
+    if (actionEl)   actionEl.textContent = 'Подивитись';
+    if (mainBtn) {
+      mainBtn.onclick = function() { toggleOrder(); };
+    }
+  }
 }
 
 // ══════════════════════════════
