@@ -12,6 +12,37 @@
 const MENU_URL = './menu.json';
 
 /* ══════════════════════════════
+   TELEGRAM CONFIG
+   Вставте свій Bot Token і Chat ID нижче
+══════════════════════════════ */
+const TG_BOT_TOKEN = '8377287560:AAHn4_GmkzUiFJvcifhnwgRJm0ye04L5KhE';  // напр. '7123456789:AAFxxx...'
+const TG_CHAT_ID   = '-1003850549188';    // напр. '-1001234567890'
+
+/* ══════════════════════════════
+   TABLE NUMBER — зчитується з URL
+   Підтримує: ?table=12  або  ?=table12  або  #table12
+══════════════════════════════ */
+function getTableNumber() {
+  const search = window.location.search;   // ?=table12  або  ?table=12
+  const hash   = window.location.hash;     // #table12
+
+  // ?table=12
+  const paramMatch = search.match(/[?&]table=([^&]+)/i);
+  if (paramMatch) return decodeURIComponent(paramMatch[1]);
+
+  // ?=table12
+  const eqMatch = search.match(/[?&]=([^&]+)/i);
+  if (eqMatch) return decodeURIComponent(eqMatch[1]);
+
+  // #table12
+  if (hash && hash.length > 1) return decodeURIComponent(hash.slice(1));
+
+  return null;
+}
+
+const TABLE_NUMBER = getTableNumber();
+
+/* ══════════════════════════════
    BANNERS
    Додайте/відредагуйте банери тут.
    image: URL картинки (або '' для кольорового фону)
@@ -479,6 +510,37 @@ function renderOrder() {
       cartBar.classList.add('visible');
     }
   }
+
+  // Кнопки Telegram
+  renderTgButtons();
+  updateOrderButtons();
+}
+
+function renderTgButtons() {
+  if (document.getElementById('tgSendOrderBtn')) return;
+
+  const panel = document.getElementById('orderPanel');
+  if (!panel) return;
+
+  const wrap = document.createElement('div');
+  wrap.className = 'tg-actions';
+  wrap.id = 'tgActions';
+  wrap.innerHTML = `
+    <div class="tg-table-label">
+      ${TABLE_NUMBER
+        ? `📍 <span>Стіл <b>${TABLE_NUMBER}</b></span>`
+        : `📍 <span style="color:var(--text3)">Стіл не визначено</span>`}
+    </div>
+    <button id="tgSendOrderBtn" class="tg-btn tg-btn-primary tg-btn-disabled" onclick="sendOrder()" disabled>
+      <span class="tg-btn-icon">📨</span>
+      <span class="tg-btn-label">Відправити замовлення</span>
+    </button>
+    <button id="tgCallWaiterBtn" class="tg-btn tg-btn-secondary" onclick="callWaiter()">
+      <span class="tg-btn-icon">🔔</span>
+      <span class="tg-btn-label">Викликати офіціанта</span>
+    </button>
+  `;
+  panel.appendChild(wrap);
 }
 
 // ══════════════════════════════
@@ -673,6 +735,112 @@ function initHideOnScroll() {
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
+}
+
+// ══════════════════════════════
+//  TELEGRAM
+// ══════════════════════════════
+async function sendTelegramMessage(text) {
+  const url = `https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`;
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      chat_id: TG_CHAT_ID,
+      text,
+      parse_mode: 'HTML',
+    }),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.description || `HTTP ${res.status}`);
+  }
+  return res.json();
+}
+
+async function sendOrder() {
+  if (!order.length) return;
+
+  const tableLabel = TABLE_NUMBER ? `Стіл: <b>${TABLE_NUMBER}</b>` : 'Стіл: <b>невідомий</b>';
+  const time = new Date().toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' });
+  const total = order.reduce((s, o) => s + o.price, 0);
+
+  const items = order.map((o, i) => `  ${i + 1}. ${o.name} — ${o.price} ₴`).join('\n');
+
+  const text =
+    `🍽 <b>НОВЕ ЗАМОВЛЕННЯ</b>\n` +
+    `${tableLabel}\n` +
+    `🕐 ${time}\n\n` +
+    `${items}\n\n` +
+    `💰 Сума: <b>${total} ₴</b>`;
+
+  await sendWithFeedback('order', text);
+}
+
+async function callWaiter() {
+  const tableLabel = TABLE_NUMBER ? TABLE_NUMBER : 'невідомий';
+  const time = new Date().toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' });
+
+  const text =
+    `🔔 <b>ВИКЛИК ОФІЦІАНТА</b>\n` +
+    `Стіл: <b>${tableLabel}</b>\n` +
+    `🕐 ${time}`;
+
+  await sendWithFeedback('waiter', text);
+}
+
+async function sendWithFeedback(type, text) {
+  const btnOrder  = document.getElementById('tgSendOrderBtn');
+  const btnWaiter = document.getElementById('tgCallWaiterBtn');
+
+  // Блокуємо обидві кнопки під час запиту
+  [btnOrder, btnWaiter].forEach(b => { if (b) { b.disabled = true; b.classList.add('tg-loading'); } });
+
+  try {
+    await sendTelegramMessage(text);
+    showTgModal(
+      type === 'order'
+        ? `✅ Замовлення відправлено!\nОфіціант підійде найближчим часом.`
+        : `🔔 Офіціанта викликано!\nЗачекайте, будь ласка.`
+    );
+  } catch (err) {
+    showTgModal(`⚠️ Помилка відправки.\nСпробуйте ще раз або зверніться до офіціанта.\n\n${err.message}`);
+  } finally {
+    [btnOrder, btnWaiter].forEach(b => { if (b) { b.disabled = false; b.classList.remove('tg-loading'); } });
+    updateOrderButtons();
+  }
+}
+
+function updateOrderButtons() {
+  const btn = document.getElementById('tgSendOrderBtn');
+  if (!btn) return;
+  btn.disabled = order.length === 0;
+  btn.classList.toggle('tg-btn-disabled', order.length === 0);
+}
+
+// ══════════════════════════════
+//  MODAL
+// ══════════════════════════════
+function showTgModal(message) {
+  let modal = document.getElementById('tgModal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'tgModal';
+    modal.className = 'tg-modal-overlay';
+    modal.innerHTML = `
+      <div class="tg-modal">
+        <div class="tg-modal-text" id="tgModalText"></div>
+        <button class="tg-modal-ok" onclick="closeTgModal()">OK</button>
+      </div>`;
+    document.body.appendChild(modal);
+  }
+  document.getElementById('tgModalText').innerText = message;
+  modal.classList.add('open');
+}
+
+function closeTgModal() {
+  const modal = document.getElementById('tgModal');
+  if (modal) modal.classList.remove('open');
 }
 
 // ══════════════════════════════
