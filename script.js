@@ -475,7 +475,7 @@ function renderOrder() {
     if (cartBar) {
       const countText = `${order.length} ${plural(order.length, 'позиція', 'позиції', 'позицій')}`;
       if (cartCount) cartCount.textContent = countText;
-      if (cartPrice) cartPrice.textContent = `за ${total} ₴`;
+      if (cartPrice) cartPrice.textContent = `${total} ₴`;
       cartBar.classList.add('visible');
     }
   }
