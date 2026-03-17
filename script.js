@@ -350,7 +350,7 @@ function renderDish(dish) {
     <div class="dish-card">
       <div class="dish-img-wrap">
         ${dish.image_url || dish.image
-            ? `<img src="${dish.image_url || dish.image}" alt="${dish.name}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=dish-img-empty>🍽</div>'">`
+            ? `<img src="${dish.image_url || dish.image}" alt="${dish.name}" loading="lazy" onload="fixPortraitImg(this)" onerror="this.parentElement.innerHTML='<div class=dish-img-empty>🍽</div>'">`
             : '<div class="dish-img-empty">🍽</div>'}
         ${dish.extras && dish.extras.length
           ? `<div class="dish-badges">${dish.extras.map(e => `<span class="dish-badge">⚡ ${e}</span>`).join('')}</div>`
@@ -486,6 +486,19 @@ function renderOrder() {
 // ══════════════════════════════
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Якщо фото портретне (висота > ширина) — повертаємо на 90°
+// і масштабуємо щоб вписати в landscape-контейнер
+function fixPortraitImg(img) {
+  if (img.naturalHeight > img.naturalWidth) {
+    const ratio = img.naturalHeight / img.naturalWidth; // напр. 4/3 → ~1.33
+    // після повороту ширина стане висотою і навпаки
+    // щоб вписати в контейнер: scale = containerW / naturalH = 1/ratio
+    const scale = 1 / ratio;
+    img.style.transform = `rotate(90deg) scale(${scale})`;
+    img.style.transformOrigin = 'center center';
+  }
 }
 
 function plural(n, one, few, many) {
