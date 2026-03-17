@@ -1033,7 +1033,7 @@ padding: 8px 0px;
   }
   .drawer-overlay.open { display: block; opacity: 1; }
 
-  .order-items { flex: 1; overflow: auto; max-height: 65vh; }
+  .order-items { flex: 1; overflow: auto; max-height: 42vh; }
 
   .drawer {
     display: block;
