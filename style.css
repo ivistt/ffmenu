@@ -376,6 +376,7 @@ aside::-webkit-scrollbar-thumb { background: var(--border-light); border-radius:
 .cat-header {
   display: flex;
   justify-content: left;
+  align-items: center;
   cursor: pointer;
   transition: background 0.15s;
   user-select: none;
@@ -394,15 +395,15 @@ padding: 8px 0px;
 }
 
 .cat-title {
-  font-size: 20px;
+  font-size: 26px;
   font-weight: 700;
-  color: var(--orange);
+  color: var(--text);
   letter-spacing: -0.3px;
 }
 
 .cat-count {
-  background: var(--bg);
-  color: var(--text);
+  background: var(--orange);
+  color: var(--bg);
   border-radius: 20px;
   padding: 2px 10px;
   font-size: 11px;
@@ -461,7 +462,7 @@ padding: 8px 0px;
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
-  background: linear-gradient(135deg, var(--bg2), var(--surface));
+  background: linear-gradient(135deg, var(--text), #1a0d2e);
   overflow: hidden;
   flex-shrink: 0;
 }
@@ -1153,8 +1154,8 @@ padding: 8px 0px;
   .dish-composition { font-size: 11px; }
   .dish-price { font-size: 16px; }
 
-  .cat-title { font-size: 16px; }
-  .cat-header { padding: 6px 15px; top: 162px; }
+  .cat-title { font-size: 24px; }
+  .cat-header { padding: 6px 0px; top: 162px; }
 
   /* CSS-переменная высоты кнопки корзины */
   :root { --cart-bar-h: 94px; }
@@ -1162,9 +1163,9 @@ padding: 8px 0px;
   .order-panel {
     position: fixed;
     left: 0; right: 0;
-    bottom: var(--cart-bar-h);
+    bottom: 0px;
     width: 100%;
-    height: calc(100dvh - var(--cart-bar-h) - 12px);
+    height: 100vh;
     overflow-y: auto;
     border-radius: 20px 20px 0 0;
     border-left: none;
