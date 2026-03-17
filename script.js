@@ -224,9 +224,17 @@ function renderTabs(visibleCats) {
     catTabsSwiper = new Swiper('.cat-tabs-swiper', {
       slidesPerView: 'auto',
       spaceBetween: 7,
-      freeMode: true,
+      slidesOffsetBefore: 12,
+      slidesOffsetAfter: 12,
+      freeMode: {
+        enabled: true,
+        momentum: true,
+        momentumRatio: 0.6,
+        momentumVelocityRatio: 0.6,
+      },
       mousewheel: { forceToAxis: true },
       grabCursor: true,
+      cssMode: false,
     });
   } else {
     catTabsSwiper.update();
@@ -259,13 +267,21 @@ function jumpToCat(catId) {
   renderTabs(visible);
 
   isJumping = true;
+  // При програмному скролі до категорії — показуємо хедер назад
+  document.body.classList.remove('scrolled-down');
   setTimeout(() => {
     const el = document.getElementById('cat-' + catId);
     if (el) {
-      const y = el.getBoundingClientRect().top + window.scrollY - 64 - 52 - 8;
+      // Динамічно рахуємо висоту sticky-зони (header + search-tabs-sticky)
+      const stickyEl = document.querySelector('.search-tabs-sticky');
+      const headerEl = document.querySelector('header');
+      const stickyH  = (headerEl ? headerEl.offsetHeight : 64) +
+                       (stickyEl ? stickyEl.offsetHeight : 52);
+      const MARGIN   = 12;
+      const y = el.getBoundingClientRect().top + window.scrollY - stickyH - MARGIN;
       window.scrollTo({ top: y, behavior: 'smooth' });
     }
-    setTimeout(() => { isJumping = false; }, 600);
+    setTimeout(() => { isJumping = false; }, 700);
   }, 50);
 }
 
@@ -354,7 +370,7 @@ function renderDish(dish) {
             ${dish.weight ? `<div class="dish-weight">⚖ ${dish.weight}</div>` : ''}
           </div>
           <button
-            id="btn-${dish.id}"
+            data-dish-id="${dish.id}"
             class="add-btn ${inOrder ? 'added' : ''}"
             onclick="addToOrder('${dish.id}')"
             title="${inOrder ? 'Прибрати' : 'Додати до замовлення'}">
@@ -416,31 +432,23 @@ function clearOrder() {
 }
 
 function updateDishButton(dishId) {
-  const btn = document.getElementById('btn-' + dishId);
-  if (!btn) return;
   const inOrder = order.some(o => o.id === dishId);
-  btn.classList.toggle('added', inOrder);
-  btn.textContent = inOrder ? '✓ Додано' : '+ Додати';
-  btn.title = inOrder ? 'Прибрати' : 'Додати до замовлення';
+  document.querySelectorAll(`[data-dish-id="${dishId}"]`).forEach(btn => {
+    btn.classList.toggle('added', inOrder);
+    btn.textContent = inOrder ? '✓ Додано' : '+ Додати';
+    btn.title = inOrder ? 'Прибрати' : 'Додати до замовлення';
+  });
 }
 
 function renderOrder() {
-  const badge        = document.getElementById('orderBadge');
-  const mobileBadge  = document.getElementById('fabOrderBadge');
-  const itemsEl      = document.getElementById('orderItems');
-  const footer       = document.getElementById('orderFooter');
-  const subtitle     = document.getElementById('orderSubtitle');
+  const badge     = document.getElementById('orderBadge');
+  const itemsEl   = document.getElementById('orderItems');
+  const subtitle  = document.getElementById('orderSubtitle');
+  const cartBar   = document.getElementById('mobileCartBar');
+  const cartCount = document.getElementById('mobileCartCount');
+  const cartPrice = document.getElementById('mobileCartPrice');
 
   badge.textContent = order.length;
-
-  if (mobileBadge) {
-    if (order.length > 0) {
-      mobileBadge.textContent = order.length;
-      mobileBadge.classList.remove('hidden');
-    } else {
-      mobileBadge.classList.add('hidden');
-    }
-  }
 
   if (order.length === 0) {
     itemsEl.innerHTML = `
@@ -448,8 +456,12 @@ function renderOrder() {
         <div class="order-empty-icon">🍽️</div>
         <p>Оберіть страви<br>з меню</p>
       </div>`;
-    footer.style.display = 'none';
     subtitle.textContent = 'Порожньо';
+    if (cartBar) cartBar.classList.remove('visible');
+    const panel   = document.getElementById('orderPanel');
+    const overlay = document.getElementById('orderOverlay');
+    if (panel)   panel.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
   } else {
     const total = order.reduce((s, o) => s + o.price, 0);
     subtitle.textContent = `${order.length} ${plural(order.length, 'страва', 'страви', 'страв')}`;
@@ -463,8 +475,13 @@ function renderOrder() {
                 onclick="removeFromOrder('${item.id}')"
                 title="Видалити">✕</button>
       </div>`).join('');
-    document.getElementById('totalPrice').textContent = total;
-    footer.style.display = 'block';
+
+    if (cartBar) {
+      const countText = `${order.length} ${plural(order.length, 'позиція', 'позиції', 'позицій')}`;
+      if (cartCount) cartCount.textContent = countText;
+      if (cartPrice) cartPrice.textContent = `за ${total} ₴`;
+      cartBar.classList.add('visible');
+    }
   }
 }
 
@@ -489,7 +506,10 @@ function toggleOrder() {
     const dm = document.getElementById('drawerMenuBtn');
     if (dm) dm.classList.add('active');
   }
-  document.getElementById('orderPanel').classList.toggle('open');
+  const panel   = document.getElementById('orderPanel');
+  const overlay = document.getElementById('orderOverlay');
+  const isOpen  = panel.classList.toggle('open');
+  if (overlay) overlay.classList.toggle('open', isOpen);
 }
 
 // ══════════════════════════════
@@ -551,22 +571,28 @@ function updateActiveTab(catId) {
 
   const activeTab = document.querySelector('.cat-tab.active');
   if (activeTab && catTabsSwiper) {
-    const tabLeft = activeTab.offsetLeft;
-    const tabWidth = activeTab.offsetWidth;
+    const wrapperEl    = catTabsSwiper.wrapperEl;
     const wrapperWidth = catTabsSwiper.el.offsetWidth;
-    const currentTranslate = catTabsSwiper.getTranslate();
-    const tabRight = tabLeft + tabWidth;
+    const tabLeft      = activeTab.offsetLeft;
+    const tabWidth     = activeTab.offsetWidth;
 
-    // Якщо таб виходить за правий край — підсуваємо
-    if (tabRight + currentTranslate > wrapperWidth) {
-      catTabsSwiper.setTranslate(wrapperWidth - tabRight - 8);
-      catTabsSwiper.updateProgress();
-    }
-    // Якщо таб виходить за лівий край — підсуваємо назад
-    if (tabLeft + currentTranslate < 0) {
-      catTabsSwiper.setTranslate(-tabLeft + 8);
-      catTabsSwiper.updateProgress();
-    }
+    // Ціль: центруємо активний таб у видимій зоні
+    let targetTranslate = -(tabLeft - wrapperWidth / 2 + tabWidth / 2);
+
+    // Не виходимо за межі
+    const maxTranslate = 0;
+    const minTranslate = wrapperWidth - wrapperEl.scrollWidth;
+    targetTranslate = Math.min(maxTranslate, Math.max(minTranslate, targetTranslate));
+
+    // Плавна CSS-анімація через transition на wrapperEl
+    wrapperEl.style.transition = 'transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+    catTabsSwiper.setTranslate(targetTranslate);
+    catTabsSwiper.updateProgress();
+
+    // Прибираємо transition після завершення, щоб не заважати свайпу
+    setTimeout(() => {
+      if (wrapperEl) wrapperEl.style.transition = '';
+    }, 380);
   }
 }
 
@@ -608,6 +634,49 @@ function drawerGoPage(pageId) {
 }
 
 // ══════════════════════════════
+//  HIDE-ON-SCROLL (mobile)
+// ══════════════════════════════
+function initHideOnScroll() {
+  let lastY      = window.scrollY;
+  let ticking    = false;
+  const THRESHOLD = 6;   // мін. дельта щоб спрацювало
+  const SHOW_ZONE = 40;  // px від верху — завжди показуємо
+
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      // Тільки мобільна ширина
+      if (window.innerWidth > 768) {
+        document.body.classList.remove('scrolled-down');
+        lastY = window.scrollY;
+        ticking = false;
+        return;
+      }
+
+      const y     = window.scrollY;
+      const delta = y - lastY;
+
+      if (y <= SHOW_ZONE) {
+        document.body.classList.remove('scrolled-down');
+      } else if (delta > THRESHOLD) {
+        // скролл вниз — ховаємо
+        document.body.classList.add('scrolled-down');
+      } else if (delta < -THRESHOLD) {
+        // скролл вгору — показуємо
+        document.body.classList.remove('scrolled-down');
+      }
+
+      lastY   = y;
+      ticking = false;
+    });
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+}
+
+// ══════════════════════════════
 //  START
 // ══════════════════════════════
 init();
+initHideOnScroll();
