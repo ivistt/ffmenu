@@ -328,7 +328,6 @@ aside::-webkit-scrollbar-thumb { background: var(--border-light); border-radius:
   top: var(--header-h);
   z-index: 100;
   background: var(--bg);
-  padding: 10px 0 0;
 }
 
 .cat-tabs-sticky {
@@ -376,14 +375,12 @@ aside::-webkit-scrollbar-thumb { background: var(--border-light); border-radius:
 
 .cat-header {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px 20px;
+  justify-content: left;
   cursor: pointer;
   transition: background 0.15s;
-  background: #c8b4e2;
   user-select: none;
   border-radius: 12px 12px 0 0;
+padding: 8px 0px;
 
 }
 
@@ -392,7 +389,7 @@ aside::-webkit-scrollbar-thumb { background: var(--border-light); border-radius:
   display: flex;
   width: 100%;
   align-items: center;
-  justify-content: space-between;
+  justify-content: left;
   gap: 12px;
 }
 
@@ -456,17 +453,9 @@ aside::-webkit-scrollbar-thumb { background: var(--border-light); border-radius:
   transition: border-color 0.18s, background 0.18s, transform 0.15s;
 }
 
-.dishes-grid .dish-card:nth-child(1),
-.dishes-grid .dish-card:nth-child(2) {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
 
-.dish-card:hover {
-  background: var(--surface2);
-  border-color: var(--border-light);
-  transform: translateY(-1px);
-}
+
+
 
 .dish-img-wrap {
   position: relative;
@@ -1001,7 +990,7 @@ aside::-webkit-scrollbar-thumb { background: var(--border-light); border-radius:
 @media (max-width: 768px) {
   :root { --header-h: 56px; --sticky-top: 154px; }
 
-  header { padding: 0 16px; height: var(--header-h); border-radius: 0; }
+  header { padding: 0 16px; height: var(--header-h); border-radius: 0; position: relative; }
   .header-nav { display: none; }
   .flame-icon { font-size: 22px; }
   .logo { font-size: 18px; }
@@ -1144,22 +1133,11 @@ aside::-webkit-scrollbar-thumb { background: var(--border-light); border-radius:
   .main-col { padding: 0; }
 
   .cat-tabs-sticky { padding: 8px 0; border-radius: 0; border-width: 0; }
-  .search-tabs-sticky { padding: 10px 0 0; }
+  .search-tabs-sticky { top: 0px; }
 
   /* ── Hide-on-scroll (mobile only) ── */
-  header {
-    transition: transform 0.28s cubic-bezier(.4,0,.2,1);
-    will-change: transform;
-  }
   .search-tabs-sticky {
-    transition: top 0.28s cubic-bezier(.4,0,.2,1);
-  }
-
-  body.scrolled-down header {
-    transform: translateY(-100%);
-  }
-  body.scrolled-down .search-tabs-sticky {
-    top: 0;
+    transition: none;
   }
 
   .dishes-grid { grid-template-columns: 1fr;  gap: 9px;}
@@ -1225,18 +1203,40 @@ aside::-webkit-scrollbar-thumb { background: var(--border-light); border-radius:
     bottom: 0; left: 0; right: 0;
     z-index: 190;
     padding: 10px 12px 20px;
-    background: linear-gradient(to top, var(--bg) 65%, transparent);
     pointer-events: none;
-    transform: translateY(110%);
-    transition: transform 0.35s cubic-bezier(.4, 0, .2, 1);
-  }
-  .mobile-cart-bar.visible {
     transform: translateY(0);
-    pointer-events: auto;
+  }
+  .mobile-cart-bar-inner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 
+  /* Кнопка "вгору" — завжди видима */
+  .scroll-top-btn {
+    flex-shrink: 0;
+    width: 58px;
+    height: 58px;
+    border-radius: 18px;
+    border: none;
+    background: var(--orange);
+    color: var(--bg);
+    box-shadow: 0 6px 28px rgba(0,0,0,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .scroll-top-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 3px 14px rgba(0,0,0,0.1);
+  }
+
+  /* Кнопка корзини — з'являється при .visible */
   .mobile-cart-btn {
-    width: 100%;
+    flex: 1;
     display: flex;
     align-items: center;
     gap: 0;
@@ -1249,7 +1249,15 @@ aside::-webkit-scrollbar-thumb { background: var(--border-light); border-radius:
     box-shadow: 0 6px 28px rgba(122, 65, 167, 0.45);
     font-family: 'Manrope', sans-serif;
     overflow: hidden;
-    transition: transform 0.15s, box-shadow 0.15s;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.3s cubic-bezier(.4,0,.2,1), transform 0.3s cubic-bezier(.4,0,.2,1), box-shadow 0.15s;
+  }
+  .mobile-cart-bar.visible .mobile-cart-btn {
+    pointer-events: auto;
+    opacity: 1;
+    transform: translateX(0);
   }
   .mobile-cart-btn:active {
     transform: scale(0.98);

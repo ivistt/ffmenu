@@ -217,6 +217,7 @@ function renderTabs(visibleCats) {
 
   el.innerHTML = spacer + visibleCats.map(cat => `
     <div class="swiper-slide cat-tab ${activeTabId === cat.id ? 'active' : ''}"
+         data-cat-id="${cat.id}"
          onclick="jumpToCat('${cat.id}')">
       ${cat.name}
     </div>
@@ -256,15 +257,10 @@ function jumpToCat(catId) {
     }
   }
 
-  const q = '';
-  const visible = menuData.filter(cat =>
-    !q || cat.dishes.some(d =>
-      d.name.toLowerCase().includes(q) ||
-      (d.description && d.description.toLowerCase().includes(q)) ||
-      (d.composition && d.composition.toLowerCase().includes(q))
-    )
-  );
-  renderTabs(visible);
+  // Просто оновлюємо active-клас без пересоздання DOM
+  document.querySelectorAll('#catTabs .cat-tab').forEach(el => {
+    el.classList.toggle('active', el.dataset.catId === catId);
+  });
 
   isJumping = true;
   // При програмному скролі до категорії — показуємо хедер назад
@@ -488,6 +484,10 @@ function renderOrder() {
 // ══════════════════════════════
 //  HELPERS
 // ══════════════════════════════
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 function plural(n, one, few, many) {
   if (n % 10 === 1 && n % 100 !== 11) return one;
   if (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) return few;
