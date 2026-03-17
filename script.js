@@ -256,7 +256,7 @@ function jumpToCat(catId) {
     }
   }
 
-  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  const q = '';
   const visible = menuData.filter(cat =>
     !q || cat.dishes.some(d =>
       d.name.toLowerCase().includes(q) ||
@@ -289,7 +289,7 @@ function jumpToCat(catId) {
 //  RENDER MENU
 // ══════════════════════════════
 function renderMenu() {
-  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  const q = '';
   const content = document.getElementById('menuContent');
   let html = '';
   let anyResult = false;
