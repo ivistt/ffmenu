@@ -213,19 +213,19 @@ function renderTabs(visibleCats) {
   const el = document.getElementById('catTabs');
   if (!el) return;
 
-  el.innerHTML = visibleCats.map(cat => `
+  const spacer = `<div class="swiper-slide cat-tab-spacer" style="width:12px!important;padding:0;background:none;border:none;pointer-events:none;margin-right:0!important;"></div>`;
+
+  el.innerHTML = spacer + visibleCats.map(cat => `
     <div class="swiper-slide cat-tab ${activeTabId === cat.id ? 'active' : ''}"
          onclick="jumpToCat('${cat.id}')">
       ${cat.name}
     </div>
-  `).join('');
+  `).join('') + spacer;
 
   if (!catTabsSwiper) {
     catTabsSwiper = new Swiper('.cat-tabs-swiper', {
       slidesPerView: 'auto',
       spaceBetween: 7,
-      slidesOffsetBefore: 12,
-      slidesOffsetAfter: 12,
       freeMode: {
         enabled: true,
         momentum: true,
@@ -370,7 +370,7 @@ function renderDish(dish) {
             ${dish.weight ? `<div class="dish-weight">⚖ ${dish.weight}</div>` : ''}
           </div>
           <button
-            data-dish-id="${dish.id}"
+            id="btn-${dish.id}"
             class="add-btn ${inOrder ? 'added' : ''}"
             onclick="addToOrder('${dish.id}')"
             title="${inOrder ? 'Прибрати' : 'Додати до замовлення'}">
@@ -432,12 +432,12 @@ function clearOrder() {
 }
 
 function updateDishButton(dishId) {
+  const btn = document.getElementById('btn-' + dishId);
+  if (!btn) return;
   const inOrder = order.some(o => o.id === dishId);
-  document.querySelectorAll(`[data-dish-id="${dishId}"]`).forEach(btn => {
-    btn.classList.toggle('added', inOrder);
-    btn.textContent = inOrder ? '✓ Додано' : '+ Додати';
-    btn.title = inOrder ? 'Прибрати' : 'Додати до замовлення';
-  });
+  btn.classList.toggle('added', inOrder);
+  btn.textContent = inOrder ? '✓ Додано' : '+ Додати';
+  btn.title = inOrder ? 'Прибрати' : 'Додати до замовлення';
 }
 
 function renderOrder() {
