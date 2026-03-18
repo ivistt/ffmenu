@@ -15,8 +15,7 @@ const MENU_URL = './menu.json';
    TELEGRAM CONFIG
    Вставте свій Bot Token і Chat ID нижче
 ══════════════════════════════ */
-const TG_BOT_TOKEN = '8377287560:AAHn4_GmkzUiFJvcifhnwgRJm0ye04L5KhE';  // напр. '7123456789:AAFxxx...'
-const TG_CHAT_ID   = '-1003850549188';    // напр. '-1001234567890'
+const TG_PROXY_URL = 'https://ogon-telegram-proxy.skifchaqwerty.workers.dev/';
 
 /* ══════════════════════════════
    TABLE NUMBER — зчитується з URL
@@ -775,15 +774,10 @@ function initHideOnScroll() {
 //  TELEGRAM
 // ══════════════════════════════
 async function sendTelegramMessage(text) {
-  const url = `https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`;
-  const res = await fetch(url, {
+  const res = await fetch(TG_PROXY_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      chat_id: TG_CHAT_ID,
-      text,
-      parse_mode: 'HTML',
-    }),
+    body: JSON.stringify({ text }),
   });
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
