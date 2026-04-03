@@ -9,7 +9,8 @@
    4. Скопіюйте URL деплою і вставте нижче
 ══════════════════════════════════════════ */
 
-const MENU_URL = './menu.json';
+const WORKER_URL = 'https://dark-morning-bd95.skifchaqwerty.workers.dev';
+const MENU_URL   = WORKER_URL + '/menu';
 
 /* ══════════════════════════════
    TELEGRAM CONFIG
@@ -124,61 +125,29 @@ function buildDishMap() {
 // ══════════════════════════════
 //  BOOTSTRAP
 // ══════════════════════════════
-const CACHE_KEY     = 'ogon_menu_v1';
-const CACHE_TIME_KEY= 'ogon_menu_time_v1';
-const CACHE_TTL     = 10 * 60 * 1000; // 10 хвилин
 
 async function init() {
   initBannerSwiper();
-
-  // Показуємо кешоване меню миттєво
-  try {
-    const cached   = localStorage.getItem(CACHE_KEY);
-    const cacheAge = Date.now() - Number(localStorage.getItem(CACHE_TIME_KEY) || 0);
-    if (cached && cacheAge < CACHE_TTL) {
-      menuData = JSON.parse(cached);
-      buildAndRender();
-      fetchMenu(/* silent */ true); // оновити в фоні
-      return;
-    }
-  } catch (_) {}
-
   showMenuSkeleton();
-  await fetchMenu(false);
+  await fetchMenu();
 }
 
-async function fetchMenu(silent) {
+async function fetchMenu() {
   try {
     const res = await fetch(MENU_URL);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
     if (!Array.isArray(data) || !data.length) throw new Error('Порожнє меню');
-
-    try {
-      localStorage.setItem(CACHE_KEY, JSON.stringify(data));
-      localStorage.setItem(CACHE_TIME_KEY, String(Date.now()));
-    } catch (_) {}
-
-    if (silent) {
-      // Тихе оновлення — перемальовуємо тільки якщо дані змінились
-      if (JSON.stringify(data) !== JSON.stringify(menuData)) {
-        menuData = data;
-        buildAndRender();
-      }
-    } else {
-      menuData = data;
-      buildAndRender();
-    }
+    menuData = data;
+    buildAndRender();
   } catch (err) {
     console.error('Не вдалося завантажити меню:', err);
-    if (!silent) {
-      document.getElementById('menuContent').innerHTML = `
-        <div class="no-results">
-          ⚠️ Не вдалося завантажити меню.<br>
-          <small style="color:#aaa">${err.message}</small>
-        </div>`;
-      hideLoader();
-    }
+    document.getElementById('menuContent').innerHTML = `
+      <div class="no-results">
+        ⚠️ Не вдалося завантажити меню.<br>
+        <small style="color:#aaa">${err.message}</small>
+      </div>`;
+    hideLoader();
   }
 }
 
