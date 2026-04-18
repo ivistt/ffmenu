@@ -1226,6 +1226,34 @@ padding: 8px 0px;
   }
   .order-panel.open { transform: translateY(0); }
 
+  .order-panel-close-fixed {
+    display: none;
+  }
+
+  .order-panel.open .order-panel-close-fixed {
+    display: flex;
+    position: fixed;
+    top: 14px;
+    right: 16px;
+    z-index: 200;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: var(--bg2);
+    color: var(--text2);
+    font-size: 16px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    transition: background 0.15s, color 0.15s;
+  }
+  .order-panel.open .order-panel-close-fixed:active {
+    background: var(--orange-dim);
+    color: var(--orange);
+  }
+
   /* Order panel header with close button */
   .order-panel-header {
     display: flex;
