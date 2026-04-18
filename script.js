@@ -464,8 +464,6 @@ function renderOrder() {
       cartBar.classList.remove('visible');
       cartBar.classList.add('empty-hint');
       if (cartCount) cartCount.textContent = 'Кошик порожній';
-      const actionEl = document.getElementById('mobileCartAction');
-      if (actionEl) actionEl.textContent = 'Додайте страву';
     }
     const panel = document.getElementById('orderPanel');
     const overlay = document.getElementById('orderOverlay');
@@ -491,10 +489,6 @@ function renderOrder() {
       if (cartPrice) cartPrice.textContent = `${total} ₴`;
       cartBar.classList.remove('empty-hint');
       cartBar.classList.add('visible');
-      const actionEl = document.getElementById('mobileCartAction');
-      if (actionEl && !document.getElementById('orderPanel')?.classList.contains('open')) {
-        actionEl.textContent = 'Подивитись';
-      }
     }
   }
 
@@ -573,25 +567,16 @@ function closeOrderPanel() {
 function updateCartBarPanelState(isOpen) {
   const defaultBtn = document.querySelector('.cart-bar-default-btn');
   const panelBtn = document.querySelector('.cart-bar-panel-btn');
-  const actionEl = document.getElementById('mobileCartAction');
-  const mainBtn = document.getElementById('mobileCartMainBtn');
+  const orderBtn = document.getElementById('mobileOrderBtn');
 
   if (isOpen) {
-    // Panel is open: show waiter bell, change action to "Замовити" that sends order
     if (defaultBtn) defaultBtn.style.display = 'none';
     if (panelBtn) panelBtn.style.display = 'flex';
-    if (actionEl) actionEl.textContent = 'Замовити';
-    if (mainBtn) {
-      mainBtn.onclick = function () { sendOrder(); };
-    }
+    if (orderBtn && order.length > 0) orderBtn.style.display = 'flex';
   } else {
-    // Panel is closed: restore scroll-top, show "Подивитись"
     if (defaultBtn) defaultBtn.style.display = 'flex';
     if (panelBtn) panelBtn.style.display = 'none';
-    if (actionEl) actionEl.textContent = 'Подивитись';
-    if (mainBtn) {
-      mainBtn.onclick = function () { toggleOrder(); };
-    }
+    if (orderBtn) orderBtn.style.display = 'none';
   }
 }
 

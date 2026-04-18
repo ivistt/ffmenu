@@ -1370,11 +1370,36 @@ padding: 8px 0px;
     transform: scale(0.98);
     box-shadow: 0 3px 14px rgba(122, 65, 167, 0.35);
   }
+
+  /* Кнопка "Замовити" — поруч з кошиком, тільки коли панель відкрита */
+  .mobile-order-btn {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 58px;
+    border-radius: 18px;
+    border: none;
+    background: #27ae60;
+    color: #fff;
+    font-family: 'Manrope', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    pointer-events: auto;
+    box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .mobile-order-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 3px 10px rgba(39, 174, 96, 0.3);
+  }
   .mobile-cart-btn-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 56px;
+    width: 52px;
     flex-shrink: 0;
     opacity: 0.92;
   }
@@ -1383,8 +1408,9 @@ padding: 8px 0px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 1px;
-    padding: 0 4px;
+    justify-content: center;
+    gap: 2px;
+    padding: 0 16px 0 0;
   }
   .mobile-cart-btn-count {
     font-size: 13px;
@@ -1395,18 +1421,6 @@ padding: 8px 0px;
     font-size: 12px;
     font-weight: 500;
     opacity: 0.78;
-  }
-  .mobile-cart-btn-action {
-    display: flex;
-    align-items: center;
-    gap: 3px;
-    background: rgba(255,255,255,0.18);
-    height: 100%;
-    padding: 0 14px 0 16px;
-    font-size: 14px;
-    font-weight: 700;
-    white-space: nowrap;
-    border-left: 1px solid rgba(255,255,255,0.15);
   }
 
   .about-page { padding: 20px 14px; }
