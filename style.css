@@ -387,6 +387,26 @@ aside::-webkit-scrollbar-thumb { background: var(--border-light); border-radius:
   color: #FFFFFF;
 }
 
+.cat-tab-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5px;
+  padding: 1px 5px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(0,0,0,0.10);
+  color: inherit;
+  min-width: 18px;
+  line-height: 16px;
+  vertical-align: middle;
+}
+.cat-tab.active .cat-tab-count {
+  background: rgba(255,255,255,0.25);
+  color: #fff;
+}
+
 /* ══════════════════
    CATEGORY SECTION
 ══════════════════ */
@@ -1331,6 +1351,20 @@ padding: 8px 0px;
     pointer-events: auto;
     opacity: 1;
     transform: translateX(0);
+  }
+  /* Підказка — кошик видно, але приглушений */
+  .mobile-cart-bar.empty-hint .mobile-cart-btn {
+    pointer-events: auto;
+    opacity: 0.55;
+    transform: translateX(0);
+  }
+  .mobile-cart-bar.empty-hint .mobile-cart-btn .mobile-cart-btn-count {
+    font-size: 11px;
+    font-weight: 600;
+    opacity: 0.85;
+  }
+  .mobile-cart-bar.empty-hint .mobile-cart-btn .mobile-cart-btn-price {
+    display: none;
   }
   .mobile-cart-btn:active {
     transform: scale(0.98);

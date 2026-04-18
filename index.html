@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ресторан ОГОнь — Одеса</title>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -30,10 +31,10 @@
   </div>
   <!-- Desktop nav (hidden on mobile) -->
   <div class="header-nav">
-    <button class="nav-btn active" onclick="showPage('menu', this)">🍽 Меню</button>
-    <button class="nav-btn" onclick="showPage('about', this)">✨ Про нас</button>
+    <button class="nav-btn active" onclick="showPage('menu', this)"><i class="fa-solid fa-utensils"></i> Меню</button>
+    <button class="nav-btn" onclick="showPage('about', this)"><i class="fa-solid fa-star"></i> Про нас</button>
     <button class="order-toggle-btn" onclick="toggleOrder()">
-      🛒 Замовлення <span class="order-badge" id="orderBadge">0</span>
+      <i class="fa-solid fa-cart-shopping"></i> Замовлення <span class="order-badge" id="orderBadge">0</span>
     </button>
   </div>
   <!-- Burger button (mobile only) -->
@@ -51,15 +52,15 @@
 
     <div class="drawer-top">
       <div class="drawer-title">Навігація</div>
-      <button class="drawer-close-btn" onclick="closeDrawer()">✕</button>
+      <button class="drawer-close-btn" onclick="closeDrawer()"><i class="fa-solid fa-xmark"></i></button>
     </div>
 
     <div class="drawer-nav">
       <button class="drawer-page-btn active" id="drawerMenuBtn" onclick="drawerGoPage('menu')">
-        <span>🍽</span> Меню
+        <span><i class="fa-solid fa-utensils"></i></span> Меню
       </button>
       <button class="drawer-page-btn" id="drawerAboutBtn" onclick="drawerGoPage('about')">
-        <span>✨</span> Про нас
+        <span><i class="fa-solid fa-star"></i></span> Про нас
       </button>
     </div>
 
@@ -68,19 +69,19 @@
     <div class="drawer-section-label">Контакти та інфо</div>
     <div class="info-block">
       <div class="info-item">
-        <div class="info-icon-wrap">🕐</div>
+        <div class="info-icon-wrap"><i class="fa-regular fa-clock"></i></div>
         <div class="info-text"><strong>10:00 — 22:00</strong><span>Щодня без вихідних</span></div>
       </div>
       <div class="info-item">
-        <div class="info-icon-wrap">📍</div>
+        <div class="info-icon-wrap"><i class="fa-solid fa-location-dot"></i></div>
         <div class="info-text"><strong>Фабрична вул., 1</strong><span>Одеса, Одеська обл., 65000</span></div>
       </div>
       <div class="info-item">
-        <div class="info-icon-wrap">📞</div>
+        <div class="info-icon-wrap"><i class="fa-solid fa-phone"></i></div>
         <div class="info-text"><strong>+380 77 155 9999</strong><span>Резервація столиків</span></div>
       </div>
       <div class="info-item">
-        <div class="info-icon-wrap">✉️</div>
+        <div class="info-icon-wrap"><i class="fa-solid fa-envelope"></i></div>
         <div class="info-text"><strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0169646d6d6e416e666e6f2f7460">[email&#160;protected]</a></strong><span>Ділові питання</span></div>
       </div>
     </div>
@@ -97,8 +98,8 @@
       <div class="google-reviews-info">
         <span class="google-reviews-label">Google Відгуки</span>
         <div class="google-stars">
-          <span class="star">★</span><span class="star">★</span><span class="star">★</span>
-          <span class="star">★</span><span class="star">★</span>
+          <span class="star"><i class="fa-solid fa-star"></i></span><span class="star"><i class="fa-solid fa-star"></i></span><span class="star"><i class="fa-solid fa-star"></i></span>
+          <span class="star"><i class="fa-solid fa-star"></i></span><span class="star"><i class="fa-solid fa-star"></i></span>
           <span class="google-score">5.0</span>
         </div>
       </div>
@@ -106,13 +107,13 @@
 
     <div class="social-row" style="padding: 12px 0 0;">
       <a class="social-btn" href="#" title="Telegram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>TG
+        <i class="fa-brands fa-telegram"></i>
       </a>
       <a class="social-btn" href="#" title="Instagram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>IG
+        <i class="fa-brands fa-instagram"></i>
       </a>
       <a class="social-btn" href="#" title="Facebook">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>FB
+        <i class="fa-brands fa-facebook-f"></i>
       </a>
     </div>
 
@@ -132,28 +133,28 @@
 
       <div class="info-block">
         <div class="info-item">
-          <div class="info-icon-wrap">🕐</div>
+          <div class="info-icon-wrap"><i class="fa-regular fa-clock"></i></div>
           <div class="info-text">
             <strong>10:00 — 22:00</strong>
             <span>Щодня без вихідних</span>
           </div>
         </div>
         <div class="info-item">
-          <div class="info-icon-wrap">📍</div>
+          <div class="info-icon-wrap"><i class="fa-solid fa-location-dot"></i></div>
           <div class="info-text">
             <strong>Фабрична вул., 1</strong>
             <span>Одеса, Одеська обл., 65000</span>
           </div>
         </div>
         <div class="info-item">
-          <div class="info-icon-wrap">📞</div>
+          <div class="info-icon-wrap"><i class="fa-solid fa-phone"></i></div>
           <div class="info-text">
             <strong>+380 77 155 9999</strong>
             <span>Резервація столиків</span>
           </div>
         </div>
         <div class="info-item">
-          <div class="info-icon-wrap">✉️</div>
+          <div class="info-icon-wrap"><i class="fa-solid fa-envelope"></i></div>
           <div class="info-text">
             <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5d35383131321d323a323373283c">[email&#160;protected]</a></strong>
             <span>Ділові питання</span>
@@ -172,11 +173,11 @@
         <div class="google-reviews-info">
           <span class="google-reviews-label">Google Відгуки</span>
           <div class="google-stars">
-            <span class="star">★</span>
-            <span class="star">★</span>
-            <span class="star">★</span>
-            <span class="star">★</span>
-            <span class="star">★</span>
+            <span class="star"><i class="fa-solid fa-star"></i></span>
+            <span class="star"><i class="fa-solid fa-star"></i></span>
+            <span class="star"><i class="fa-solid fa-star"></i></span>
+            <span class="star"><i class="fa-solid fa-star"></i></span>
+            <span class="star"><i class="fa-solid fa-star"></i></span>
             <span class="google-score">5.0</span>
           </div>
         </div>
@@ -185,24 +186,13 @@
       <!-- Social links -->
       <div class="social-row">
         <a class="social-btn" href="#" title="Telegram">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/>
-          </svg>
-          TG
+          <i class="fa-brands fa-telegram"></i>
         </a>
         <a class="social-btn" href="#" title="Instagram">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="2" y="2" width="20" height="20" rx="5"/>
-            <circle cx="12" cy="12" r="4"/>
-            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-          </svg>
-          IG
+          <i class="fa-brands fa-instagram"></i>
         </a>
         <a class="social-btn" href="#" title="Facebook">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
-          </svg>
-          FB
+          <i class="fa-brands fa-facebook-f"></i>
         </a>
       </div>
 
@@ -235,14 +225,14 @@
     <div class="order-panel" id="orderPanel">
       <div class="order-panel-header">
         <div class="order-panel-title">Ваше замовлення</div>
-        <button class="order-panel-close" onclick="closeOrderPanel()" aria-label="Закрити">✕</button>
+        <button class="order-panel-close" onclick="closeOrderPanel()" aria-label="Закрити"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="order-subtitle" id="orderSubtitle">Порожньо</div>
       <div class="order-divider"></div>
 
       <div id="orderItems" class="order-items">
         <div class="order-empty">
-          <div class="order-empty-icon">🍽️</div>
+          <div class="order-empty-icon"><i class="fa-solid fa-utensils"></i></div>
           <p>Оберіть страви<br>з меню</p>
         </div>
       </div>
@@ -265,19 +255,19 @@
     </div>
 
     <div class="about-desc">
-      <p>✨ Ресторан «Огонь» — це не просто місце, а справжня атмосфера затишку та гостинності. Вас зустріне наш зелений дворик, стильні будиночки й комфортні зали, де приємно відпочивати з родиною та друзями.</p>
+      <p><i class="fa-solid fa-star"></i> Ресторан «Огонь» — це не просто місце, а справжня атмосфера затишку та гостинності. Вас зустріне наш зелений дворик, стильні будиночки й комфортні зали, де приємно відпочивати з родиною та друзями.</p>
       <p>
-        🍴 У меню ми поєднали улюблені смаки:<br>
+        <i class="fa-solid fa-utensils"></i> У меню ми поєднали улюблені смаки:<br>
         • соковите м'ясо з тандиру та риба з мангалу,<br>
         • морепродукти у витончених соусах,<br>
         • суші та піца,<br>
         • хачапурі по-грузинськи,<br>
         • авторські салати,<br>
         • а також велике банкетне меню для особливих подій.<br>
-        І дуже великі порції 😄
+        І дуже великі порції <i class="fa-regular fa-face-smile"></i>
       </p>
-      <p>🍹 Наші бармени здивують вас фірмовими напоями й коктейлями, створеними з душею.</p>
-      <p>🚗 Плануєте святкування чи відпочинок вдома? Ми організуємо доставку по Одесі, виїзний банкет, кейтеринг або фуршет.</p>
+      <p><i class="fa-solid fa-martini-glass"></i> Наші бармени здивують вас фірмовими напоями й коктейлями, створеними з душею.</p>
+      <p><i class="fa-solid fa-car"></i> Плануєте святкування чи відпочинок вдома? Ми організуємо доставку по Одесі, виїзний банкет, кейтеринг або фуршет.</p>
       <p><strong>Чекаємо на вас у гості, щоб подарувати теплі емоції та смачні враження!</strong></p>
     </div>
 
@@ -307,31 +297,23 @@
   <div class="mobile-cart-bar-inner">
     <!-- Default state: scroll-to-top button -->
     <button class="scroll-top-btn cart-bar-default-btn" onclick="scrollToTop()" aria-label="Вгору">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+      <i class="fa-solid fa-arrow-up"></i>
     </button>
     <!-- Panel-open state: call waiter button -->
     <button class="waiter-panel-btn cart-bar-panel-btn" onclick="callWaiter()" aria-label="Викликати офіціанта" style="display:none;">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+      <i class="fa-solid fa-bell"></i>
       <span class="waiter-panel-btn-label">Позвати<br>офіціанта</span>
     </button>
     <button class="mobile-cart-btn" id="mobileCartMainBtn" onclick="toggleOrder()">
       <div class="mobile-cart-btn-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-          <line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="2"/>
-          <path d="M16 10a4 4 0 01-8 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
+        <i class="fa-solid fa-bag-shopping" style="font-size:22px;"></i>
       </div>
       <div class="mobile-cart-btn-info">
-        <span class="mobile-cart-btn-count" id="mobileCartCount">1 позиція</span>
+        <span class="mobile-cart-btn-count" id="mobileCartCount">Кошик порожній</span>
         <span class="mobile-cart-btn-price" id="mobileCartPrice">0 ₴</span>
       </div>
       <div class="mobile-cart-btn-action" id="mobileCartAction">
-        Подивитись
+        Додайте страву
       </div>
     </button>
   </div>

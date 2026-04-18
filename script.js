@@ -9,8 +9,12 @@
    4. Скопіюйте URL деплою і вставте нижче
 ══════════════════════════════════════════ */
 
-const WORKER_URL = 'https://dark-morning-bd95.skifchaqwerty.workers.dev';
-const MENU_URL   = WORKER_URL + '/menu';
+/* ══════════════════════════════
+   WORKER CONFIG
+   Вставте URL вашого Cloudflare Worker
+══════════════════════════════ */
+const WORKER_URL = 'https://ffmenuregular.skifchaqwerty.workers.dev';
+const MENU_URL = WORKER_URL + '/menu';
 
 /* ══════════════════════════════
    TELEGRAM CONFIG
@@ -24,7 +28,7 @@ const TG_PROXY_URL = 'https://ogon-telegram-proxy.skifchaqwerty.workers.dev/';
 ══════════════════════════════ */
 function getTableNumber() {
   const search = window.location.search;   // ?=table12  або  ?table=12
-  const hash   = window.location.hash;     // #table12
+  const hash = window.location.hash;     // #table12
 
   // ?table=12
   const paramMatch = search.match(/[?&]table=([^&]+)/i);
@@ -55,21 +59,21 @@ const BANNERS = [
   {
     image: 'images/banners/banner1.png',
     bg: 'linear-gradient(135deg, #1a0a00 0%, #6b2a00 100%)',
-    label: '🔥 Хіт сезону',
+    label: '<i class="fa-solid fa-fire"></i> Хіт сезону',
     title: 'М\'ясо з тандиру',
     sub: 'Соковите, з димком — щодня з 12:00',
   },
   {
     image: 'images/banners/banner2.png',
     bg: 'linear-gradient(135deg, #001a0f 0%, #005c30 100%)',
-    label: '🍣 Новинка',
+    label: '<i class="fa-solid fa-fish"></i> Новинка',
     title: 'Суші-сет «Огонь»',
     sub: '24 ролли + місо-суп у подарунок',
   },
   {
     image: 'images/banners/banner3.png',
     bg: 'linear-gradient(135deg, #0d0a1a 0%, #3a1a6b 100%)',
-    label: '🥂 Банкети',
+    label: '<i class="fa-solid fa-champagne-glasses"></i> Банкети',
     title: 'Святкуйте з нами',
     sub: 'Організуємо будь-яке свято — від 20 осіб',
   },
@@ -79,9 +83,9 @@ const BANNERS = [
 // ══════════════════════════════
 //  STATE
 // ══════════════════════════════
-let menuData    = [];
-let order       = [];
-let openCats    = {};
+let menuData = [];
+let order = [];
+let openCats = {};
 let activeTabId = null;
 
 // ══════════════════════════════
@@ -129,6 +133,8 @@ function buildDishMap() {
 async function init() {
   initBannerSwiper();
   showMenuSkeleton();
+  const cartBar = document.getElementById('mobileCartBar');
+  if (cartBar) cartBar.classList.add('empty-hint');
   await fetchMenu();
 }
 
@@ -137,14 +143,16 @@ async function fetchMenu() {
     const res = await fetch(MENU_URL);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
+    if (data.error) throw new Error(data.error);
     if (!Array.isArray(data) || !data.length) throw new Error('Порожнє меню');
+
     menuData = data;
     buildAndRender();
   } catch (err) {
     console.error('Не вдалося завантажити меню:', err);
     document.getElementById('menuContent').innerHTML = `
       <div class="no-results">
-        ⚠️ Не вдалося завантажити меню.<br>
+        <i class="fa-solid fa-triangle-exclamation"></i> Не вдалося завантажити меню.<br>
         <small style="color:#aaa">${err.message}</small>
       </div>`;
     hideLoader();
@@ -173,7 +181,7 @@ function buildAndRender() {
 function showMenuSkeleton() {
   document.getElementById('menuContent').innerHTML = `
     <div style="padding:32px;text-align:center;color:#888">
-      <div style="font-size:32px;margin-bottom:12px">⏳</div>
+      <div style="font-size:32px;margin-bottom:12px"><i class="fa-regular fa-clock" style="color:#888"></i></div>
       Завантаження меню…
     </div>`;
 }
@@ -195,7 +203,7 @@ function mobileShowPage(pageId, btn) {
   if (btn) btn.classList.add('active');
   document.querySelectorAll('.nav-btn').forEach(b => {
     b.classList.toggle('active',
-      (pageId === 'menu'  && b.textContent.includes('Меню')) ||
+      (pageId === 'menu' && b.textContent.includes('Меню')) ||
       (pageId === 'about' && b.textContent.includes('Про нас'))
     );
   });
@@ -218,7 +226,7 @@ function renderTabs(visibleCats) {
     <div class="swiper-slide cat-tab ${activeTabId === cat.id ? 'active' : ''}"
          data-cat-id="${cat.id}"
          onclick="jumpToCat('${cat.id}')">
-      ${cat.name}
+      ${cat.name}<span class="cat-tab-count">${cat.dishes.length}</span>
     </div>
   `).join('') + spacer;
 
@@ -270,9 +278,9 @@ function jumpToCat(catId) {
       // Динамічно рахуємо висоту sticky-зони (header + search-tabs-sticky)
       const stickyEl = document.querySelector('.search-tabs-sticky');
       const headerEl = document.querySelector('header');
-      const stickyH  = (headerEl ? headerEl.offsetHeight : 64) +
-                       (stickyEl ? stickyEl.offsetHeight : 52);
-      const MARGIN   = 12;
+      const stickyH = (headerEl ? headerEl.offsetHeight : 64) +
+        (stickyEl ? stickyEl.offsetHeight : 52);
+      const MARGIN = 12;
       const y = el.getBoundingClientRect().top + window.scrollY - stickyH - MARGIN;
       window.scrollTo({ top: y, behavior: 'smooth' });
     }
@@ -293,10 +301,10 @@ function renderMenu() {
   menuData.forEach(cat => {
     const dishes = q
       ? cat.dishes.filter(d =>
-          d.name.toLowerCase().includes(q) ||
-          (d.description && d.description.toLowerCase().includes(q)) ||
-          (d.composition && d.composition.toLowerCase().includes(q))
-        )
+        d.name.toLowerCase().includes(q) ||
+        (d.description && d.description.toLowerCase().includes(q)) ||
+        (d.composition && d.composition.toLowerCase().includes(q))
+      )
       : cat.dishes;
 
     if (!dishes.length) return;
@@ -324,7 +332,7 @@ function renderMenu() {
   });
 
   if (!anyResult) {
-    html = `<div class="no-results">😕 Нічого не знайдено за запитом «${q}»</div>`;
+    html = `<div class="no-results"><i class="fa-solid fa-face-sad-tear"></i> Нічого не знайдено за запитом «${q}»</div>`;
   }
 
   content.innerHTML = html;
@@ -349,11 +357,11 @@ function renderDish(dish) {
     <div class="dish-card">
       <div class="dish-img-wrap">
         ${dish.image_url || dish.image
-            ? `<img src="${dish.image_url || dish.image}" alt="${dish.name}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=dish-img-empty>🍽</div>'">`
-            : '<div class="dish-img-empty">🍽</div>'}
+      ? `<img src="${dish.image_url || dish.image}" alt="${dish.name}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=dish-img-empty><i class=\\'fa-solid fa-utensils\\'></i></div>'">`
+      : '<div class="dish-img-empty"><i class="fa-solid fa-utensils"></i></div>'}
         ${dish.extras && dish.extras.length
-          ? `<div class="dish-badges">${dish.extras.map(e => `<span class="dish-badge">⚡ ${e}</span>`).join('')}</div>`
-          : ''}
+      ? `<div class="dish-badges">${dish.extras.map(e => `<span class="dish-badge"><i class="fa-solid fa-bolt"></i> ${e}</span>`).join('')}</div>`
+      : ''}
       </div>
       <div class="dish-body">
         <div class="dish-name">${dish.name}</div>
@@ -362,7 +370,7 @@ function renderDish(dish) {
         <div class="dish-footer">
           <div class="dish-meta">
             <div class="dish-price">${dish.price} ₴</div>
-            ${dish.weight ? `<div class="dish-weight">⚖ ${dish.weight}</div>` : ''}
+            ${dish.weight ? `<div class="dish-weight"><i class="fa-solid fa-weight-hanging"></i> ${dish.weight}</div>` : ''}
           </div>
           <button
             data-dish-id="${dish.id}"
@@ -381,9 +389,9 @@ function renderDish(dish) {
 // ══════════════════════════════
 function toggleCat(catId) {
   openCats[catId] = !openCats[catId];
-  const body    = document.getElementById('body-' + catId);
+  const body = document.getElementById('body-' + catId);
   const chevron = body.previousElementSibling.querySelector('.cat-chevron');
-  const cat     = menuData.find(c => c.id === catId);
+  const cat = menuData.find(c => c.id === catId);
 
   if (openCats[catId]) {
     body.classList.remove('collapsed');
@@ -436,10 +444,10 @@ function updateDishButton(dishId) {
 }
 
 function renderOrder() {
-  const badge     = document.getElementById('orderBadge');
-  const itemsEl   = document.getElementById('orderItems');
-  const subtitle  = document.getElementById('orderSubtitle');
-  const cartBar   = document.getElementById('mobileCartBar');
+  const badge = document.getElementById('orderBadge');
+  const itemsEl = document.getElementById('orderItems');
+  const subtitle = document.getElementById('orderSubtitle');
+  const cartBar = document.getElementById('mobileCartBar');
   const cartCount = document.getElementById('mobileCartCount');
   const cartPrice = document.getElementById('mobileCartPrice');
 
@@ -448,14 +456,20 @@ function renderOrder() {
   if (order.length === 0) {
     itemsEl.innerHTML = `
       <div class="order-empty">
-        <div class="order-empty-icon">🍽️</div>
+        <div class="order-empty-icon"><i class="fa-solid fa-utensils"></i></div>
         <p>Оберіть страви<br>з меню</p>
       </div>`;
     subtitle.textContent = 'Порожньо';
-    if (cartBar) cartBar.classList.remove('visible');
-    const panel   = document.getElementById('orderPanel');
+    if (cartBar) {
+      cartBar.classList.remove('visible');
+      cartBar.classList.add('empty-hint');
+      if (cartCount) cartCount.textContent = 'Кошик порожній';
+      const actionEl = document.getElementById('mobileCartAction');
+      if (actionEl) actionEl.textContent = 'Додайте страву';
+    }
+    const panel = document.getElementById('orderPanel');
     const overlay = document.getElementById('orderOverlay');
-    if (panel)   panel.classList.remove('open');
+    if (panel) panel.classList.remove('open');
     if (overlay) overlay.classList.remove('open');
   } else {
     const total = order.reduce((s, o) => s + o.price, 0);
@@ -468,14 +482,19 @@ function renderOrder() {
         </div>
         <button class="remove-item-btn"
                 onclick="removeFromOrder('${item.id}')"
-                title="Видалити">✕</button>
+                title="Видалити"><i class="fa-solid fa-xmark"></i></button>
       </div>`).join('');
 
     if (cartBar) {
       const countText = `${order.length} ${plural(order.length, 'позиція', 'позиції', 'позицій')}`;
       if (cartCount) cartCount.textContent = countText;
       if (cartPrice) cartPrice.textContent = `${total} ₴`;
+      cartBar.classList.remove('empty-hint');
       cartBar.classList.add('visible');
+      const actionEl = document.getElementById('mobileCartAction');
+      if (actionEl && !document.getElementById('orderPanel')?.classList.contains('open')) {
+        actionEl.textContent = 'Подивитись';
+      }
     }
   }
 
@@ -496,15 +515,15 @@ function renderTgButtons() {
   wrap.innerHTML = `
     <div class="tg-table-label">
       ${TABLE_NUMBER
-        ? `📍 <span>Стіл <b>${TABLE_NUMBER}</b></span>`
-        : `📍 <span style="color:var(--text3)">Стіл не визначено</span>`}
+      ? `<i class="fa-solid fa-location-dot"></i> <span>Стіл <b>${TABLE_NUMBER}</b></span>`
+      : `<i class="fa-solid fa-location-dot"></i> <span style="color:var(--text3)">Стіл не визначено</span>`}
     </div>
     <button id="tgSendOrderBtn" class="tg-btn tg-btn-primary tg-btn-disabled" onclick="sendOrder()" disabled>
-      <span class="tg-btn-icon">📨</span>
+      <span class="tg-btn-icon"><i class="fa-solid fa-paper-plane"></i></span>
       <span class="tg-btn-label">Відправити замовлення</span>
     </button>
     <button id="tgCallWaiterBtn" class="tg-btn tg-btn-secondary" onclick="callWaiter()">
-      <span class="tg-btn-icon">🔔</span>
+      <span class="tg-btn-icon"><i class="fa-solid fa-bell"></i></span>
       <span class="tg-btn-label">Викликати офіціанта</span>
     </button>
   `;
@@ -536,15 +555,15 @@ function toggleOrder() {
     const dm = document.getElementById('drawerMenuBtn');
     if (dm) dm.classList.add('active');
   }
-  const panel   = document.getElementById('orderPanel');
+  const panel = document.getElementById('orderPanel');
   const overlay = document.getElementById('orderOverlay');
-  const isOpen  = panel.classList.toggle('open');
+  const isOpen = panel.classList.toggle('open');
   if (overlay) overlay.classList.toggle('open', isOpen);
   updateCartBarPanelState(isOpen);
 }
 
 function closeOrderPanel() {
-  const panel   = document.getElementById('orderPanel');
+  const panel = document.getElementById('orderPanel');
   const overlay = document.getElementById('orderOverlay');
   panel.classList.remove('open');
   if (overlay) overlay.classList.remove('open');
@@ -553,25 +572,25 @@ function closeOrderPanel() {
 
 function updateCartBarPanelState(isOpen) {
   const defaultBtn = document.querySelector('.cart-bar-default-btn');
-  const panelBtn   = document.querySelector('.cart-bar-panel-btn');
-  const actionEl   = document.getElementById('mobileCartAction');
-  const mainBtn    = document.getElementById('mobileCartMainBtn');
+  const panelBtn = document.querySelector('.cart-bar-panel-btn');
+  const actionEl = document.getElementById('mobileCartAction');
+  const mainBtn = document.getElementById('mobileCartMainBtn');
 
   if (isOpen) {
     // Panel is open: show waiter bell, change action to "Замовити" that sends order
     if (defaultBtn) defaultBtn.style.display = 'none';
-    if (panelBtn)   panelBtn.style.display = 'flex';
-    if (actionEl)   actionEl.textContent = 'Замовити';
+    if (panelBtn) panelBtn.style.display = 'flex';
+    if (actionEl) actionEl.textContent = 'Замовити';
     if (mainBtn) {
-      mainBtn.onclick = function() { sendOrder(); };
+      mainBtn.onclick = function () { sendOrder(); };
     }
   } else {
     // Panel is closed: restore scroll-top, show "Подивитись"
     if (defaultBtn) defaultBtn.style.display = 'flex';
-    if (panelBtn)   panelBtn.style.display = 'none';
-    if (actionEl)   actionEl.textContent = 'Подивитись';
+    if (panelBtn) panelBtn.style.display = 'none';
+    if (actionEl) actionEl.textContent = 'Подивитись';
     if (mainBtn) {
-      mainBtn.onclick = function() { toggleOrder(); };
+      mainBtn.onclick = function () { toggleOrder(); };
     }
   }
 }
@@ -635,10 +654,10 @@ function updateActiveTab(catId) {
 
   const activeTab = document.querySelector('.cat-tab.active');
   if (activeTab && catTabsSwiper) {
-    const wrapperEl    = catTabsSwiper.wrapperEl;
+    const wrapperEl = catTabsSwiper.wrapperEl;
     const wrapperWidth = catTabsSwiper.el.offsetWidth;
-    const tabLeft      = activeTab.offsetLeft;
-    const tabWidth     = activeTab.offsetWidth;
+    const tabLeft = activeTab.offsetLeft;
+    const tabWidth = activeTab.offsetWidth;
 
     // Ціль: центруємо активний таб у видимій зоні
     let targetTranslate = -(tabLeft - wrapperWidth / 2 + tabWidth / 2);
@@ -664,9 +683,9 @@ function updateActiveTab(catId) {
 //  BURGER DRAWER (mobile)
 // ══════════════════════════════
 function toggleDrawer() {
-  const drawer  = document.getElementById('drawer');
+  const drawer = document.getElementById('drawer');
   const overlay = document.getElementById('drawerOverlay');
-  const isOpen  = drawer.classList.contains('open');
+  const isOpen = drawer.classList.contains('open');
   if (isOpen) closeDrawer();
   else {
     drawer.classList.add('open');
@@ -686,7 +705,7 @@ function drawerGoPage(pageId) {
   document.getElementById('page-' + pageId).classList.add('active');
   document.querySelectorAll('.nav-btn').forEach(b => {
     b.classList.toggle('active',
-      (pageId === 'menu'  && b.textContent.includes('Меню')) ||
+      (pageId === 'menu' && b.textContent.includes('Меню')) ||
       (pageId === 'about' && b.textContent.includes('Про нас'))
     );
   });
@@ -701,8 +720,8 @@ function drawerGoPage(pageId) {
 //  HIDE-ON-SCROLL (mobile)
 // ══════════════════════════════
 function initHideOnScroll() {
-  let lastY      = window.scrollY;
-  let ticking    = false;
+  let lastY = window.scrollY;
+  let ticking = false;
   const THRESHOLD = 6;   // мін. дельта щоб спрацювало
   const SHOW_ZONE = 40;  // px від верху — завжди показуємо
 
@@ -718,7 +737,7 @@ function initHideOnScroll() {
         return;
       }
 
-      const y     = window.scrollY;
+      const y = window.scrollY;
       const delta = y - lastY;
 
       if (y <= SHOW_ZONE) {
@@ -731,7 +750,7 @@ function initHideOnScroll() {
         document.body.classList.remove('scrolled-down');
       }
 
-      lastY   = y;
+      lastY = y;
       ticking = false;
     });
   }
@@ -787,7 +806,7 @@ async function callWaiter() {
 }
 
 async function sendWithFeedback(type, text) {
-  const btnOrder  = document.getElementById('tgSendOrderBtn');
+  const btnOrder = document.getElementById('tgSendOrderBtn');
   const btnWaiter = document.getElementById('tgCallWaiterBtn');
 
   // Блокуємо обидві кнопки під час запиту
