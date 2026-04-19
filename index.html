@@ -229,7 +229,10 @@
       <div class="order-panel-header">
         <div class="order-panel-title">Ваше замовлення</div>
       </div>
-      <div class="order-subtitle" id="orderSubtitle">Порожньо</div>
+      <div class="order-subtitle-row">
+        <div class="order-subtitle" id="orderSubtitle">Порожньо</div>
+        <div class="order-total" id="orderTotal"></div>
+      </div>
       <div class="order-divider"></div>
 
       <div id="orderItems" class="order-items">
@@ -297,16 +300,11 @@
 <!-- Floating cart button (mobile only) -->
 <div class="mobile-cart-bar" id="mobileCartBar">
   <div class="mobile-cart-bar-inner">
-    <!-- Default state: scroll-to-top button -->
+    <!-- Default state -->
     <button class="scroll-top-btn cart-bar-default-btn" onclick="scrollToTop()" aria-label="Вгору">
       <i class="fa-solid fa-arrow-up"></i>
     </button>
-    <!-- Panel-open state: call waiter button -->
-    <button class="waiter-panel-btn cart-bar-panel-btn" onclick="callWaiter()" aria-label="Викликати офіціанта" style="display:none;">
-      <i class="fa-solid fa-bell"></i>
-      <span class="waiter-panel-btn-label">Позвати<br>офіціанта</span>
-    </button>
-    <button class="mobile-cart-btn" id="mobileCartMainBtn" onclick="toggleOrder()">
+    <button class="mobile-cart-btn cart-bar-default-btn" id="mobileCartMainBtn" onclick="toggleOrder()">
       <div class="mobile-cart-btn-icon">
         <i class="fa-solid fa-bag-shopping" style="font-size:22px;"></i>
       </div>
@@ -315,7 +313,12 @@
         <span class="mobile-cart-btn-price" id="mobileCartPrice">0 ₴</span>
       </div>
     </button>
-    <button class="mobile-order-btn" id="mobileOrderBtn" onclick="sendOrder()" aria-label="Замовити" style="display:none;">
+    <!-- Panel-open state -->
+    <button class="waiter-panel-btn cart-bar-panel-btn" onclick="callWaiter()" aria-label="Викликати офіціанта" style="display:none;">
+      <i class="fa-solid fa-bell"></i>
+      <span class="waiter-panel-btn-label">Позвати офіціанта</span>
+    </button>
+    <button class="mobile-order-btn cart-bar-panel-btn" id="mobileOrderBtn" onclick="sendOrder()" aria-label="Замовити" style="display:none;">
       <span>Замовити</span>
     </button>
   </div>

@@ -135,6 +135,8 @@ async function init() {
   showMenuSkeleton();
   const cartBar = document.getElementById('mobileCartBar');
   if (cartBar) cartBar.classList.add('empty-hint');
+  const cartBtn = document.getElementById('mobileCartMainBtn');
+  if (cartBtn) { cartBtn.classList.add('empty'); cartBtn.disabled = true; }
   await fetchMenu();
 }
 
@@ -365,7 +367,6 @@ function renderDish(dish) {
       </div>
       <div class="dish-body">
         <div class="dish-name">${dish.name}</div>
-        ${dish.description ? `<div class="dish-desc">${dish.description}</div>` : ''}
         ${dish.composition ? `<div class="dish-composition">${dish.composition}</div>` : ''}
         <div class="dish-footer">
           <div class="dish-meta">
@@ -377,7 +378,7 @@ function renderDish(dish) {
             class="add-btn ${inOrder ? 'added' : ''}"
             onclick="addToOrder('${dish.id}')"
             title="${inOrder ? 'Прибрати' : 'Додати до замовлення'}">
-            ${inOrder ? '✓ Додано' : '+ Додати'}
+            <i class="${inOrder ? 'fa-solid fa-check' : 'fa-solid fa-plus'}"></i>
           </button>
         </div>
       </div>
@@ -428,7 +429,7 @@ function clearOrder() {
   order = [];
   document.querySelectorAll('.add-btn.added').forEach(btn => {
     btn.classList.remove('added');
-    btn.textContent = '+ Додати';
+    btn.innerHTML = '<i class="fa-solid fa-plus"></i>';
     btn.title = 'Додати до замовлення';
   });
   renderOrder();
@@ -438,7 +439,7 @@ function updateDishButton(dishId) {
   const inOrder = order.some(o => o.id === dishId);
   document.querySelectorAll(`[data-dish-id="${dishId}"]`).forEach(btn => {
     btn.classList.toggle('added', inOrder);
-    btn.textContent = inOrder ? '✓ Додано' : '+ Додати';
+    btn.innerHTML = inOrder ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-plus"></i>';
     btn.title = inOrder ? 'Прибрати' : 'Додати до замовлення';
   });
 }
@@ -447,9 +448,8 @@ function renderOrder() {
   const badge = document.getElementById('orderBadge');
   const itemsEl = document.getElementById('orderItems');
   const subtitle = document.getElementById('orderSubtitle');
+  const totalEl = document.getElementById('orderTotal');
   const cartBar = document.getElementById('mobileCartBar');
-  const cartCount = document.getElementById('mobileCartCount');
-  const cartPrice = document.getElementById('mobileCartPrice');
 
   badge.textContent = order.length;
 
@@ -460,18 +460,19 @@ function renderOrder() {
         <p>Оберіть страви<br>з меню</p>
       </div>`;
     subtitle.textContent = 'Порожньо';
-    if (cartBar) {
-      cartBar.classList.remove('visible');
-      cartBar.classList.add('empty-hint');
-      if (cartCount) cartCount.textContent = 'Кошик порожній';
-    }
+    if (totalEl) totalEl.textContent = '';
+    if (cartBar) cartBar.classList.remove('visible');
     const panel = document.getElementById('orderPanel');
     const overlay = document.getElementById('orderOverlay');
     if (panel) panel.classList.remove('open');
     if (overlay) overlay.classList.remove('open');
+    updateCartBarPanelState(false);
+    const cartBtn = document.getElementById('mobileCartMainBtn');
+    if (cartBtn) { cartBtn.classList.add('empty'); cartBtn.disabled = true; }
   } else {
     const total = order.reduce((s, o) => s + o.price, 0);
     subtitle.textContent = `${order.length} ${plural(order.length, 'страва', 'страви', 'страв')}`;
+    if (totalEl) totalEl.textContent = `${total} ₴`;
     itemsEl.innerHTML = order.map(item => `
       <div class="order-item">
         <div class="order-item-info">
@@ -483,13 +484,13 @@ function renderOrder() {
                 title="Видалити"><i class="fa-solid fa-xmark"></i></button>
       </div>`).join('');
 
-    if (cartBar) {
-      const countText = `${order.length} ${plural(order.length, 'позиція', 'позиції', 'позицій')}`;
-      if (cartCount) cartCount.textContent = countText;
-      if (cartPrice) cartPrice.textContent = `${total} ₴`;
-      cartBar.classList.remove('empty-hint');
-      cartBar.classList.add('visible');
-    }
+    const cartCount = document.getElementById('mobileCartCount');
+    const cartPrice = document.getElementById('mobileCartPrice');
+    if (cartCount) cartCount.textContent = `${order.length} ${plural(order.length, 'позиція', 'позиції', 'позицій')}`;
+    if (cartPrice) cartPrice.textContent = `${total} ₴`;
+    if (cartBar) cartBar.classList.add('visible');
+    const cartBtn = document.getElementById('mobileCartMainBtn');
+    if (cartBtn) { cartBtn.classList.remove('empty'); cartBtn.disabled = false; }
   }
 
   // Кнопки Telegram
@@ -565,18 +566,18 @@ function closeOrderPanel() {
 }
 
 function updateCartBarPanelState(isOpen) {
-  const defaultBtn = document.querySelector('.cart-bar-default-btn');
-  const panelBtn = document.querySelector('.cart-bar-panel-btn');
-  const orderBtn = document.getElementById('mobileOrderBtn');
+  const defaultBtns = document.querySelectorAll('.cart-bar-default-btn');
+  const panelBtns = document.querySelectorAll('.cart-bar-panel-btn');
+  const cartBar = document.getElementById('mobileCartBar');
 
   if (isOpen) {
-    if (defaultBtn) defaultBtn.style.display = 'none';
-    if (panelBtn) panelBtn.style.display = 'flex';
-    if (orderBtn && order.length > 0) orderBtn.style.display = 'flex';
+    defaultBtns.forEach(b => b.style.display = 'none');
+    panelBtns.forEach(b => b.style.display = 'flex');
+    if (cartBar) cartBar.classList.add('panel-open');
   } else {
-    if (defaultBtn) defaultBtn.style.display = 'flex';
-    if (panelBtn) panelBtn.style.display = 'none';
-    if (orderBtn) orderBtn.style.display = 'none';
+    defaultBtns.forEach(b => b.style.display = 'flex');
+    panelBtns.forEach(b => b.style.display = 'none');
+    if (cartBar) cartBar.classList.remove('panel-open');
   }
 }
 
@@ -761,33 +762,75 @@ async function sendTelegramMessage(text) {
 
 async function sendOrder() {
   if (!order.length) return;
-
-  const tableLabel = TABLE_NUMBER ? `Стіл: <b>${TABLE_NUMBER}</b>` : 'Стіл: <b>невідомий</b>';
-  const time = new Date().toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' });
   const total = order.reduce((s, o) => s + o.price, 0);
-
-  const items = order.map((o, i) => `  ${i + 1}. ${o.name} — ${o.price} ₴`).join('\n');
-
-  const text =
-    `🍽 <b>НОВЕ ЗАМОВЛЕННЯ</b>\n` +
-    `${tableLabel}\n` +
-    `🕐 ${time}\n\n` +
-    `${items}\n\n` +
-    `💰 Сума: <b>${total} ₴</b>`;
-
-  await sendWithFeedback('order', text);
+  const itemsText = order.map(o => `${o.name} — ${o.price} ₴`).join('\n');
+  showConfirmModal(
+    'Підтвердити замовлення',
+    `${itemsText}\n\nСума: ${total} ₴`,
+    'Замовити',
+    async () => {
+      const tableLabel = TABLE_NUMBER ? `Стіл: <b>${TABLE_NUMBER}</b>` : 'Стіл: <b>невідомий</b>';
+      const time = new Date().toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' });
+      const items = order.map((o, i) => `  ${i + 1}. ${o.name} — ${o.price} ₴`).join('\n');
+      const text =
+        `🍽 <b>НОВЕ ЗАМОВЛЕННЯ</b>\n` +
+        `${tableLabel}\n` +
+        `🕐 ${time}\n\n` +
+        `${items}\n\n` +
+        `💰 Сума: <b>${total} ₴</b>`;
+      await sendWithFeedback('order', text);
+    }
+  );
 }
 
 async function callWaiter() {
-  const tableLabel = TABLE_NUMBER ? TABLE_NUMBER : 'невідомий';
-  const time = new Date().toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' });
+  showConfirmModal(
+    'Викликати офіціанта?',
+    'Офіціант підійде до вашого столику найближчим часом.',
+    'Викликати',
+    async () => {
+      const tableLabel = TABLE_NUMBER ? TABLE_NUMBER : 'невідомий';
+      const time = new Date().toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' });
+      const text =
+        `🔔 <b>ВИКЛИК ОФІЦІАНТА</b>\n` +
+        `Стіл: <b>${tableLabel}</b>\n` +
+        `🕐 ${time}`;
+      await sendWithFeedback('waiter', text);
+    }
+  );
+}
 
-  const text =
-    `🔔 <b>ВИКЛИК ОФІЦІАНТА</b>\n` +
-    `Стіл: <b>${tableLabel}</b>\n` +
-    `🕐 ${time}`;
+function showConfirmModal(title, body, confirmLabel, onConfirm) {
+  let modal = document.getElementById('confirmModal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'confirmModal';
+    modal.className = 'tg-modal-overlay';
+    modal.innerHTML = `
+      <div class="tg-modal confirm-modal">
+        <div class="confirm-modal-title" id="confirmModalTitle"></div>
+        <div class="tg-modal-text" id="confirmModalBody"></div>
+        <div class="confirm-modal-btns">
+          <button class="confirm-modal-cancel" onclick="closeConfirmModal()">Скасувати</button>
+          <button class="confirm-modal-ok" id="confirmModalOk"></button>
+        </div>
+      </div>`;
+    document.body.appendChild(modal);
+  }
+  document.getElementById('confirmModalTitle').innerText = title;
+  document.getElementById('confirmModalBody').innerText = body;
+  const okBtn = document.getElementById('confirmModalOk');
+  okBtn.innerText = confirmLabel;
+  okBtn.onclick = async () => {
+    closeConfirmModal();
+    await onConfirm();
+  };
+  modal.classList.add('open');
+}
 
-  await sendWithFeedback('waiter', text);
+function closeConfirmModal() {
+  const modal = document.getElementById('confirmModal');
+  if (modal) modal.classList.remove('open');
 }
 
 async function sendWithFeedback(type, text) {
