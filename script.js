@@ -148,7 +148,7 @@ async function fetchMenu() {
     if (data.error) throw new Error(data.error);
     if (!Array.isArray(data) || !data.length) throw new Error('Порожнє меню');
 
-    menuData = data;
+    menuData = filterMenuDishes(data);
     buildAndRender();
   } catch (err) {
     console.error('Не вдалося завантажити меню:', err);
@@ -159,6 +159,19 @@ async function fetchMenu() {
       </div>`;
     hideLoader();
   }
+}
+
+function isBanquetDish(dish) {
+  return String(dish.where || '').trim().toLowerCase() === 'banquets';
+}
+
+function filterMenuDishes(data) {
+  return data
+    .map(cat => ({
+      ...cat,
+      dishes: (cat.dishes || []).filter(dish => !isBanquetDish(dish)),
+    }))
+    .filter(cat => cat.dishes.length);
 }
 
 function buildAndRender() {
