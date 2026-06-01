@@ -162,7 +162,17 @@ async function fetchMenu() {
 }
 
 function isBanquetDish(dish) {
-  return String(dish.where || '').trim().toLowerCase() === 'banquets';
+  const whereKey = Object.keys(dish).find(key => key.trim().toLowerCase() === 'where');
+  const whereValue = whereKey ? dish[whereKey] : dish.where;
+
+  if (Array.isArray(whereValue)) {
+    return whereValue.some(value => String(value).trim().toLowerCase() === 'banquets');
+  }
+
+  return String(whereValue || '')
+    .toLowerCase()
+    .split(/[,;|\s]+/)
+    .some(value => value.trim() === 'banquets');
 }
 
 function filterMenuDishes(data) {
