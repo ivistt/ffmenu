@@ -166,13 +166,13 @@ function isBanquetDish(dish) {
   const whereValue = whereKey ? dish[whereKey] : dish.where;
 
   if (Array.isArray(whereValue)) {
-    return whereValue.some(value => String(value).trim().toLowerCase() === 'banquets');
+    return whereValue.some(value => String(value).trim().toLowerCase() === 'banquet');
   }
 
   return String(whereValue || '')
     .toLowerCase()
     .split(/[,;|\s]+/)
-    .some(value => value.trim() === 'banquets');
+    .some(value => value.trim() === 'banquet');
 }
 
 function filterMenuDishes(data) {
