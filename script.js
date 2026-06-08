@@ -111,6 +111,10 @@ function sortMenuCategories(categories) {
   });
 }
 
+function isVirtualCategory(cat) {
+  return cat.id === '__recommended__';
+}
+
 // ══════════════════════════════
 //  BANNER SWIPER
 // ══════════════════════════════
@@ -317,7 +321,7 @@ function renderSectionSwitch() {
 function jumpToSection(sectionId) {
   activeSectionId = sectionId;
   renderSectionSwitch();
-  const firstCat = menuData.find(cat => getCategorySection(cat) === sectionId);
+  const firstCat = menuData.find(cat => !isVirtualCategory(cat) && getCategorySection(cat) === sectionId);
   if (firstCat) jumpToCat(firstCat.id);
 }
 
