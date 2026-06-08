@@ -87,7 +87,6 @@ let menuData = [];
 let order = [];
 let openCats = {};
 let activeTabId = null;
-let expandedSectionId = null;
 let activeSectionId = 'bar';
 
 const MENU_SECTIONS = {
@@ -221,6 +220,7 @@ function buildAndRender() {
 
   menuData.forEach(c => { if (openCats[c.id] === undefined) openCats[c.id] = true; });
   activeTabId = menuData[0]?.id || null;
+  if (menuData[0]) activeSectionId = getCategorySection(menuData[0]);
 
   buildDishMap();
   renderMenu();
@@ -270,29 +270,14 @@ function renderTabs(visibleCats) {
   if (!el) return;
 
   const spacer = `<div class="swiper-slide cat-tab-spacer" style="width:12px!important;padding:0;background:none;border:none;pointer-events:none;margin-right:0!important;"></div>`;
-  const renderSectionTab = sectionId => `
-    <div class="swiper-slide cat-tab cat-tab-section ${activeSectionId === sectionId ? 'active' : ''}"
-         data-section-id="${sectionId}"
-         onclick="toggleSectionTabs('${sectionId}')">
-      ${MENU_SECTIONS[sectionId]}
-    </div>
-  `;
 
-  if (!expandedSectionId) {
-    el.innerHTML = spacer + renderSectionTab('bar') + renderSectionTab('food') + spacer;
-  } else {
-    const oppositeSectionId = expandedSectionId === 'bar' ? 'food' : 'bar';
-    const sectionCats = visibleCats.filter(cat => getCategorySection(cat) === expandedSectionId);
-    const categoryTabs = sectionCats.map(cat => `
+  el.innerHTML = spacer + visibleCats.map(cat => `
     <div class="swiper-slide cat-tab ${activeTabId === cat.id ? 'active' : ''}"
          data-cat-id="${cat.id}"
          onclick="jumpToCat('${cat.id}')">
       ${cat.name}<span class="cat-tab-count">${cat.dishes.length}</span>
     </div>
-    `).join('');
-
-    el.innerHTML = spacer + renderSectionTab(expandedSectionId) + categoryTabs + renderSectionTab(oppositeSectionId) + spacer;
-  }
+  `).join('') + spacer;
 
   if (!catTabsSwiper) {
     catTabsSwiper = new Swiper('.cat-tabs-swiper', {
@@ -312,21 +297,28 @@ function renderTabs(visibleCats) {
     catTabsSwiper.update();
   }
 
-  if (!expandedSectionId && catTabsSwiper) {
-    catTabsSwiper.slideTo(0, 0);
-  }
+  renderSectionSwitch();
 }
 
-function toggleSectionTabs(sectionId) {
-  const wasExpanded = expandedSectionId === sectionId;
-  activeSectionId = sectionId;
-  expandedSectionId = wasExpanded ? null : sectionId;
-  renderMenu();
+function renderSectionSwitch() {
+  const el = document.getElementById('sectionSwitch');
+  if (!el) return;
 
-  if (!wasExpanded) {
-    const firstCat = menuData.find(cat => getCategorySection(cat) === sectionId);
-    if (firstCat) jumpToCat(firstCat.id);
-  }
+  el.innerHTML = ['bar', 'food'].map(sectionId => `
+    <button
+      class="section-switch-btn ${activeSectionId === sectionId ? 'active' : ''}"
+      onclick="jumpToSection('${sectionId}')"
+      type="button">
+      ${MENU_SECTIONS[sectionId]}
+    </button>
+  `).join('');
+}
+
+function jumpToSection(sectionId) {
+  activeSectionId = sectionId;
+  renderSectionSwitch();
+  const firstCat = menuData.find(cat => getCategorySection(cat) === sectionId);
+  if (firstCat) jumpToCat(firstCat.id);
 }
 
 function jumpToCat(catId) {
@@ -718,12 +710,10 @@ function updateActiveTab(catId) {
   const cat = menuData.find(c => c.id === catId);
   if (cat) activeSectionId = getCategorySection(cat);
 
-  const catTab = document.querySelector(`.cat-tab[data-cat-id="${catId}"]`);
   document.querySelectorAll('.cat-tab').forEach(tab => {
-    const isActiveCat = tab.dataset.catId === catId;
-    const isActiveSection = !catTab && tab.dataset.sectionId === activeSectionId;
-    tab.classList.toggle('active', isActiveCat || isActiveSection);
+    tab.classList.toggle('active', tab.dataset.catId === catId);
   });
+  renderSectionSwitch();
 
   const activeTab = document.querySelector('.cat-tab.active');
   if (activeTab && catTabsSwiper) {
