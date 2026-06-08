@@ -101,7 +101,7 @@ function getCategorySection(cat) {
 }
 
 function sectionSortValue(sectionId) {
-  return sectionId === 'bar' ? 1 : 0;
+  return sectionId === 'bar' ? 0 : 1;
 }
 
 function sortMenuCategories(categories) {
