@@ -31,8 +31,6 @@
   </div>
   <!-- Desktop nav (hidden on mobile) -->
   <div class="header-nav">
-    <button class="nav-btn active" onclick="showPage('menu', this)"><i class="fa-solid fa-utensils"></i> Меню</button>
-    <button class="nav-btn" onclick="showPage('about', this)"><i class="fa-solid fa-star"></i> Про нас</button>
     <button class="order-toggle-btn" onclick="toggleOrder()">
       <i class="fa-solid fa-cart-shopping"></i> Замовлення <span class="order-badge" id="orderBadge">0</span>
     </button>
@@ -51,20 +49,9 @@
   <div class="drawer-inner">
 
     <div class="drawer-top">
-      <div class="drawer-title">Навігація</div>
+      <div class="drawer-title">Контакти</div>
       <button class="drawer-close-btn" onclick="closeDrawer()"><i class="fa-solid fa-xmark"></i></button>
     </div>
-
-    <div class="drawer-nav">
-      <button class="drawer-page-btn active" id="drawerMenuBtn" onclick="drawerGoPage('menu')">
-        <span><i class="fa-solid fa-utensils"></i></span> Меню
-      </button>
-      <button class="drawer-page-btn" id="drawerAboutBtn" onclick="drawerGoPage('about')">
-        <span><i class="fa-solid fa-star"></i></span> Про нас
-      </button>
-    </div>
-
-    <div class="drawer-sep"></div>
 
     <div class="drawer-section-label">Контакти та інфо</div>
     <div class="info-block">
