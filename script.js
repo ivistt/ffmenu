@@ -87,6 +87,30 @@ let menuData = [];
 let order = [];
 let openCats = {};
 let activeTabId = null;
+let expandedSectionId = null;
+let activeSectionId = 'bar';
+
+const MENU_SECTIONS = {
+  bar: 'Бар',
+  food: 'Кухня',
+};
+
+function getCategorySection(cat) {
+  const section = String(cat.section || '').trim().toLowerCase();
+  if (section === 'bar' || section === 'food') return section;
+  return String(cat.id || '').toLowerCase().startsWith('bar-') ? 'bar' : 'food';
+}
+
+function sectionSortValue(sectionId) {
+  return sectionId === 'bar' ? 1 : 0;
+}
+
+function sortMenuCategories(categories) {
+  return categories.slice().sort((a, b) => {
+    const sectionDiff = sectionSortValue(getCategorySection(a)) - sectionSortValue(getCategorySection(b));
+    return sectionDiff || ((a.sort_order || 0) - (b.sort_order || 0));
+  });
+}
 
 // ══════════════════════════════
 //  BANNER SWIPER
@@ -148,7 +172,7 @@ async function fetchMenu() {
     if (data.error) throw new Error(data.error);
     if (!Array.isArray(data) || !data.length) throw new Error('Порожнє меню');
 
-    menuData = filterMenuDishes(data);
+    menuData = sortMenuCategories(filterMenuDishes(data));
     buildAndRender();
   } catch (err) {
     console.error('Не вдалося завантажити меню:', err);
@@ -192,7 +216,7 @@ function buildAndRender() {
 
   const base = menuData.filter(c => c.id !== '__recommended__');
   menuData = recommended.length
-    ? [{ id: '__recommended__', name: 'Рекомендації', dishes: recommended }, ...base]
+    ? [{ id: '__recommended__', name: 'Рекомендації', section: 'food', dishes: recommended }, ...base]
     : base;
 
   menuData.forEach(c => { if (openCats[c.id] === undefined) openCats[c.id] = true; });
@@ -246,14 +270,29 @@ function renderTabs(visibleCats) {
   if (!el) return;
 
   const spacer = `<div class="swiper-slide cat-tab-spacer" style="width:12px!important;padding:0;background:none;border:none;pointer-events:none;margin-right:0!important;"></div>`;
+  const renderSectionTab = sectionId => `
+    <div class="swiper-slide cat-tab cat-tab-section ${activeSectionId === sectionId ? 'active' : ''}"
+         data-section-id="${sectionId}"
+         onclick="toggleSectionTabs('${sectionId}')">
+      ${MENU_SECTIONS[sectionId]}
+    </div>
+  `;
 
-  el.innerHTML = spacer + visibleCats.map(cat => `
+  if (!expandedSectionId) {
+    el.innerHTML = spacer + renderSectionTab('bar') + renderSectionTab('food') + spacer;
+  } else {
+    const oppositeSectionId = expandedSectionId === 'bar' ? 'food' : 'bar';
+    const sectionCats = visibleCats.filter(cat => getCategorySection(cat) === expandedSectionId);
+    const categoryTabs = sectionCats.map(cat => `
     <div class="swiper-slide cat-tab ${activeTabId === cat.id ? 'active' : ''}"
          data-cat-id="${cat.id}"
          onclick="jumpToCat('${cat.id}')">
       ${cat.name}<span class="cat-tab-count">${cat.dishes.length}</span>
     </div>
-  `).join('') + spacer;
+    `).join('');
+
+    el.innerHTML = spacer + renderSectionTab(expandedSectionId) + categoryTabs + renderSectionTab(oppositeSectionId) + spacer;
+  }
 
   if (!catTabsSwiper) {
     catTabsSwiper = new Swiper('.cat-tabs-swiper', {
@@ -272,10 +311,28 @@ function renderTabs(visibleCats) {
   } else {
     catTabsSwiper.update();
   }
+
+  if (!expandedSectionId && catTabsSwiper) {
+    catTabsSwiper.slideTo(0, 0);
+  }
+}
+
+function toggleSectionTabs(sectionId) {
+  const wasExpanded = expandedSectionId === sectionId;
+  activeSectionId = sectionId;
+  expandedSectionId = wasExpanded ? null : sectionId;
+  renderMenu();
+
+  if (!wasExpanded) {
+    const firstCat = menuData.find(cat => getCategorySection(cat) === sectionId);
+    if (firstCat) jumpToCat(firstCat.id);
+  }
 }
 
 function jumpToCat(catId) {
   activeTabId = catId;
+  const activeCat = menuData.find(c => c.id === catId);
+  if (activeCat) activeSectionId = getCategorySection(activeCat);
 
   if (!openCats[catId]) {
     openCats[catId] = true;
@@ -636,6 +693,8 @@ function initScrollSpy() {
       const catId = best.id.replace('cat-', '');
       if (catId !== activeTabId) {
         activeTabId = catId;
+        const cat = menuData.find(c => c.id === catId);
+        if (cat) activeSectionId = getCategorySection(cat);
         updateActiveTab(catId);
       }
     }
@@ -656,9 +715,14 @@ function reobserveScrollSpy() {
 }
 
 function updateActiveTab(catId) {
+  const cat = menuData.find(c => c.id === catId);
+  if (cat) activeSectionId = getCategorySection(cat);
+
+  const catTab = document.querySelector(`.cat-tab[data-cat-id="${catId}"]`);
   document.querySelectorAll('.cat-tab').forEach(tab => {
-    const isActive = tab.getAttribute('onclick')?.includes(`'${catId}'`);
-    tab.classList.toggle('active', isActive);
+    const isActiveCat = tab.dataset.catId === catId;
+    const isActiveSection = !catTab && tab.dataset.sectionId === activeSectionId;
+    tab.classList.toggle('active', isActiveCat || isActiveSection);
   });
 
   const activeTab = document.querySelector('.cat-tab.active');

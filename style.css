@@ -381,6 +381,12 @@ aside::-webkit-scrollbar-thumb { background: var(--border-light); border-radius:
   background: var(--orange-dim);
 }
 
+.cat-tab-section {
+  font-weight: 800;
+  border-color: rgba(223,107,44,0.35);
+  color: var(--text);
+}
+
 .cat-tab.active {
   background: var(--orange);
   border-color: var(--bg);
