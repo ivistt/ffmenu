@@ -49,11 +49,7 @@ const TABLE_NUMBER = getTableNumber();
 /* ══════════════════════════════
    BANNERS
    Додайте/відредагуйте банери тут.
-   image: URL картинки (або '' для кольорового фону)
-   label: маленький підпис зверху
-   title: великий заголовок
-   sub: підзаголовок
-   bg: CSS градієнт/колір якщо немає картинки
+   image: URL картинки
 ══════════════════════════════ */
 const BANNERS = [
   {
@@ -106,13 +102,7 @@ function initBannerSwiper() {
 
   wrap.innerHTML = BANNERS.map(b => `
     <div class="swiper-slide">
-      <div class="banner-slide" style="${b.image ? `background-image:url('${b.image}');background-size:cover;background-position:center;` : `background:${b.bg};`}">
-        <div class="banner-slide-inner">
-          ${b.label ? `<div class="banner-label">${b.label}</div>` : ''}
-          <div class="banner-title">${b.title}</div>
-          ${b.sub ? `<div class="banner-sub">${b.sub}</div>` : ''}
-        </div>
-      </div>
+      <div class="banner-slide" style="background-image:url('${b.image}');background-size:cover;background-position:center;"></div>
     </div>
   `).join('');
 
