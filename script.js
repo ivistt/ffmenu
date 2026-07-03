@@ -58,10 +58,6 @@ const TABLE_NUMBER = getTableNumber();
 const BANNERS = [
   {
     image: 'images/banners/banner1.png',
-    bg: 'linear-gradient(135deg, #1a0a00 0%, #6b2a00 100%)',
-    label: '<i class="fa-solid fa-fire"></i> Хіт сезону',
-    title: 'М\'ясо з тандиру',
-    sub: 'Соковите, з димком — щодня з 12:00',
   },
 ];
 // Приклад: 'https://script.google.com/macros/s/AKfycbyfb4nDNfrYMl9NZ90TfkYYehM75XRbp7uj6QpE34qUX3Fo6-JGKRVTWKRTqhk6iVeW/exec'
