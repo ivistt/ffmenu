@@ -63,20 +63,6 @@ const BANNERS = [
     title: 'М\'ясо з тандиру',
     sub: 'Соковите, з димком — щодня з 12:00',
   },
-  {
-    image: 'images/banners/banner2.png',
-    bg: 'linear-gradient(135deg, #001a0f 0%, #005c30 100%)',
-    label: '<i class="fa-solid fa-fish"></i> Новинка',
-    title: 'Суші-сет «Огонь»',
-    sub: '24 ролли + місо-суп у подарунок',
-  },
-  {
-    image: 'images/banners/banner3.png',
-    bg: 'linear-gradient(135deg, #0d0a1a 0%, #3a1a6b 100%)',
-    label: '<i class="fa-solid fa-champagne-glasses"></i> Банкети',
-    title: 'Святкуйте з нами',
-    sub: 'Організуємо будь-яке свято — від 20 осіб',
-  },
 ];
 // Приклад: 'https://script.google.com/macros/s/AKfycbyfb4nDNfrYMl9NZ90TfkYYehM75XRbp7uj6QpE34qUX3Fo6-JGKRVTWKRTqhk6iVeW/exec'
 
