@@ -1,3 +1,22 @@
+function isBanquetDish(dish) {
+  const whereValue = dish.where;
+
+  if (Array.isArray(whereValue)) {
+    return whereValue.some(value => String(value).trim().toLowerCase() === 'banquet');
+  }
+
+  return String(whereValue || '')
+    .toLowerCase()
+    .split(/[,;|\s]+/)
+    .some(value => value.trim() === 'banquet');
+}
+
+function getCategorySection(category) {
+  const section = String(category.section || '').trim().toLowerCase();
+  if (section === 'bar' || section === 'food') return section;
+  return String(category.id || '').toLowerCase().startsWith('bar-') ? 'bar' : 'food';
+}
+
 export default {
   async fetch(request, env, ctx) {
     // Налаштування CORS, щоб фронтенд міг спокійно робити запит
@@ -41,7 +60,7 @@ export default {
       // Отримуємо страви
       const dishRes = await fetch(`${supabaseUrl}/rest/v1/menu_dishes?select=*&order=sort_order`, { headers });
       if (!dishRes.ok) throw new Error("Failed to fetch dishes from Supabase");
-      const dishes = await dishRes.json();
+      const dishes = (await dishRes.json()).filter(d => !isBanquetDish(d));
 
       // Групуємо страви по категоріям (аби віддати готовий JSON)
       const groupedData = categories.map(cat => {
@@ -50,6 +69,7 @@ export default {
           id: cat.id,
           name: cat.name,
           sort_order: cat.sort_order,
+          section: getCategorySection(cat),
           dishes: catDishes.map(d => {
             let parsedExtras = [];
             // Parse extras robustly (depending on how Supabase exports JSONB)
@@ -62,7 +82,13 @@ export default {
             return { ...d, extras: parsedExtras };
           })
         };
-      }).filter(cat => cat.dishes && cat.dishes.length > 0);
+      })
+        .filter(cat => cat.dishes && cat.dishes.length > 0)
+        .sort((a, b) => {
+          const sectionOrder = { bar: 0, food: 1 };
+          return (sectionOrder[a.section] - sectionOrder[b.section]) ||
+            ((a.sort_order || 0) - (b.sort_order || 0));
+        });
 
       return new Response(JSON.stringify(groupedData), {
         headers: {
