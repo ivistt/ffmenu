@@ -66,6 +66,7 @@ let order = [];
 let openCats = {};
 let activeTabId = null;
 let activeSectionId = 'bar';
+let pendingDishId = new URLSearchParams(window.location.search).get('dish');
 
 const MENU_SECTIONS = {
   bar: 'Бар',
@@ -391,6 +392,19 @@ function renderMenu() {
   requestAnimationFrame(() => {
     reobserveScrollSpy();
     hideLoader();
+    if (pendingDishId) {
+      const target = Array.from(content.querySelectorAll('[data-dish-id]'))
+        .find(card => card.dataset.dishId === pendingDishId);
+      if (target) {
+        const sticky = document.querySelector('.search-tabs-sticky');
+        const offset = document.querySelector('header').offsetHeight + (sticky?.offsetHeight || 0) + 20;
+        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - offset, behavior: 'instant' });
+        target.classList.add('highlighted-dish');
+        target.tabIndex = -1;
+        target.focus({ preventScroll: true });
+      }
+      pendingDishId = null;
+    }
   });
 }
 
@@ -403,11 +417,12 @@ function hideLoader() {
 
 function renderDish(dish) {
   const inOrder = order.some(o => o.id === dish.id);
+  const imageUrl = String(dish.image_url || dish.image || '').replace(/^\/ffmenu\/images\//, './images/');
   return `
-    <div class="dish-card">
+    <div class="dish-card" data-dish-id="${String(dish.id).replace(/&/g, '&amp;').replace(/"/g, '&quot;')}">
       <div class="dish-img-wrap">
         ${dish.image_url || dish.image
-      ? `<img src="${dish.image_url || dish.image}" alt="${dish.name}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=dish-img-empty><i class=\\'fa-solid fa-utensils\\'></i></div>'">`
+      ? `<img src="${imageUrl}" alt="${dish.name}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=dish-img-empty><i class=\\'fa-solid fa-utensils\\'></i></div>'">`
       : '<div class="dish-img-empty"><i class="fa-solid fa-utensils"></i></div>'}
         ${dish.extras && dish.extras.length
       ? `<div class="dish-badges">${dish.extras.map(e => `<span class="dish-badge"><i class="fa-solid fa-bolt"></i> ${e}</span>`).join('')}</div>`

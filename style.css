@@ -73,6 +73,12 @@ header {
   display: flex;
   align-items: center;
   gap: 13px;
+  text-decoration: none;
+}
+
+.dish-card.highlighted-dish {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
 }
 
 .flame-icon {
