@@ -163,6 +163,7 @@ function syncMobileSliders() {
         rail.parentElement.classList.remove('swiper');
         rail.classList.remove('swiper-wrapper');
         slides.forEach(slide => slide.classList.remove('swiper-slide'));
+        rail.scrollTo({ left: 0, behavior: 'instant' });
       }
       return;
     }
@@ -170,6 +171,7 @@ function syncMobileSliders() {
     rail.parentElement.classList.add('swiper');
     rail.classList.add('swiper-wrapper');
     slides.forEach(slide => slide.classList.add('swiper-slide'));
+    rail.scrollTo({ left: 0, behavior: 'instant' });
     mobileSliders.set(rail.id, new Swiper(rail.parentElement, {
       slidesPerView: 'auto',
       centeredSlides: true,

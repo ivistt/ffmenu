@@ -230,7 +230,7 @@ body:has(dialog[open]) .quick-actions { visibility: hidden; }
   .menu-image-slide > i { opacity: 1; }
   .dish-preview h3 { font-size: 14px; }
   .dish-price { font-size: 13px; }
-  .rail-footer { margin-top: 14px; }
+  .rail-footer { margin-top: 14px; padding-right: 76px; }
   .rail-controls .btn { width: 40px; height: 40px; min-height: 40px; }
   .contacts-section { display: flex; flex-direction: column; align-items: stretch; gap: 35px; padding-block: 65px; }
   .map-wrap { height: 320px; }
