@@ -21,6 +21,13 @@ document.querySelectorAll('[data-social]').forEach(link => {
 const menuRail = document.getElementById('menuRail');
 const recommendationsRail = document.getElementById('recommendationsRail');
 const mobileSliders = new Map();
+const aboutGallery = document.querySelector('.about-gallery');
+const aboutGalleryTrack = aboutGallery.querySelector('.about-gallery-track');
+const aboutGalleryPause = document.getElementById('aboutGalleryPause');
+const galleryMotionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+let aboutGallerySlider = null;
+let aboutGalleryPaused = false;
+let aboutGalleryVisible = false;
 const menuGalleryDialog = document.getElementById('menuGalleryDialog');
 const menuGalleryImage = document.getElementById('menuGalleryImage');
 const menuGalleryViewport = document.getElementById('menuGalleryViewport');
@@ -182,6 +189,64 @@ function syncMobileSliders() {
       on: { slideChange: updateRailControls },
     }));
   });
+  syncAboutGallery();
+}
+
+function updateAboutGalleryMotion() {
+  if (!aboutGallerySlider) return;
+  const reduced = galleryMotionPreference.matches;
+  aboutGallerySlider.params.speed = reduced ? 0 : 6500;
+  aboutGalleryPause.hidden = reduced;
+  aboutGalleryPause.setAttribute('aria-pressed', String(aboutGalleryPaused));
+  const label = aboutGalleryPaused ? 'Продовжити рух фотографій' : 'Зупинити рух фотографій';
+  aboutGalleryPause.setAttribute('aria-label', label);
+  aboutGalleryPause.title = label;
+  aboutGalleryPause.querySelector('i').className = aboutGalleryPaused ? 'fa-solid fa-play' : 'fa-solid fa-pause';
+  const focusedPhoto = aboutGallery.querySelector('.gallery-photo:focus-visible');
+  const shouldPlay = !reduced && !aboutGalleryPaused && aboutGalleryVisible && !document.hidden && !document.querySelector('dialog[open]') && !focusedPhoto;
+  if (shouldPlay && !aboutGallerySlider.autoplay.running) aboutGallerySlider.autoplay.start();
+  if (!shouldPlay && aboutGallerySlider.autoplay.running) {
+    const translate = aboutGallerySlider.getTranslate();
+    aboutGallerySlider.autoplay.stop();
+    aboutGallerySlider.setTransition(0);
+    aboutGallerySlider.setTranslate(translate);
+    // The interrupted CSS transition will no longer emit transitionend.
+    aboutGallerySlider.animating = false;
+  }
+}
+
+function syncAboutGallery() {
+  if (!aboutGallerySlider && window.Swiper) {
+    const originals = Array.from(aboutGalleryTrack.children);
+    // Repeat complete sets to keep the desktop loop filled with fewer photos.
+    const copies = originals.length ? Math.ceil(5 / originals.length) - 1 : 0;
+    for (let copy = 0; copy < copies; copy++) {
+      originals.forEach(photo => {
+        const repeat = photo.cloneNode(true);
+        repeat.setAttribute('aria-hidden', 'true');
+        repeat.tabIndex = -1;
+        aboutGalleryTrack.append(repeat);
+      });
+    }
+    const photos = Array.from(aboutGalleryTrack.children);
+    aboutGallery.classList.add('swiper');
+    aboutGalleryTrack.classList.add('swiper-wrapper');
+    photos.forEach(photo => photo.classList.add('swiper-slide'));
+    aboutGallerySlider = new Swiper(aboutGallery, {
+      slidesPerView: 'auto',
+      centeredSlides: true,
+      loop: true,
+      spaceBetween: 16,
+      breakpoints: { 0: { spaceBetween: 12 }, 761: { spaceBetween: 16 } },
+      speed: 6500,
+      autoplay: { delay: 0, disableOnInteraction: false },
+      on: {
+        touchStart(slider) { slider.params.speed = galleryMotionPreference.matches ? 0 : 350; },
+        transitionEnd(slider) { slider.params.speed = galleryMotionPreference.matches ? 0 : 6500; },
+      },
+    });
+  }
+  updateAboutGalleryMotion();
 }
 
 function updateRailControls() {
@@ -194,6 +259,64 @@ function updateRailControls() {
     }
     button.disabled = Number(button.dataset.direction) < 0
       ? rail.scrollLeft <= 2 : rail.scrollLeft >= rail.scrollWidth - rail.clientWidth - 2;
+  });
+}
+
+function initSectionReveals() {
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  if (reducedMotion.matches || !window.IntersectionObserver || !Element.prototype.animate) return;
+
+  const delays = new Map();
+  const running = new Map();
+  // Keep Swiper's moving wrappers outside the animations.
+  [
+    '.hero-content-wrap > *',
+    '.about-copy > *',
+    '.about-gallery',
+    '.delivery-layout > *',
+    '#menu .section-heading, #menu .rail-container, #menu .rail-footer',
+    '#recommendations .section-heading, #recommendations .rail-container, #recommendations .rail-footer',
+    '.contacts-section > *',
+    '.review-inner > *',
+  ].forEach(selector => {
+    document.querySelectorAll(selector).forEach((element, index) => {
+      delays.set(element, Math.min(index * 65, 150));
+    });
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      observer.unobserve(entry.target);
+      if (reducedMotion.matches) return;
+      const animation = entry.target.animate([
+        { opacity: 0, translate: '0 16px' },
+        { opacity: 1, translate: '0 0' },
+      ], {
+        duration: 520,
+        delay: delays.get(entry.target),
+        easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+        fill: 'backwards',
+      });
+      running.set(entry.target, animation);
+      animation.onfinish = () => running.delete(entry.target);
+    });
+  }, { rootMargin: '0px 0px 40px 0px', threshold: 0 });
+  delays.forEach((delay, element) => observer.observe(element));
+
+  document.addEventListener('focusin', event => {
+    running.forEach((animation, element) => {
+      if (element.contains(event.target)) {
+        animation.cancel();
+        running.delete(element);
+      }
+    });
+  });
+  reducedMotion.addEventListener('change', event => {
+    if (!event.matches) return;
+    observer.disconnect();
+    running.forEach(animation => animation.cancel());
+    running.clear();
   });
 }
 
@@ -292,6 +415,22 @@ menuGalleryViewport.addEventListener('touchend', event => {
   menuTouchStart = null;
 }, { passive: true });
 menuGalleryViewport.addEventListener('touchcancel', () => { menuTouchStart = null; });
+aboutGalleryPause.addEventListener('click', () => {
+  aboutGalleryPaused = !aboutGalleryPaused;
+  updateAboutGalleryMotion();
+});
+aboutGallery.addEventListener('focusin', updateAboutGalleryMotion);
+aboutGallery.addEventListener('focusout', () => requestAnimationFrame(updateAboutGalleryMotion));
+galleryMotionPreference.addEventListener('change', updateAboutGalleryMotion);
+document.addEventListener('visibilitychange', updateAboutGalleryMotion);
+if (window.IntersectionObserver) {
+  new IntersectionObserver(entries => {
+    aboutGalleryVisible = entries[0].isIntersecting;
+    updateAboutGalleryMotion();
+  }, { threshold: 0.05 }).observe(aboutGallery);
+} else aboutGalleryVisible = true;
+const galleryModalObserver = new MutationObserver(updateAboutGalleryMotion);
+document.querySelectorAll('dialog').forEach(dialog => galleryModalObserver.observe(dialog, { attributes: true, attributeFilter: ['open'] }));
 window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 30), { passive: true });
 window.addEventListener('resize', () => {
   if (window.innerWidth > 900) setNavOpen(false);
@@ -305,3 +444,4 @@ syncHeaderSocials();
 document.getElementById('copyrightYear').textContent = new Date().getFullYear();
 renderMenuGallery();
 loadRecommendations();
+initSectionReveals();

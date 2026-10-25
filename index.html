@@ -20,7 +20,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="./home.css">
-  <link rel="preload" as="image" href="./images/home-terrace.webp">
+  <link rel="preload" as="image" href="./images/hero-restaurant.jpg">
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
   <script src="./home.js" defer></script>
 </head>
@@ -95,26 +95,69 @@
   </header>
   <main id="main">
     <section class="home-hero" aria-labelledby="heroTitle">
-      <img class="hero-image" src="./images/home-terrace.webp" alt="Зелений літній дворик ресторану ОГОнь з дерев’яними столами та м’якими кріслами" fetchpriority="high" width="560" height="434">
+      <img class="hero-image" src="./images/hero-restaurant.jpg" alt="Інтер’єр ресторану ОГОНЬ із сервірованими столами, м’якими кріслами та великими підвісними світильниками" fetchpriority="high" width="1280" height="640">
       <div class="hero-shade"></div>
-      <div class="hero-content-wrap container"><h1 id="heroTitle">ОГОнь</h1><p class="hero-description">Затишний заклад<br>у центрі Одеси</p><a class="btn btn-primary hero-booking" href="tel:+380976920001">Забронювати столик <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a></div>
+      <div class="hero-content-wrap container">
+        <h1 id="heroTitle"><span class="hero-name">«Огонь»</span> <span class="hero-tagline">Затишний заклад у Одесі<br>та Великому Дальнику</span></h1>
+        <a class="btn btn-primary hero-booking" href="tel:+380976920001">Забронювати столик <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+      </div>
       <div class="hero-bottom container"><span>Для ваших теплих зустрічей</span><a href="#about" class="hero-scroll" aria-label="Перейти до розділу Про нас"><span>Знайомимось ближче</span><i class="fa-solid fa-arrow-down" aria-hidden="true"></i></a></div>
     </section>
-    <section class="about-section container" id="about" aria-labelledby="aboutTitle">
-      <div class="about-copy">
+    <section class="about-section" id="about" aria-labelledby="aboutTitle">
+      <div class="about-copy container">
         <h2 id="aboutTitle">Про нас</h2>
-        <dl class="venue-list"><div><dt>Білий зал</dt><dd>60–100 гостей</dd></div><div><dt>Синій зал</dt><dd>25–40 гостей</dd></div><div><dt>Смарагдовий зал</dt><dd>15–30 гостей</dd></div><div><dt>Тераса та літній дворик</dt><dd>50–60 гостей</dd></div><div><dt>Альтанки</dt><dd>10–50 гостей</dd></div></dl>
-        <p class="about-note"><span>Кондиціонери та обігрів у залах і будиночках.</span><span>Банкети від 900 грн/особу. Напої, торт і фрукти можна принести із собою.</span><span>Жива музика з 18:00 до 21:30.</span></p><a class="text-link" href="tel:+380976920001">Обговорити ваше свято <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+        <div class="about-content">
+          <div class="about-intro">
+            <h3>Ресторан «ОГОНЬ» — місце, де збираються свої</h3>
+            <p>Сімейна вечеря, зустріч із друзями чи велике свято — у нас є місце для кожної нагоди. Смачна кухня, затишна атмосфера й уважний сервіс — усе, щоб ви насолоджувалися часом із близькими.</p>
+            <p>На вас чекає різноманітне меню європейської кухні з одеським смаком: страви з морепродуктів, м’ясо з тандира, піца, суші та бургери.</p>
+          </div>
+          <div class="about-spaces">
+            <h3>Оберіть простір для вашої події:</h3>
+            <dl class="venue-list">
+              <div><dt>Білий зал</dt><dd>до 90 гостей.</dd></div>
+              <div><dt>Синій зал</dt><dd>до 35 гостей.</dd></div>
+              <div><dt>Смарагдовий зал</dt><dd>до 25 гостей.</dd></div>
+              <div><dt>Тераса</dt><dd>банкети до 22 гостей.</dd></div>
+              <div><dt>Альтанки</dt><dd>до 35 гостей.</dd></div>
+            </dl>
+            <p>Допоможемо обрати зал і скласти меню для весілля, дня народження, хрестин, корпоративу чи іншої важливої події. У залах і на терасі є кондиціонування та обігрів.</p>
+          </div>
+          <div class="about-conditions">
+            <p><strong>Банкетне меню — від 1000 грн на особу.</strong> Напої та торт можна принести із собою.</p>
+            <p><strong>Жива музика щодня з 18:00 до 21:30</strong> доповнить атмосферу вашого вечора.</p>
+            <p>А для зустрічей удома й подій на інших локаціях працюють <strong>доставка та кейтеринг</strong> ресторану «ОГОНЬ».</p>
+          </div>
+        </div>
+        <div class="about-contact">
+          <p><strong>Плануєте свято? Зателефонуйте або напишіть нам, щоб забронювати зал та обговорити меню.</strong> Розкажіть про бажану дату, кількість гостей і формат святкування — ми допоможемо обрати простір і страви для вашої події.</p>
+          <a class="text-link" href="tel:+380976920001">Обговорити ваше свято <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+        </div>
       </div>
       <div class="about-gallery" aria-label="Фотографії ресторану">
-        <button class="gallery-photo photo-one" data-photo="./images/about-1.webp" data-caption="Білий зал" aria-label="Збільшити фото білого залу"><img src="./images/about-1.webp" alt="Білий банкетний зал зі святковою сервіровкою" loading="lazy" width="300" height="168"><span>Ваші особливі події</span></button>
-        <button class="gallery-photo photo-two" data-photo="./images/about-5.webp" data-caption="Зелений дворик" aria-label="Збільшити фото дворика"><img src="./images/about-5.webp" alt="Фонтан у зеленому дворику ресторану" loading="lazy" width="300" height="400"><span>Трохи ближче до природи</span></button>
-        <button class="gallery-photo photo-three" data-photo="./images/about-3.webp" data-caption="Смарагдовий зал" aria-label="Збільшити фото смарагдового залу"><img src="./images/about-3.webp" alt="Зал із зеленими кріслами та білими скатертинами" loading="lazy" width="300" height="209"><span>Для теплих зустрічей</span></button>
-        <button class="gallery-photo photo-four" data-photo="./images/about-6.webp" data-caption="Літня тераса" aria-label="Збільшити фото літньої тераси"><img src="./images/about-6.webp" alt="Сервірований стіл на відкритій літній терасі" loading="lazy" width="300" height="400"><span>Вечори просто неба</span></button>
-        <button class="gallery-photo photo-five" data-photo="./images/about-8.webp" data-caption="Святкова сервіровка" aria-label="Збільшити фото святкової сервіровки"><img src="./images/about-8.webp" alt="Святкова сервіровка столів та квітковий декор" loading="lazy" width="300" height="450"><span>Увага до деталей</span></button>
+        <div class="about-gallery-track">
+          <button class="gallery-photo" data-photo="./images/courtyard-entrance.webp" data-caption="Зелений дворик ресторану" aria-label="Збільшити фото зеленого дворика"><img src="./images/courtyard-entrance.webp" alt="Зелений дворик ресторану з відкритим баром і затишними столиками" loading="lazy" width="1200" height="1578"><span>Зелений дворик</span></button>
+          <button class="gallery-photo" data-photo="./images/terrace-seating.webp" data-caption="Літня тераса" aria-label="Збільшити фото літньої тераси"><img src="./images/terrace-seating.webp" alt="Літня тераса з дерев’яними столами, м’якими кріслами та живими рослинами" loading="lazy" width="2136" height="1598"><span>Літня тераса</span></button>
+          <button class="gallery-photo" data-photo="./images/courtyard-fountain.webp" data-caption="Дворик із фонтаном" aria-label="Збільшити фото дворика з фонтаном"><img src="./images/courtyard-fountain.webp" alt="Фонтан у дворику ресторану під гірляндами, поруч із зеленою терасою" loading="lazy" width="1198" height="1596"><span>Дворик із фонтаном</span></button>
+        </div>
+        <button class="btn btn-circle about-gallery-pause" id="aboutGalleryPause" type="button" aria-label="Зупинити рух фотографій" aria-pressed="false" title="Зупинити рух фотографій" hidden><i class="fa-solid fa-pause" aria-hidden="true"></i></button>
       </div>
     </section>
-    <section class="delivery-section" id="delivery" aria-labelledby="deliveryTitle"><div class="delivery-layout container"><div class="delivery-copy"><h2 id="deliveryTitle">Доставка</h2><p class="intro">ОГОнь у вас вдома.</p><p class="body-copy">Вечеря для двох чи великий стіл для близьких. Обирайте страви в меню, а деталі доставки Одесою ми узгодимо телефоном.</p><a class="btn orange-button" href="tel:+380976920001">Замовити доставку <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a><a class="text-link" href="./menu.html">Обрати страви <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div><a class="delivery-image" href="./menu.html" aria-label="Переглянути меню ресторану"><img src="./images/delivery-fire-food.jpg" alt="Сайт доставки Fire Food на ноутбуці та телефоні" width="1216" height="741" loading="lazy"></a></div></section>
+    <section class="delivery-section" id="delivery" aria-labelledby="deliveryTitle">
+      <div class="delivery-layout container">
+        <div class="delivery-copy">
+          <h2 id="deliveryTitle">Доставка</h2>
+          <p class="intro">ОГОнь у вас вдома.</p>
+          <p class="body-copy">Вечеря для двох чи великий стіл для близьких. Обирайте страви в меню, а деталі доставки Одесою ми узгодимо телефоном.</p>
+          <div class="delivery-actions">
+            <a class="btn orange-button" href="https://firefood.od.ua/" target="_blank" rel="noopener">Замовити доставку <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+            <a class="btn btn-outline delivery-phone" href="tel:+380686920002"><i class="fa-solid fa-phone" aria-hidden="true"></i> +380 (68) 692 00 02</a>
+          </div>
+          <a class="text-link" href="./menu.html">Обрати страви <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+        <a class="delivery-image" href="./menu.html" aria-label="Переглянути меню ресторану"><img src="./images/delivery-fire-food.jpg" alt="Сайт доставки Fire Food на ноутбуці та телефоні" width="1216" height="741" loading="lazy"></a>
+      </div>
+    </section>
     <section class="menu-section section-space" id="menu" aria-labelledby="menuTitle">
       <div class="section-heading container"><div><h2 id="menuTitle">Меню</h2></div><div class="menu-actions"><button class="btn btn-outline" id="printMenuButton">Друковане меню <i class="fa-regular fa-file-lines" aria-hidden="true"></i></button><a class="btn orange-button" href="./menu.html">З описом <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a></div></div>
       <div class="rail-container container"><div class="menu-rail" id="menuRail" role="region" aria-roledescription="карусель" aria-label="Зображення друкованого меню"></div></div>
