@@ -168,7 +168,28 @@
       <div class="rail-container container"><div class="dish-rail" id="recommendationsRail" aria-busy="true"><p class="loading-message" role="status">Завантажуємо рекомендації…</p></div></div>
       <div class="rail-footer container"><span>Обирайте за настроєм</span><div class="rail-controls"><button class="btn btn-square btn-outline" data-scroll="recommendationsRail" data-direction="-1" aria-label="Попередні рекомендовані страви" title="Попередні страви"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i></button><button class="btn btn-square btn-outline" data-scroll="recommendationsRail" data-direction="1" aria-label="Наступні рекомендовані страви" title="Наступні страви"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button></div></div>
     </section>
-    <section class="contacts-section container" id="contacts" aria-labelledby="contactsTitle"><div class="contacts-copy"><h2 id="contactsTitle">Контакти</h2><address><p class="contact-label">Чекаємо на вас</p><a href="https://www.google.com/maps/search/?api=1&amp;query=Ресторан+Огонь+Одеса+Фабрична+1" target="_blank" rel="noopener">Одеса, вул. Фабрична, 1</a><p class="contact-label">Щодня</p><p>10:00–21:30</p><p class="contact-label">Бронювання та доставка</p><a class="contact-number" href="tel:+380976920001">+380 97 692 00 01</a></address><a class="text-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=Ресторан+Огонь+Одеса+Фабрична+1" target="_blank" rel="noopener">Прокласти маршрут <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a></div><div class="map-wrap"><iframe title="Ресторан ОГОнь на мапі Одеси" src="https://maps.google.com/maps?q=Ресторан%20Огонь%20Одеса%20Фабрична%201&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div></section>
+    <section class="contacts-section container" id="contacts" aria-labelledby="contactsTitle">
+      <div class="contacts-copy">
+        <h2 id="contactsTitle">Контакти</h2>
+        <address>
+          <p class="contact-venue">Ресторан "ОГОнь"</p>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=Ресторан+Огонь+Одеса+Фабрична+1" target="_blank" rel="noopener">Одеса, Фабрична, 1</a>
+          <p class="contact-hours">пн-нд 10:00-22:00</p>
+          <a class="contact-email" href="mailto:restorane.fire@gmail.com">restorane.fire@gmail.com</a>
+          <div class="contact-group"><p class="contact-label">Одеса</p><a class="contact-number" href="tel:+380976920001">+380 97 692 00 01</a></div>
+          <div class="contact-group"><p class="contact-label">Доставка Одеса</p><a class="contact-number" href="tel:+380686920008">+380 68 692 00 08</a></div>
+          <div class="contact-group"><p class="contact-label">Доставка / Ресторан / Кафе с.Великий Дальник</p><a class="contact-number" href="tel:+380686920002">+380 68 692 00 02</a></div>
+        </address>
+        <a class="text-link" id="contactsRoute" href="https://www.google.com/maps/dir/?api=1&amp;destination=Ресторан+Огонь+Одеса+Фабрична+1" target="_blank" rel="noopener">Прокласти маршрут <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+      </div>
+      <div class="contacts-map">
+        <div class="tabs tabs-border map-tabs" role="tablist" aria-label="Оберіть ресторан на мапі">
+          <button class="tab tab-active" id="map-tab-odesa" type="button" role="tab" data-map-location="odesa" aria-selected="true" aria-controls="contactsMapPanel">Одеса</button>
+          <button class="tab" id="map-tab-dalnyk" type="button" role="tab" data-map-location="dalnyk" aria-selected="false" aria-controls="contactsMapPanel" tabindex="-1">Великий Дальник</button>
+        </div>
+        <div class="map-wrap" id="contactsMapPanel" role="tabpanel" aria-labelledby="map-tab-odesa" tabindex="0"><iframe id="contactsMap" title="Ресторан ОГОнь на мапі Одеси" src="https://maps.google.com/maps?q=Ресторан%20Огонь%20Одеса%20Фабрична%201&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div>
+      </div>
+    </section>
     <section class="review-section" aria-labelledby="reviewTitle">
       <div class="container review-inner">
         <h2 id="reviewTitle">Залиште відгук</h2>
@@ -180,7 +201,11 @@
       </div>
     </section>
   </main>
-  <footer class="home-footer"><div class="container footer-top"><a class="brand" href="./index.html" aria-label="ОГОнь, головна"><svg class="brand-mark" viewBox="0 0 678 717" width="50" height="53" role="img" aria-label="Логотип ОГОнь"><use href="#restaurant-logo"></use></svg><span>ОГОнь<small>РЕСТОРАН · ОДЕСА</small></span></a><nav aria-label="Навігація у футері"><a href="#about">Про нас</a><a href="./menu.html">Меню</a><a href="#delivery">Доставка</a><a href="#contacts">Контакти</a></nav><a class="footer-phone" href="tel:+380976920001">+380 97 692 00 01</a></div><div class="container footer-bottom"><span>© <span id="copyrightYear">2026</span> ОГОнь</span><span>До зустрічі за нашим столом.</span><a href="#main">Нагору <i class="fa-solid fa-arrow-up" aria-hidden="true"></i></a></div></footer>
+  <footer class="home-footer"><div class="container footer-top"><a class="brand" href="./index.html" aria-label="ОГОнь, головна"><svg class="brand-mark" viewBox="0 0 678 717" width="50" height="53" role="img" aria-label="Логотип ОГОнь"><use href="#restaurant-logo"></use></svg><span>ОГОнь<small>РЕСТОРАН · ОДЕСА</small></span></a><nav aria-label="Навігація у футері"><a href="#about">Про нас</a><a href="./menu.html">Меню</a><a href="#delivery">Доставка</a><a href="#contacts">Контакти</a></nav><div class="footer-contacts">
+      <div><p>Одеса</p><a class="footer-phone" href="tel:+380976920001">+380 97 692 00 01</a></div>
+      <div><p>Доставка Одеса</p><a class="footer-phone" href="tel:+380686920008">+380 68 692 00 08</a></div>
+      <div><p>Доставка / Ресторан / Кафе с.Великий Дальник</p><a class="footer-phone" href="tel:+380686920002">+380 68 692 00 02</a></div>
+    </div></div><div class="container footer-bottom"><span>© <span id="copyrightYear">2026</span> ОГОнь</span><span>До зустрічі за нашим столом.</span><a href="#main">Нагору <i class="fa-solid fa-arrow-up" aria-hidden="true"></i></a></div></footer>
   <div class="quick-actions" role="group" aria-label="Швидкі дії">
     <a class="btn btn-circle quick-action quick-call" href="tel:+380976920001" aria-label="Зателефонувати в ресторан" title="Зателефонувати"><i class="fa-solid fa-phone" aria-hidden="true"></i></a>
     <button class="btn btn-circle quick-action quick-menu" id="floatingMenuButton" type="button" aria-label="Відкрити меню" aria-haspopup="dialog" aria-controls="menuGalleryDialog" title="Відкрити меню"><i class="fa-solid fa-book-open" aria-hidden="true"></i></button>

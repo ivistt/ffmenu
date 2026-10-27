@@ -8,6 +8,50 @@ const SOCIAL_LINKS = {
   telegram: '',
   viber: '',
 };
+const CONTACT_LOCATIONS = {
+  odesa: { query: 'Ресторан Огонь, Одеса, Фабрична, 1', title: 'Ресторан ОГОнь — Одеса' },
+  dalnyk: { query: 'вулиця Маякська, 16в, Великий Дальник, Одеська область, 67668', title: 'Ресторан ОГОнь — Великий Дальник, вул. Маякська, 16в' },
+};
+
+const contactMapTabs = Array.from(document.querySelectorAll('[data-map-location]'));
+function switchContactMap(locationId, focus = false) {
+  const location = CONTACT_LOCATIONS[locationId];
+  if (!location) return;
+  const selected = contactMapTabs.find(tab => tab.dataset.mapLocation === locationId);
+  const map = document.getElementById('contactsMap');
+  if (selected.getAttribute('aria-selected') !== 'true') {
+    const source = new URL('https://maps.google.com/maps');
+    source.search = new URLSearchParams({ q: location.query, z: '16', output: 'embed', hl: 'uk' });
+    map.src = source.href;
+  }
+  map.title = location.title;
+  const route = new URL('https://www.google.com/maps/dir/');
+  route.search = new URLSearchParams({ api: '1', destination: location.query });
+  const routeLink = document.getElementById('contactsRoute');
+  routeLink.href = route.href;
+  routeLink.setAttribute('aria-label', `Прокласти маршрут: ${location.title}`);
+  document.getElementById('contactsMapPanel').setAttribute('aria-labelledby', selected.id);
+  contactMapTabs.forEach(tab => {
+    const active = tab === selected;
+    tab.classList.toggle('tab-active', active);
+    tab.setAttribute('aria-selected', String(active));
+    tab.tabIndex = active ? 0 : -1;
+  });
+  if (focus) selected.focus();
+}
+contactMapTabs.forEach((tab, index) => {
+  tab.addEventListener('click', () => switchContactMap(tab.dataset.mapLocation));
+  tab.addEventListener('keydown', event => {
+    let target;
+    if (event.key === 'ArrowRight') target = (index + 1) % contactMapTabs.length;
+    else if (event.key === 'ArrowLeft') target = (index - 1 + contactMapTabs.length) % contactMapTabs.length;
+    else if (event.key === 'Home') target = 0;
+    else if (event.key === 'End') target = contactMapTabs.length - 1;
+    else return;
+    event.preventDefault();
+    switchContactMap(contactMapTabs[target].dataset.mapLocation, true);
+  });
+});
 
 document.querySelectorAll('[data-social]').forEach(link => {
   const href = SOCIAL_LINKS[link.dataset.social];
