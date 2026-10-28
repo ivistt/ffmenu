@@ -96,7 +96,6 @@ h2 { margin: 0; font-size: 58px; font-weight: 500; line-height: 1.14; letter-spa
 .delivery-layout { display: grid; grid-template-columns: 0.86fr 1.3fr; align-items: center; gap: 100px; }
 .delivery-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
 .delivery-phone { white-space: nowrap; }
-.delivery-copy > .text-link { display: flex; width: fit-content; margin-top: 20px; }
 .delivery-image { display: block; }
 .delivery-image img { width: 100%; height: auto; }
 .section-space { padding-top: 105px; }
