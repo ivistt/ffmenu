@@ -1,6 +1,6 @@
 const HOME_MENU_URL = 'https://ffmenuregular.skifchaqwerty.workers.dev/menu';
 const MENU_IMAGES = Array.from({ length: 26 }, (_, index) =>
-  `https://www.restorane-fire.com/wp-content/uploads/2026/10/${index + 1}-1.png`
+  `./images/menu/${index + 1}.webp`
 );
 const SOCIAL_LINKS = {
   instagram: '',
@@ -115,7 +115,7 @@ function renderMenuGallery() {
   document.getElementById('floatingMenuButton').disabled = !MENU_IMAGES.length;
   menuRail.innerHTML = MENU_IMAGES.length ? MENU_IMAGES.map((source, index) => `
     <button class="menu-image-slide" data-menu-image="${index}" aria-label="Збільшити сторінку меню ${index + 1}">
-      <img src="${escapeHtml(source)}" alt="Меню, сторінка ${index + 1}" loading="lazy" decoding="async">
+      <img src="${escapeHtml(source.replace('.webp', '-thumb.webp'))}" alt="Меню, сторінка ${index + 1}" loading="lazy" decoding="async">
       <i class="fa-solid fa-expand" aria-hidden="true"></i>
     </button>`).join('') : '<p class="menu-empty">Друковане меню незабаром з’явиться тут.</p>';
   menuRail.querySelectorAll('img').forEach(img => img.addEventListener('error', () => {
