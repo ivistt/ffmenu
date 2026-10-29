@@ -178,11 +178,30 @@ function renderRecommendations(categories) {
   updateRailControls();
 }
 
+async function fetchRecommendationsMenu() {
+  for (let attempt = 0; attempt < 3; attempt++) {
+    let response;
+    try {
+      response = await fetch(HOME_MENU_URL, { signal: AbortSignal.timeout(15000) });
+    } catch (error) {
+      if (attempt === 2) throw error;
+    }
+    if (response?.ok) return response.json();
+    if (response && (response.status < 500 || attempt === 2)) {
+      throw new Error(`Menu HTTP ${response.status}`);
+    }
+    await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1)));
+  }
+}
+
+let recommendationsLoading = false;
 async function loadRecommendations() {
+  if (recommendationsLoading) return;
+  recommendationsLoading = true;
+  recommendationsRail.setAttribute('aria-busy', 'true');
+  recommendationsRail.innerHTML = '<p class="loading-message" role="status">Завантажуємо рекомендації…</p>';
   try {
-    const response = await fetch(HOME_MENU_URL, { signal: AbortSignal.timeout(15000) });
-    if (!response.ok) throw new Error(`Menu HTTP ${response.status}`);
-    const data = await response.json();
+    const data = await fetchRecommendationsMenu();
     if (!Array.isArray(data)) throw new Error('Invalid menu');
     const categories = data.map(category => ({ ...category, dishes: (category.dishes || []).filter(dish => !isBanquet(dish)) }))
       .filter(category => category.dishes.length)
@@ -197,6 +216,7 @@ async function loadRecommendations() {
     const message = '<p class="loading-message">Не вдалося завантажити меню. <button class="text-link" data-retry>Спробувати ще раз</button></p>';
     recommendationsRail.innerHTML = message;
   } finally {
+    recommendationsLoading = false;
     recommendationsRail.setAttribute('aria-busy', 'false');
     updateRailControls();
   }
