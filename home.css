@@ -115,8 +115,6 @@ h2 { margin: 0; font-size: 58px; font-weight: 500; line-height: 1.14; letter-spa
 .dish-preview { flex: 0 0 calc((100% - 66px) / 4); min-width: 0; scroll-snap-align: start; }
 .dish-preview-image { position: relative; display: block; background: var(--paper); aspect-ratio: 1; overflow: hidden; }
 .dish-preview-image img { width: 100%; height: 100%; object-fit: contain; padding: 10px; transition: transform .4s; }
-.dish-preview:hover img { transform: scale(1.04); }
-.dish-preview-image > i { position: absolute; bottom: 12px; right: 12px; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: white; font-size: 12px; }
 .dish-preview-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 15px; padding-top: 18px; }
 .dish-preview h3 { font-size: 13px; font-weight: 600; line-height: 1.5; margin: 0; overflow-wrap: anywhere; }
 .dish-price { font-size: 12px; font-weight: 700; white-space: nowrap; }

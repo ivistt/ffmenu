@@ -168,9 +168,8 @@ function renderRecommendations(categories) {
 
   recommendationsRail.innerHTML = recommended.length ? recommended.map(dish => {
     const image = dishImage(dish);
-    const href = `./menu.html?dish=${encodeURIComponent(dish.id)}`;
-    return `<article class="dish-preview"><a class="dish-preview-image" href="${href}" aria-label="${escapeHtml(dish.name)}, відкрити в меню">${image ? `<img src="${escapeHtml(image)}" alt="${escapeHtml(dish.name)}" loading="lazy" width="400" height="400">` : '<span class="loading-message">ОГОнь</span>'}<i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a><div class="dish-preview-heading"><h3><a href="${href}">${escapeHtml(dish.name)}</a></h3><span class="dish-price">${escapeHtml(priceLabel(dish.price))}</span></div>${dish.weight ? `<p>${escapeHtml(dish.weight)}</p>` : ''}</article>`;
-  }).join('') : '<p class="loading-message">Незабаром тут з’являться наші рекомендації. <a class="text-link" href="./menu.html">Переглянути меню</a></p>';
+    return `<article class="dish-preview"><div class="dish-preview-image">${image ? `<img src="${escapeHtml(image)}" alt="${escapeHtml(dish.name)}" loading="lazy" width="400" height="400">` : '<span class="loading-message">ОГОнь</span>'}</div><div class="dish-preview-heading"><h3>${escapeHtml(dish.name)}</h3><span class="dish-price">${escapeHtml(priceLabel(dish.price))}</span></div>${dish.weight ? `<p>${escapeHtml(dish.weight)}</p>` : ''}</article>`;
+  }).join('') : '<p class="loading-message">Незабаром тут з’являться наші рекомендації.</p>';
   recommendationsRail.querySelectorAll('img').forEach(img => img.addEventListener('error', () => {
     img.hidden = true;
   }, { once: true }));

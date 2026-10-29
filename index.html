@@ -6,11 +6,6 @@
   <title>ОГОнь — ресторан в Одесі</title>
   <meta name="description" content="Ресторан ОГОнь в Одесі: затишні зали, зелений дворик, страви з вогню та вечори з близькими. Фабрична, 1. Бронювання: +380 97 692 00 01.">
   <meta name="theme-color" content="#f07018">
-  <script>
-    if (/[?&](?:table=|=table)/i.test(location.search) || /^#table/i.test(location.hash)) {
-      location.replace('./menu.html' + location.search + location.hash);
-    }
-  </script>
   <link rel="icon" href="./images/logo.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -91,7 +86,7 @@
       </div>
       <button class="btn btn-square mobile-toggle" id="navToggle" aria-label="Відкрити навігацію" aria-expanded="false" aria-controls="mobileNav"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
     </div>
-    <nav class="mobile-nav" id="mobileNav" aria-label="Мобільна навігація" hidden><a href="#about">Про нас</a><a href="#delivery">Доставка</a><a href="#menu">Меню</a><a href="#contacts">Контакти</a><a href="./menu.html">Відкрити меню <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></nav>
+    <nav class="mobile-nav" id="mobileNav" aria-label="Мобільна навігація" hidden><a href="#about">Про нас</a><a href="#delivery">Доставка</a><a href="#menu">Меню</a><a href="#contacts">Контакти</a></nav>
   </header>
   <main id="main">
     <section class="home-hero" aria-labelledby="heroTitle">
@@ -154,16 +149,16 @@
             <a class="btn btn-outline delivery-phone" href="tel:+380686920002"><i class="fa-solid fa-phone" aria-hidden="true"></i> +380 (68) 692 00 02</a>
           </div>
         </div>
-        <a class="delivery-image" href="./menu.html" aria-label="Переглянути меню ресторану"><img src="./images/delivery-fire-food.jpg" alt="Сайт доставки Fire Food на ноутбуці та телефоні" width="1216" height="741" loading="lazy"></a>
+        <div class="delivery-image"><img src="./images/delivery-fire-food.jpg" alt="Сайт доставки Fire Food на ноутбуці та телефоні" width="1216" height="741" loading="lazy"></div>
       </div>
     </section>
     <section class="menu-section section-space" id="menu" aria-labelledby="menuTitle">
-      <div class="section-heading container"><div><h2 id="menuTitle">Меню</h2></div><div class="menu-actions"><button class="btn btn-outline" id="printMenuButton">Друковане меню <i class="fa-regular fa-file-lines" aria-hidden="true"></i></button><a class="btn orange-button" href="./menu.html">З описом <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a></div></div>
+      <div class="section-heading container"><div><h2 id="menuTitle">Меню</h2></div><div class="menu-actions"><button class="btn btn-outline" id="printMenuButton">Друковане меню <i class="fa-regular fa-file-lines" aria-hidden="true"></i></button></div></div>
       <div class="rail-container container"><div class="menu-rail" id="menuRail" role="region" aria-roledescription="карусель" aria-label="Зображення друкованого меню"></div></div>
       <div class="rail-footer container"><span>Кухня та бар</span><div class="rail-controls"><button class="btn btn-square btn-outline" data-scroll="menuRail" data-direction="-1" aria-label="Попередні сторінки меню" title="Попередні сторінки"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i></button><button class="btn btn-square btn-outline" data-scroll="menuRail" data-direction="1" aria-label="Наступні сторінки меню" title="Наступні сторінки"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button></div></div>
     </section>
     <section class="recommendations-section section-space" id="recommendations" aria-labelledby="recommendationsTitle">
-      <div class="section-heading container"><div><h2 id="recommendationsTitle">Рекомендуємо</h2></div><a class="text-link" href="./menu.html">Усе меню <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></div>
+      <div class="section-heading container"><div><h2 id="recommendationsTitle">Рекомендуємо</h2></div></div>
       <div class="rail-container container"><div class="dish-rail" id="recommendationsRail" aria-busy="true"><p class="loading-message" role="status">Завантажуємо рекомендації…</p></div></div>
       <div class="rail-footer container"><span>Обирайте за настроєм</span><div class="rail-controls"><button class="btn btn-square btn-outline" data-scroll="recommendationsRail" data-direction="-1" aria-label="Попередні рекомендовані страви" title="Попередні страви"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i></button><button class="btn btn-square btn-outline" data-scroll="recommendationsRail" data-direction="1" aria-label="Наступні рекомендовані страви" title="Наступні страви"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button></div></div>
     </section>
@@ -200,7 +195,7 @@
       </div>
     </section>
   </main>
-  <footer class="home-footer"><div class="container footer-top"><a class="brand" href="./index.html" aria-label="ОГОнь, головна"><svg class="brand-mark" viewBox="0 0 678 717" width="50" height="53" role="img" aria-label="Логотип ОГОнь"><use href="#restaurant-logo"></use></svg><span>ОГОнь<small>РЕСТОРАН · ОДЕСА</small></span></a><nav aria-label="Навігація у футері"><a href="#about">Про нас</a><a href="./menu.html">Меню</a><a href="#delivery">Доставка</a><a href="#contacts">Контакти</a></nav><div class="footer-contacts">
+  <footer class="home-footer"><div class="container footer-top"><a class="brand" href="./index.html" aria-label="ОГОнь, головна"><svg class="brand-mark" viewBox="0 0 678 717" width="50" height="53" role="img" aria-label="Логотип ОГОнь"><use href="#restaurant-logo"></use></svg><span>ОГОнь<small>РЕСТОРАН · ОДЕСА</small></span></a><nav aria-label="Навігація у футері"><a href="#about">Про нас</a><a href="#menu">Меню</a><a href="#delivery">Доставка</a><a href="#contacts">Контакти</a></nav><div class="footer-contacts">
       <div><p>Одеса</p><a class="footer-phone" href="tel:+380976920001">+380 97 692 00 01</a></div>
       <div><p>Доставка Одеса</p><a class="footer-phone" href="tel:+380686920008">+380 68 692 00 08</a></div>
       <div><p>Доставка / Ресторан / Кафе с.Великий Дальник</p><a class="footer-phone" href="tel:+380686920002">+380 68 692 00 02</a></div>
