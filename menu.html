@@ -311,6 +311,25 @@
 </div>
 
 
+<dialog class="modal delivery-order-dialog" id="deliveryOrderDialog" aria-labelledby="deliveryOrderTitle">
+  <div class="modal-box">
+    <h2 class="confirm-modal-title" id="deliveryOrderTitle">Замовлення доставки</h2>
+    <p class="delivery-order-summary" id="deliveryOrderSummary"></p>
+    <form id="deliveryOrderForm">
+      <label for="deliveryPhone">Номер телефону</label>
+      <input class="input" id="deliveryPhone" name="phone" type="tel" autocomplete="tel" placeholder="+380" maxlength="30" required oninput="this.setCustomValidity('')">
+      <label for="deliveryName">Ім’я <span>(необов’язково)</span></label>
+      <input class="input" id="deliveryName" name="name" type="text" autocomplete="name" maxlength="100">
+      <label for="deliveryAddress">Адреса <span>(необов’язково)</span></label>
+      <input class="input" id="deliveryAddress" name="address" type="text" autocomplete="street-address" maxlength="250">
+      <div class="confirm-modal-btns">
+        <button class="confirm-modal-cancel" type="button" onclick="document.getElementById('deliveryOrderDialog').close()">Скасувати</button>
+        <button class="confirm-modal-ok" type="submit">Замовити</button>
+      </div>
+    </form>
+  </div>
+</dialog>
+
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="script.js"></script>
 </body>

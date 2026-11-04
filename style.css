@@ -1846,3 +1846,45 @@ padding: 8px 0px;
 
 .confirm-modal-ok:hover { opacity: 0.88; }
 .confirm-modal-ok:active { transform: scale(0.96); }
+
+.delivery-order-dialog {
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  width: min(440px, calc(100% - 32px));
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+}
+.delivery-order-dialog::backdrop { background: rgba(0,0,0,0.55); }
+.delivery-order-dialog .modal-box { padding: 24px; }
+.delivery-order-summary {
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text2);
+  max-height: 140px;
+  overflow: auto;
+  margin-bottom: 20px;
+}
+#deliveryOrderForm { display: grid; gap: 8px; }
+#deliveryOrderForm label { font-size: 13px; font-weight: 600; }
+#deliveryOrderForm label span { color: var(--text3); font-weight: 400; }
+#deliveryOrderForm .input {
+  width: 100%;
+  min-width: 0;
+  height: 44px;
+  padding: 0 12px;
+  margin-bottom: 8px;
+  border: 1px solid var(--border-light);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 16px;
+}
+#deliveryOrderForm .input:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+#deliveryOrderForm .confirm-modal-btns { margin-top: 12px; }

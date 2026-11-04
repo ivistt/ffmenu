@@ -32,14 +32,18 @@ function getTableNumber() {
 
   // ?table=12
   const paramMatch = search.match(/[?&]table=([^&]+)/i);
-  if (paramMatch) return decodeURIComponent(paramMatch[1]);
+  const decodeTable = value => {
+    try { return decodeURIComponent(value).trim() || null; }
+    catch { return null; }
+  };
+  if (paramMatch) return decodeTable(paramMatch[1]);
 
   // ?=table12
-  const eqMatch = search.match(/[?&]=([^&]+)/i);
-  if (eqMatch) return decodeURIComponent(eqMatch[1]);
+  const eqMatch = search.match(/[?&]=(table[^&]+)/i);
+  if (eqMatch) return decodeTable(eqMatch[1]);
 
   // #table12
-  if (hash && hash.length > 1) return decodeURIComponent(hash.slice(1));
+  if (/^#table.+/i.test(hash)) return decodeTable(hash.slice(1));
 
   return null;
 }
@@ -573,17 +577,17 @@ function renderTgButtons() {
   wrap.innerHTML = `
     <div class="tg-table-label">
       ${TABLE_NUMBER
-      ? `<i class="fa-solid fa-location-dot"></i> <span>Стіл <b>${TABLE_NUMBER}</b></span>`
-      : `<i class="fa-solid fa-location-dot"></i> <span style="color:var(--text3)">Стіл не визначено</span>`}
+      ? `<i class="fa-solid fa-location-dot"></i> <span>Стіл <b>${escapeTelegramHtml(TABLE_NUMBER)}</b></span>`
+      : `<i class="fa-solid fa-truck"></i> <span>Доставка</span>`}
     </div>
     <button id="tgSendOrderBtn" class="tg-btn tg-btn-primary tg-btn-disabled" onclick="sendOrder()" disabled>
       <span class="tg-btn-icon"><i class="fa-solid fa-paper-plane"></i></span>
       <span class="tg-btn-label">Відправити замовлення</span>
     </button>
-    <button id="tgCallWaiterBtn" class="tg-btn tg-btn-secondary" onclick="callWaiter()">
+    ${TABLE_NUMBER ? `<button id="tgCallWaiterBtn" class="tg-btn tg-btn-secondary" onclick="callWaiter()">
       <span class="tg-btn-icon"><i class="fa-solid fa-bell"></i></span>
       <span class="tg-btn-label">Викликати офіціанта</span>
-    </button>
+    </button>` : ''}
   `;
   panel.appendChild(wrap);
 }
@@ -635,7 +639,7 @@ function updateCartBarPanelState(isOpen) {
 
   if (isOpen) {
     defaultBtns.forEach(b => b.style.display = 'none');
-    panelBtns.forEach(b => b.style.display = 'flex');
+    panelBtns.forEach(b => b.style.display = !TABLE_NUMBER && b.classList.contains('waiter-panel-btn') ? 'none' : 'flex');
     if (cartBar) cartBar.classList.add('panel-open');
   } else {
     defaultBtns.forEach(b => b.style.display = 'flex');
@@ -828,36 +832,72 @@ async function sendTelegramMessage(text) {
   return res.json();
 }
 
+let telegramSending = false;
+
+function escapeTelegramHtml(value) {
+  return String(value).replace(/[&<>]/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[character]);
+}
+
+function buildOrderMessage(items, customer = null) {
+  const total = items.reduce((sum, item) => sum + item.price, 0);
+  const time = new Date().toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' });
+  const details = customer
+    ? `Телефон: <b>${escapeTelegramHtml(customer.phone)}</b>\n` +
+      (customer.name ? `Ім’я: ${escapeTelegramHtml(customer.name)}\n` : '') +
+      (customer.address ? `Адреса: ${escapeTelegramHtml(customer.address)}\n` : '')
+    : `Стіл: <b>${escapeTelegramHtml(TABLE_NUMBER)}</b>\n`;
+  return (customer ? '<b>НОВЕ ЗАМОВЛЕННЯ — ДОСТАВКА</b>\n' : '🍽 <b>НОВЕ ЗАМОВЛЕННЯ</b>\n') +
+    details + `🕐 ${time}\n\n` +
+    items.map((item, index) => `  ${index + 1}. ${escapeTelegramHtml(item.name)} — ${item.price} ₴`).join('\n') +
+    `\n\n💰 Сума: <b>${total} ₴</b>`;
+}
+
 async function sendOrder() {
-  if (!order.length) return;
-  const total = order.reduce((s, o) => s + o.price, 0);
-  const itemsText = order.map(o => `${o.name} — ${o.price} ₴`).join('\n');
+  if (!order.length || telegramSending) return;
+  const items = order.map(item => ({ ...item }));
+  const total = items.reduce((s, o) => s + o.price, 0);
+  const itemsText = items.map(o => `${o.name} — ${o.price} ₴`).join('\n');
+  if (!TABLE_NUMBER) {
+    const dialog = document.getElementById('deliveryOrderDialog');
+    document.getElementById('deliveryOrderSummary').textContent = `${itemsText}\n\nСума: ${total} ₴`;
+    document.getElementById('deliveryOrderForm').onsubmit = async event => {
+      event.preventDefault();
+      if (telegramSending) return;
+      const phoneInput = document.getElementById('deliveryPhone');
+      const phone = phoneInput.value.trim();
+      const digits = phone.replace(/\D/g, '');
+      phoneInput.setCustomValidity(/^[+\d\s()-]+$/.test(phone) && digits.length >= 10 && digits.length <= 15
+        ? '' : 'Вкажіть коректний номер телефону (10–15 цифр).');
+      if (!event.currentTarget.reportValidity()) return;
+      const customer = {
+        phone,
+        name: document.getElementById('deliveryName').value.trim(),
+        address: document.getElementById('deliveryAddress').value.trim(),
+      };
+      dialog.close();
+      await sendWithFeedback('order', buildOrderMessage(items, customer));
+    };
+    if (!dialog.open) dialog.showModal();
+    return;
+  }
   showConfirmModal(
     'Підтвердити замовлення',
     `${itemsText}\n\nСума: ${total} ₴`,
     'Замовити',
     async () => {
-      const tableLabel = TABLE_NUMBER ? `Стіл: <b>${TABLE_NUMBER}</b>` : 'Стіл: <b>невідомий</b>';
-      const time = new Date().toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' });
-      const items = order.map((o, i) => `  ${i + 1}. ${o.name} — ${o.price} ₴`).join('\n');
-      const text =
-        `🍽 <b>НОВЕ ЗАМОВЛЕННЯ</b>\n` +
-        `${tableLabel}\n` +
-        `🕐 ${time}\n\n` +
-        `${items}\n\n` +
-        `💰 Сума: <b>${total} ₴</b>`;
-      await sendWithFeedback('order', text);
+      await sendWithFeedback('order', buildOrderMessage(items));
     }
   );
 }
 
 async function callWaiter() {
+  if (!TABLE_NUMBER || telegramSending) return;
   showConfirmModal(
     'Викликати офіціанта?',
     'Офіціант підійде до вашого столику найближчим часом.',
     'Викликати',
     async () => {
-      const tableLabel = TABLE_NUMBER ? TABLE_NUMBER : 'невідомий';
+      const tableLabel = escapeTelegramHtml(TABLE_NUMBER);
       const time = new Date().toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' });
       const text =
         `🔔 <b>ВИКЛИК ОФІЦІАНТА</b>\n` +
@@ -902,32 +942,40 @@ function closeConfirmModal() {
 }
 
 async function sendWithFeedback(type, text) {
+  if (telegramSending) return;
+  telegramSending = true;
   const btnOrder = document.getElementById('tgSendOrderBtn');
   const btnWaiter = document.getElementById('tgCallWaiterBtn');
 
   // Блокуємо обидві кнопки під час запиту
   [btnOrder, btnWaiter].forEach(b => { if (b) { b.disabled = true; b.classList.add('tg-loading'); } });
+  updateOrderButtons();
 
   try {
     await sendTelegramMessage(text);
     showTgModal(
       type === 'order'
-        ? `✅ Замовлення відправлено!\nОфіціант підійде найближчим часом.`
+        ? (TABLE_NUMBER
+          ? `✅ Замовлення відправлено!\nОфіціант підійде найближчим часом.`
+          : `✅ Замовлення відправлено!\nМи зателефонуємо вам для підтвердження доставки.`)
         : `🔔 Офіціанта викликано!\nЗачекайте, будь ласка.`
     );
   } catch (err) {
-    showTgModal(`⚠️ Помилка відправки.\nСпробуйте ще раз або зверніться до офіціанта.\n\n${err.message}`);
+    showTgModal(`⚠️ Помилка відправки.\n${TABLE_NUMBER ? 'Спробуйте ще раз або зверніться до офіціанта.' : 'Спробуйте ще раз або зателефонуйте нам.'}\n\n${err.message}`);
   } finally {
+    telegramSending = false;
     [btnOrder, btnWaiter].forEach(b => { if (b) { b.disabled = false; b.classList.remove('tg-loading'); } });
     updateOrderButtons();
   }
 }
 
 function updateOrderButtons() {
-  const btn = document.getElementById('tgSendOrderBtn');
-  if (!btn) return;
-  btn.disabled = order.length === 0;
-  btn.classList.toggle('tg-btn-disabled', order.length === 0);
+  ['tgSendOrderBtn', 'mobileOrderBtn'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (!btn) return;
+    btn.disabled = order.length === 0 || telegramSending;
+    btn.classList.toggle('tg-btn-disabled', btn.disabled);
+  });
 }
 
 // ══════════════════════════════
