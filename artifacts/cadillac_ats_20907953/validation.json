@@ -1,0 +1,134 @@
+{
+  "parameters": {
+    "length": 620.8,
+    "width": 95.5,
+    "thickness": 2.5,
+    "longitudinal_bow": 35.0,
+    "cross_section_depth": 14.0,
+    "end_width_ratio": 0.48,
+    "nx": 240,
+    "ny": 24
+  },
+  "meshes": [
+    {
+      "file": "ats_20907953_APPROX_full.stl",
+      "triangles": 24096,
+      "watertight": true,
+      "consistent_winding": true,
+      "bounds_mm": [
+        [
+          -310.4,
+          -47.75,
+          -2.5
+        ],
+        [
+          310.4,
+          47.75,
+          48.46153846153846
+        ]
+      ],
+      "dimensions_mm": [
+        620.8,
+        95.5,
+        50.96153846153846
+      ],
+      "volume_mm3": 137202.99251115322
+    },
+    {
+      "file": "fit_section_1_of_4.stl",
+      "triangles": 6096,
+      "watertight": true,
+      "consistent_winding": true,
+      "bounds_mm": [
+        [
+          -77.6,
+          -47.36203125,
+          0.0
+        ],
+        [
+          77.6,
+          47.36203125,
+          42.21153846153846
+        ]
+      ],
+      "dimensions_mm": [
+        155.2,
+        94.7240625,
+        42.21153846153846
+      ],
+      "volume_mm3": 31590.547173257542
+    },
+    {
+      "file": "fit_section_2_of_4.stl",
+      "triangles": 6096,
+      "watertight": true,
+      "consistent_winding": true,
+      "bounds_mm": [
+        [
+          -77.6,
+          -47.75,
+          0.0
+        ],
+        [
+          77.6,
+          47.75,
+          24.71153846153846
+        ]
+      ],
+      "dimensions_mm": [
+        155.2,
+        95.5,
+        24.71153846153846
+      ],
+      "volume_mm3": 37010.949082318984
+    },
+    {
+      "file": "fit_section_3_of_4.stl",
+      "triangles": 6096,
+      "watertight": true,
+      "consistent_winding": true,
+      "bounds_mm": [
+        [
+          -77.6,
+          -47.75,
+          0.0
+        ],
+        [
+          77.6,
+          47.75,
+          24.71153846153846
+        ]
+      ],
+      "dimensions_mm": [
+        155.2,
+        95.5,
+        24.71153846153846
+      ],
+      "volume_mm3": 37010.94908231897
+    },
+    {
+      "file": "fit_section_4_of_4.stl",
+      "triangles": 6096,
+      "watertight": true,
+      "consistent_winding": true,
+      "bounds_mm": [
+        [
+          -77.6,
+          -47.36203125,
+          0.0
+        ],
+        [
+          77.6,
+          47.36203125,
+          42.21153846153846
+        ]
+      ],
+      "dimensions_mm": [
+        155.2,
+        94.7240625,
+        42.21153846153846
+      ],
+      "volume_mm3": 31590.54717325742
+    }
+  ]
+}
